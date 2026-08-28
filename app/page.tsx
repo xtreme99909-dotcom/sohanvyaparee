@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { ProjectBrief } from './project-brief';
 
 const disciplines = [
@@ -38,25 +39,28 @@ const process = [
 
 const services = [
   {
-    label: 'New business or offer',
-    title: 'Website Launch',
-    copy: 'A focused, original website that gives a new company the clarity and credibility to enter the market well.',
-    scope: ['Strategy and sitemap', 'Original responsive direction', '3–5 purposeful pages', 'Lead, booking or enquiry flow', 'Deployment and launch support'],
-    timing: 'Typical timeline · 2–4 weeks',
+    label: 'A focused first launch',
+    title: 'Launch Essentials',
+    price: '$499',
+    copy: 'A polished, original website for a new offer or small business that needs to look credible and start generating enquiries.',
+    scope: ['Direction call and page plan', '1–3 responsive pages', 'Original visual direction', 'Contact or enquiry flow', 'Deployment and launch support'],
+    timing: 'Typical timeline · 7–10 working days',
   },
   {
-    label: 'Established business',
-    title: 'Signature Website',
-    copy: 'A deeper repositioning and digital experience for a business whose current website no longer matches its level.',
-    scope: ['Customer-journey workshop', 'Copy and proof architecture', '6–10 custom pages', 'CMS, commerce or service integrations', 'Migration, polish and launch'],
-    timing: 'Typical timeline · 4–7 weeks',
+    label: 'The complete business site',
+    title: 'Business Launch',
+    price: '$999',
+    copy: 'A complete customer-facing website that explains the business clearly, builds trust and turns attention into a useful next step.',
+    scope: ['Strategy and customer journey', 'Up to 5 custom pages', 'Copy and proof structure', 'Forms, analytics and basic SEO', 'Responsive QA and launch'],
+    timing: 'Typical timeline · 2–3 weeks',
   },
   {
-    label: 'Startup or digital platform',
-    title: 'Product Experience',
-    copy: 'A market-facing site plus the key product flows needed to explain, validate or present a platform with conviction.',
-    scope: ['Positioning and product narrative', 'Public marketing experience', 'Marketplace or dashboard flows', 'Interactive prototype or frontend', 'Investor and customer-ready handoff'],
-    timing: 'Scoped around the product',
+    label: 'More pages, polish and systems',
+    title: 'Signature + Integration',
+    price: '$1,799',
+    copy: 'A more distinctive website for an established brand, product or service that needs deeper storytelling and a connected business workflow.',
+    scope: ['Positioning and creative direction', '6–8 custom pages', 'Advanced responsive interactions', 'One agreed CRM, booking or API integration', 'Performance, QA and launch support'],
+    timing: 'Typical timeline · 3–5 weeks',
   },
 ];
 
@@ -92,7 +96,7 @@ export default function Home() {
           <p className="fit-note">For founders and businesses that need the complete direction—not a coder for a finished design.</p>
         </div>
 
-        <div className="direction-board" aria-label="A complete website directed from strategy through launch">
+        <div className="direction-board" role="group" aria-label="A complete website directed from strategy through launch">
           <div className="board-topline">
             <span>Live direction board</span>
             <span className="availability"><i /> Taking on 2 projects</span>
@@ -107,7 +111,7 @@ export default function Home() {
               <p>Every page earns its place in the customer journey.</p>
             </div>
           </div>
-          <div className="board-progress" aria-label="Project stages">
+          <div className="board-progress" role="group" aria-label="Project stages">
             {['Direction', 'Experience', 'Build', 'Launch'].map((item, index) => (
               <div key={item} className={index === 0 ? 'active' : ''}>
                 <span>0{index + 1}</span>
@@ -152,13 +156,13 @@ export default function Home() {
               <span>Live founder-built product</span>
               <span>01 / 03</span>
             </div>
-            <div className="food-visual" aria-label="BongFoods ordering experience preview">
+            <div className="food-visual" role="img" aria-label="BongFoods ordering experience preview">
               <div className="phone-shell">
                 <div className="phone-top"><span>B</span><small>KITCHEN OPEN · NAGPUR</small><i>Bag · 2</i></div>
                 <div className="food-hero">
                   <p>Food that feels like home.</p>
                   <strong>Authentic Bengali<br />meals, delivered.</strong>
-                  <button type="button">View today’s menu ↗</button>
+                  <span className="food-demo-button">View today’s menu ↗</span>
                 </div>
                 <div className="menu-preview">
                   <span>Today’s favourites</span>
@@ -178,7 +182,7 @@ export default function Home() {
               <span>Speculative product concept</span>
               <span>02 / 03</span>
             </div>
-            <div className="market-visual" aria-label="Private real-estate platform concept preview">
+            <div className="market-visual" role="img" aria-label="Private real-estate platform concept preview">
               <div className="market-sidebar">
                 <span>PM</span>
                 {['Overview', 'Matches', 'Deal rooms', 'Messages'].map((item, index) => <p key={item} className={index === 1 ? 'selected' : ''}>{item}</p>)}
@@ -252,14 +256,15 @@ export default function Home() {
 
       <section className="services-section section-shell">
         <div className="section-heading-row">
-          <div><p className="section-index">05 · Engagements</p><h2>Built for complete outcomes.</h2></div>
-          <p>Most complete projects begin at $1,500. Final scope follows a short fit conversation and written proposal.</p>
+          <div><p className="section-index">05 · Engagements</p><h2>Clear starting prices. No mystery.</h2></div>
+          <p>Starting prices are in USD and include design, build and launch. Final scope, timeline and payment milestones are confirmed in a written proposal before work begins.</p>
         </div>
         <div className="services-grid">
           {services.map((service, index) => (
             <article key={service.title} className={index === 1 ? 'featured' : ''}>
               <p>{service.label}</p>
               <h3>{service.title}</h3>
+              <div className="service-price"><span>Starting at</span><b>{service.price}</b><small>USD · fixed-scope estimate</small></div>
               <strong>{service.copy}</strong>
               <ul>{service.scope.map((item) => <li key={item}>{item}</li>)}</ul>
               <small>{service.timing}</small>
@@ -294,11 +299,15 @@ export default function Home() {
       <section className="about-section section-shell">
         <p className="section-index">06 · The person directing it</p>
         <div className="about-grid">
-          <div className="portrait-type"><span>S</span><span>V</span><small>Founder · Director · Builder</small></div>
+          <figure className="founder-portrait">
+            <Image src="/founder-sohan.jpg" width={1200} height={1187} sizes="(max-width: 1080px) 91vw, 36vw" alt="Sohan Vyaparee, founder and website creative director" />
+            <figcaption><span>Founder · Director · Builder</span><strong>Sohan Vyaparee</strong></figcaption>
+          </figure>
           <div>
-            <h2>I understand the ambition—and the practical work behind it.</h2>
-            <p>I’m Sohan Vyaparee, founder of SP Studios and BongFoods. Running a real food business taught me to look at websites from the owner’s side: trust, customer behavior, operations and revenue matter alongside aesthetics.</p>
-            <p>My CGI, animation and advertising background gives me a visual point of view. My AI-assisted workflow lets me execute that direction quickly and stay personally accountable through launch.</p>
+            <h2>Visual taste, business instinct and hands-on execution.</h2>
+            <p>I’m Sohan Vyaparee, a website creative director and the founder behind SP Studios and BongFoods. I help founders turn a business idea, offer or outdated presence into one clear, customer-ready website.</p>
+            <p>My background in CGI, animation, advertising and art direction gives the work a strong visual point of view. Building and operating my own food business keeps that creativity grounded in practical questions: Will people understand it? Trust it? Act on it?</p>
+            <p>I use an AI-assisted workflow to research, prototype and build faster, but every important decision—strategy, hierarchy, taste and final quality—stays personally directed.</p>
             <div className="about-links"><a href="https://www.linkedin.com/in/sohan-vyaparee-397a29352/" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="https://www.upwork.com/freelancers/~01b29ff9dfbe850b7b" target="_blank" rel="noreferrer">Upwork ↗</a></div>
           </div>
         </div>

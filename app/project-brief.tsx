@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, useMemo, useState } from 'react';
+import { FormEvent, useState } from 'react';
 
 type Brief = {
   name: string;
@@ -15,7 +15,7 @@ const emptyBrief: Brief = {
   name: '',
   company: '',
   project: 'A new website from scratch',
-  budget: '$1,500–$3,000',
+  budget: '$500–$1,000',
   timing: 'Within 1–2 months',
   goal: '',
 };
@@ -25,7 +25,7 @@ export function ProjectBrief() {
   const [briefReady, setBriefReady] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const briefText = useMemo(() => [
+  const briefText = [
     'Hi Sohan — I would like to discuss a complete website project.',
     `Name: ${brief.name || '—'}`,
     `Company: ${brief.company || '—'}`,
@@ -33,7 +33,7 @@ export function ProjectBrief() {
     `Budget: ${brief.budget}`,
     `Timing: ${brief.timing}`,
     `What the website needs to achieve: ${brief.goal || '—'}`,
-  ].join('\n'), [brief]);
+  ].join('\n');
 
   function updateBrief(field: keyof Brief, value: string) {
     setBrief((current) => ({ ...current, [field]: value }));
@@ -64,7 +64,7 @@ export function ProjectBrief() {
       </div>
       <div className="form-row">
         <label>What do you need?<select value={brief.project} onChange={(event) => updateBrief('project', event.target.value)}><option>A new website from scratch</option><option>A serious website redesign</option><option>A product or platform experience</option><option>A commerce or ordering experience</option></select></label>
-        <label>Working budget<select value={brief.budget} onChange={(event) => updateBrief('budget', event.target.value)}><option>$1,500–$3,000</option><option>$3,000–$6,000</option><option>$6,000–$12,000</option><option>$12,000+</option><option>Not sure yet</option></select></label>
+        <label>Working budget<select value={brief.budget} onChange={(event) => updateBrief('budget', event.target.value)}><option>$500–$1,000</option><option>$1,000–$2,000</option><option>$2,000–$4,000</option><option>$4,000+</option><option>Not sure yet</option></select></label>
       </div>
       <label>Preferred timing<select value={brief.timing} onChange={(event) => updateBrief('timing', event.target.value)}><option>Within 1–2 months</option><option>Within 3–4 months</option><option>Exploring for later</option><option>There is a fixed launch date</option></select></label>
       <label>What must the website help the business achieve?<textarea required rows={4} value={brief.goal} onChange={(event) => updateBrief('goal', event.target.value)} placeholder="For example: explain a new product clearly, generate qualified enquiries, take direct orders, or reposition the company…" /></label>
