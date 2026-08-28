@@ -76,7 +76,7 @@ export function ProjectBrief() {
           <pre>{briefText}</pre>
           <div>
             <button type="button" onClick={copyBrief}>{copied ? 'Brief copied ✓' : 'Copy brief'}</button>
-            <a href="https://www.linkedin.com/in/sohan-vyaparee-397a29352/" target="_blank" rel="noreferrer">Send on LinkedIn ↗</a>
+            <a href="https://www.linkedin.com/services/page/a8036034688b927420/" target="_blank" rel="noreferrer">Send on LinkedIn ↗</a>
             <a href="https://www.upwork.com/freelancers/~01b29ff9dfbe850b7b" target="_blank" rel="noreferrer">Start on Upwork ↗</a>
           </div>
         </div>

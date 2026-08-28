@@ -308,7 +308,7 @@ export default function Home() {
             <p>I’m Sohan Vyaparee, a website creative director and the founder behind SP Studios and BongFoods. I help founders turn a business idea, offer or outdated presence into one clear, customer-ready website.</p>
             <p>My background in CGI, animation, advertising and art direction gives the work a strong visual point of view. Building and operating my own food business keeps that creativity grounded in practical questions: Will people understand it? Trust it? Act on it?</p>
             <p>I use an AI-assisted workflow to research, prototype and build faster, but every important decision—strategy, hierarchy, taste and final quality—stays personally directed.</p>
-            <div className="about-links"><a href="https://www.linkedin.com/in/sohan-vyaparee-397a29352/" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="https://www.upwork.com/freelancers/~01b29ff9dfbe850b7b" target="_blank" rel="noreferrer">Upwork ↗</a></div>
+            <div className="about-links"><a href="https://www.linkedin.com/services/page/a8036034688b927420/" target="_blank" rel="noreferrer">LinkedIn services ↗</a><a href="https://www.upwork.com/freelancers/~01b29ff9dfbe850b7b" target="_blank" rel="noreferrer">Upwork ↗</a></div>
           </div>
         </div>
       </section>
