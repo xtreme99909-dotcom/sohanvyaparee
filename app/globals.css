@@ -252,7 +252,7 @@ h1 span { display: block; margin-top: .16em; color: #5b655f; font-style: italic;
 .founder-portrait figcaption strong { font-family: var(--font-editorial), Georgia, serif; font-size: 25px; font-weight: 500; letter-spacing: -.025em; }
 .about-grid h2 { font-size: clamp(3.4rem, 5.4vw, 6.6rem); }
 .about-grid > div:last-child > p { max-width: 680px; margin: 30px 0 0; color: var(--muted); font-size: 15px; line-height: 1.75; }
-.about-links { display: flex; gap: 28px; margin-top: 38px; }
+.about-links { display: flex; flex-wrap: wrap; gap: 28px; margin-top: 38px; }
 .about-links a { border-bottom: 1px solid var(--ink); padding-bottom: 7px; font-size: 10px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
 
 .contact-section { background: var(--ink); color: white; padding-block: clamp(100px, 11vw, 170px); }

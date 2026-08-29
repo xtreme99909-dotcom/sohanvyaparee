@@ -5,6 +5,8 @@ import { MarketingTracker } from './marketing-tracker';
 import { MotionSystem } from './motion-system';
 
 const siteUrl = 'https://sohan-website-studio.vercel.app';
+const personalLinkedInUrl = 'https://www.linkedin.com/in/sohan-vyaparee-397a29352/';
+const githubProfileUrl = 'https://github.com/xtreme99909-dotcom';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -51,6 +53,7 @@ export const metadata: Metadata = {
 const professionalServiceSchema = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
+  '@id': `${siteUrl}/#studio`,
   name: 'Sohan Vyaparee — Independent Website Studio',
   url: siteUrl,
   image: `${siteUrl}/og.png`,
@@ -59,12 +62,18 @@ const professionalServiceSchema = {
   areaServed: 'Worldwide',
   founder: {
     '@type': 'Person',
+    '@id': `${siteUrl}/#sohan-vyaparee`,
     name: 'Sohan Vyaparee',
     jobTitle: 'Website Creative Director',
+    url: `${siteUrl}/#about`,
+    image: `${siteUrl}/founder-sohan.jpg`,
+    sameAs: [personalLinkedInUrl, githubProfileUrl],
   },
   sameAs: [
+    personalLinkedInUrl,
     'https://www.linkedin.com/services/page/a8036034688b927420/',
     'https://www.upwork.com/freelancers/~01b29ff9dfbe850b7b',
+    githubProfileUrl,
   ],
 };
 

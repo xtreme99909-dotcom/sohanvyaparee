@@ -110,6 +110,7 @@ const serviceSchema = {
   serviceType: 'Website strategy, design, development, integrations and launch',
   provider: {
     '@type': 'ProfessionalService',
+    '@id': `${siteUrl}/#studio`,
     name: 'Sohan Vyaparee — Independent Website Studio',
     url: siteUrl,
   },
