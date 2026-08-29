@@ -173,7 +173,13 @@ export default function Home() {
             </div>
             <div className="project-copy">
               <div><p>BongFoods · Restaurant commerce</p><h3>From food discovery to a real order.</h3></div>
-              <div><p>A mobile-first experience for my own cloud kitchen, including visual menu, phone verification, cart, address capture, delivery-area logic and payments.</p><a href="https://www.bongfoods.com/" target="_blank" rel="noreferrer">Visit live website ↗</a></div>
+              <div>
+                <p>A mobile-first experience for my own cloud kitchen, including visual menu, phone verification, cart, address capture, delivery-area logic and payments.</p>
+                <div className="project-links">
+                  <a href="/work/bongfoods">View case study →</a>
+                  <a href="https://www.bongfoods.com/" target="_blank" rel="noreferrer">Visit live website ↗</a>
+                </div>
+              </div>
             </div>
           </article>
 
