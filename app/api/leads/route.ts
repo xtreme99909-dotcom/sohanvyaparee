@@ -17,6 +17,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Request too large' }, { status: 413 });
     }
 
+    const requestOrigin = new URL(request.url).origin;
+    const origin = request.headers.get('origin');
+    if (origin && origin !== requestOrigin) {
+      return NextResponse.json({ error: 'Invalid origin' }, { status: 403 });
+    }
+
     const input = (await request.json()) as LeadInput;
     if (clean(input.website, 200)) {
       return NextResponse.json({ ok: true, reference: 'received' });

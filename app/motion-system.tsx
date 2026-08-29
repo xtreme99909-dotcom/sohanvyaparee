@@ -42,6 +42,15 @@ const staggerGroups = [
   '.bbj-next-case > *',
   '.bbj-enquiry > .bbj-shell > *',
   '.bbj-concept-note > *',
+  '.partner-positioning-grid > *',
+  '.partner-fit-section > .section-heading-row > *',
+  '.partner-models > .section-heading-row > *',
+  '.partner-model-grid > article',
+  '.partner-qualification-grid > *',
+  '.partner-signal-list > div',
+  '.partner-proof > *',
+  '.partner-proof-links > a',
+  '.partner-enquiry-grid > *',
 ] as const;
 
 const singleRevealSelectors = [
@@ -58,6 +67,7 @@ const singleRevealSelectors = [
   '.bbj-bridge',
   '.bbj-case-cover',
   '.founder-note',
+  '.partner-fit-board',
 ] as const;
 
 const entrancePanelSelectors = [
@@ -66,6 +76,7 @@ const entrancePanelSelectors = [
   '.case-fact-board',
   '.bbj-hero-stage',
   '.work-truth-ledger',
+  '.partner-principle-board',
 ] as const;
 
 export function MotionSystem() {
@@ -126,6 +137,8 @@ export function MotionSystem() {
       '.work-index-card',
       '.services-grid > article',
       '.service-proof-grid > article',
+      '.partner-model-grid > article',
+      '.partner-proof-links > a',
     ];
 
     tiltSelectors.forEach((selector) => {
