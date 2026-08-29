@@ -1,5 +1,5 @@
+/* eslint-disable @next/next/no-html-link-for-pages -- Sites/vinext Link prefetch throws at runtime; full-page navigation is intentional here. */
 import type { Metadata } from 'next';
-import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'BongFoods Case Study — Sohan Vyaparee',
@@ -56,14 +56,14 @@ export default function BongFoodsCaseStudy() {
   return (
     <main id="top" className="case-page">
       <header className="site-header case-header">
-        <Link href="/" className="wordmark" aria-label="Sohan Vyaparee — home">
+        <a href="/" className="wordmark" aria-label="Sohan Vyaparee — home">
           <span>SV</span>
           <strong>Sohan Vyaparee</strong>
-        </Link>
+        </a>
         <nav aria-label="Case study navigation">
-          <Link href="/#work">Selected work</Link>
+          <a href="/#work">Selected work</a>
           <a href="https://www.bongfoods.com/" target="_blank" rel="noreferrer">Live website ↗</a>
-          <Link href="/#contact" className="header-cta">Discuss a project ↗</Link>
+          <a href="/#contact" className="header-cta">Discuss a project ↗</a>
         </nav>
       </header>
 
@@ -176,12 +176,12 @@ export default function BongFoodsCaseStudy() {
       <section className="case-cta">
         <div className="section-shell case-cta-grid">
           <div><p className="section-index light">Your business · Next</p><h2>Need the complete website—not disconnected pieces?</h2></div>
-          <div><p>Bring the business idea, the offer or the site that no longer represents you. I’ll help shape the direction and build the customer-ready result.</p><Link href="/#contact" className="primary-action light-action">Start a project brief <span>↗</span></Link></div>
+          <div><p>Bring the business idea, the offer or the site that no longer represents you. I’ll help shape the direction and build the customer-ready result.</p><a href="/#contact" className="primary-action light-action">Start a project brief <span>↗</span></a></div>
         </div>
       </section>
 
       <footer>
-        <div className="footer-main"><Link href="/" className="wordmark light-mark"><span>SV</span><strong>Sohan Vyaparee</strong></Link><p>Complete websites from direction to launch.</p><a href="#top">Back to top ↑</a></div>
+        <div className="footer-main"><a href="/" className="wordmark light-mark"><span>SV</span><strong>Sohan Vyaparee</strong></a><p>Complete websites from direction to launch.</p><a href="#top">Back to top ↑</a></div>
         <div className="footer-small"><span>Case study · BongFoods</span><span>© 2026 Sohan Vyaparee</span></div>
       </footer>
     </main>
