@@ -7,7 +7,7 @@ const siteUrl = 'https://sohan-website-studio.vercel.app';
 
 export const metadata: Metadata = {
   title: 'Complete Website Design & Development for Founders | Sohan Vyaparee',
-  description: 'One accountable partner for website strategy, original art direction, UX, responsive development, integrations, QA and launch. Projects start at $499.',
+  description: 'One accountable partner for website strategy, original art direction, UX, responsive development, integrations, QA and launch. Focused scopes start at $499; launch systems at $2,500+.',
   alternates: { canonical: '/services/complete-website-launch' },
   keywords: [
     'complete website design and development',
@@ -66,12 +66,17 @@ const phases = [
 ];
 
 const engagements = [
-  { name: 'Launch Essentials', price: '$499', pages: '1–3 purposeful pages', fit: 'Focused launch, offer or small business', timing: '7–10 working days' },
-  { name: 'Business Launch', price: '$999', pages: 'Up to 5 custom pages', fit: 'Complete public business website', timing: '2–3 weeks' },
-  { name: 'Signature + Integration', price: '$1,799', pages: '6–8 custom pages', fit: 'Deeper story plus one agreed integration', timing: '3–5 weeks' },
+  { name: 'Launch Essentials', price: '$499', schemaPrice: '499', pages: '1–3 purposeful pages', fit: 'Narrow offer or small-business launch', timing: '7–10 working days' },
+  { name: 'Business Launch', price: '$999', schemaPrice: '999', pages: 'Up to 5 custom pages', fit: 'Complete public business website', timing: '2–3 weeks' },
+  { name: 'Signature + Integration', price: '$1,799+', schemaPrice: '1799', pages: '6–8 custom pages', fit: 'Deeper story plus one agreed integration', timing: '3–5 weeks' },
+  { name: 'International Launch System', price: '$2,500+', schemaPrice: '2500', pages: '5–8 launch-critical pages', fit: 'D2C, SaaS, hospitality or high-trust launch', timing: '4–6+ weeks' },
 ];
 
 const faqs = [
+  {
+    question: 'Why do focused scopes start at $499 while launch systems start at $2,500?',
+    answer: 'They solve different problems. The $499 engagement is a deliberately narrow one-to-three-page launch with one primary conversion and no complex workflow. A launch system carries a broader business story through original design, five to eight launch-critical pages, implementation, an agreed integration, QA and launch ownership. The written scope makes that boundary explicit before work begins.',
+  },
   {
     question: 'Do I need finished copy or designs before we begin?',
     answer: 'No. The engagement is designed for founders who need the website shaped, not only assembled. I help define the structure, proof, page priorities and copy framework before translating the direction into design and build.',
@@ -113,7 +118,7 @@ const serviceSchema = {
   offers: engagements.map((engagement) => ({
     '@type': 'Offer',
     name: engagement.name,
-    price: engagement.price.replace('$', '').replace(',', ''),
+    price: engagement.schemaPrice,
     priceCurrency: 'USD',
     description: `${engagement.pages}. ${engagement.fit}.`,
   })),
@@ -154,7 +159,7 @@ export default function CompleteWebsiteLaunchPage() {
             <a href="#brief" className="primary-action" data-marketing-event="enquiry_click">Describe the project <span>↗</span></a>
             <a href="#proof" className="text-action">See honest proof <span>↓</span></a>
           </div>
-          <small>Independent studio · India / Worldwide · Projects from $499</small>
+          <small>Independent studio · India / Worldwide · Focused scopes from $499 · Launch systems from $2,500</small>
         </div>
 
         <aside className="responsibility-board" aria-label="What the complete website engagement includes">
@@ -250,7 +255,7 @@ export default function CompleteWebsiteLaunchPage() {
             </div>
           ))}
         </div>
-        <p className="scope-note">Complex products, marketplaces, commerce and multi-integration projects are custom-scoped. When the budget is lower, I reduce scope rather than quietly reduce the thinking or quality.</p>
+        <p className="scope-note">The $499 starting point is deliberately narrow. A complete international launch system begins at $2,500 when the work includes deeper strategy, five to eight launch-critical pages, original direction, implementation, an agreed integration and launch QA. Complex products, marketplaces, commerce and multi-integration projects remain custom-scoped. When the budget is lower, I reduce scope rather than quietly reduce the thinking or quality.</p>
         <a href="#planner" className="service-detail-link">Not sure where the project starts? <span>Build a scope preview ↓</span></a>
       </section>
 

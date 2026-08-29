@@ -264,7 +264,7 @@ export default function Home() {
       <section className="services-section section-shell">
         <div className="section-heading-row">
           <div><p className="section-index">05 · Engagements</p><h2>Clear starting prices. No mystery.</h2></div>
-          <p>Starting prices are in USD and include design, build and launch. Final scope, timeline and payment milestones are confirmed in a written proposal before work begins.</p>
+          <p>Focused engagements start at $499. Larger launch systems begin at $2,500 when strategy, deeper customer journeys, integrations and launch responsibility need to work together. Final scope, timing and milestones are written before production.</p>
         </div>
         <div className="services-grid">
           {services.map((service, index) => (
@@ -278,6 +278,17 @@ export default function Home() {
             </article>
           ))}
         </div>
+        <aside className="launch-system-callout" aria-labelledby="launch-system-title">
+          <div>
+            <p>For a larger market launch</p>
+            <h3 id="launch-system-title">International Launch System</h3>
+          </div>
+          <div>
+            <strong>$2,500+ <small>USD · custom scope</small></strong>
+            <p>For a qualified D2C, SaaS, hospitality or high-trust business that needs strategy, five to eight launch-critical pages, original design, responsive implementation, an agreed integration, QA and launch ownership.</p>
+          </div>
+          <a href="/services/complete-website-launch#scope">See the full scope boundary <span>↗</span></a>
+        </aside>
         <a href="/services/complete-website-launch" className="service-detail-link">See the complete engagement, proof and FAQs <span>↗</span></a>
       </section>
 

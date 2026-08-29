@@ -55,7 +55,7 @@ const professionalServiceSchema = {
   url: siteUrl,
   image: `${siteUrl}/og.png`,
   description: 'Complete websites from strategy and art direction through responsive build, integrations and launch.',
-  priceRange: '$499–$1,799+',
+  priceRange: '$499–$2,500+',
   areaServed: 'Worldwide',
   founder: {
     '@type': 'Person',

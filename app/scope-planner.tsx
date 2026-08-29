@@ -64,11 +64,11 @@ const labels = {
 function getRecommendation(answers: Required<Answers>) {
   if (answers.customerAction === 'workflow' || answers.integration === 'several') {
     return {
-      name: 'Custom scope',
+      name: 'Launch System',
       budget: '$4,000+',
       project: 'A product or platform experience',
-      reason: 'A product workflow or several connected systems needs discovery before page count, timing and investment can be fixed responsibly.',
-      includes: 'Journey mapping · technical discovery · original interface direction · scoped build plan',
+      reason: 'A product workflow or several connected systems needs launch discovery before the customer journey, technical boundary, timing and investment can be fixed responsibly.',
+      includes: 'Launch discovery · journey mapping · original interface direction · technical scope · milestone plan',
     };
   }
 

@@ -52,7 +52,8 @@ CGI, animation, advertising and visual storytelling experience inform the compos
 | --- | --- | ---: |
 | Launch Essentials | A focused 1–3 page first launch | $499 |
 | Business Launch | A complete business website of up to 5 custom pages | $999 |
-| Signature + Integration | Deeper storytelling, 6–8 pages and one agreed integration | $1,799 |
+| Signature + Integration | Deeper storytelling, 6–8 pages and one agreed integration | $1,799+ |
+| International Launch System | Strategy, 5–8 launch-critical pages, original design, implementation, an agreed integration, QA and launch ownership | $2,500+ custom |
 
 Final scope, timing and milestones are confirmed in a written proposal before work begins.
 
