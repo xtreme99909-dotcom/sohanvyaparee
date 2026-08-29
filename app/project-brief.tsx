@@ -1,6 +1,7 @@
 'use client';
 
 import { FormEvent, useEffect, useRef, useState } from 'react';
+import { readStoredMarketingAttribution } from '@/app/marketing-attribution';
 
 type Brief = {
   name: string;
@@ -82,6 +83,10 @@ export function ProjectBrief() {
     setStatus('submitting');
     try {
       const params = new URLSearchParams(window.location.search);
+      const savedAttribution = readStoredMarketingAttribution();
+      const utmSource = params.get('utm_source') || savedAttribution?.source || null;
+      const utmMedium = params.get('utm_medium') || savedAttribution?.medium || null;
+      const utmCampaign = params.get('utm_campaign') || savedAttribution?.campaign || null;
       const response = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
@@ -89,10 +94,10 @@ export function ProjectBrief() {
           ...brief,
           website,
           formStartedAt: startedAt.current,
-          source: params.get('utm_source') || document.referrer || 'website',
-          utmSource: params.get('utm_source'),
-          utmMedium: params.get('utm_medium'),
-          utmCampaign: params.get('utm_campaign'),
+          source: utmSource || document.referrer || 'website',
+          utmSource,
+          utmMedium,
+          utmCampaign,
         }),
       });
       if (!response.ok) throw new Error('Unable to send enquiry');

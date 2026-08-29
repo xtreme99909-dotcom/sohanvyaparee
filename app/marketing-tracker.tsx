@@ -1,14 +1,9 @@
 'use client';
 
 import { useEffect } from 'react';
+import { marketingPagePaths, readStoredMarketingAttribution, storeMarketingAttribution, type MarketingAttribution } from '@/app/marketing-attribution';
 
-const trackablePaths = new Set(['/', '/services/complete-website-launch', '/work/bongfoods', '/work/private-market-concept']);
-
-type Attribution = {
-  source: string;
-  medium: string;
-  campaign: string;
-};
+const trackablePaths = new Set<string>(marketingPagePaths);
 
 function readSessionValue(key: string) {
   try { return window.sessionStorage.getItem(key); } catch { return null; }
@@ -31,22 +26,9 @@ function getSessionId() {
   return created;
 }
 
-function readAttribution() {
-  const value = readSessionValue('sv:marketing-attribution');
-  if (!value) return null;
-  try {
-    const parsed = JSON.parse(value) as Partial<Attribution>;
-    return typeof parsed.source === 'string' && typeof parsed.medium === 'string' && typeof parsed.campaign === 'string'
-      ? parsed as Attribution
-      : null;
-  } catch {
-    return null;
-  }
-}
-
-function getAttribution(params: URLSearchParams, externalReferrer: string): Attribution {
+function getAttribution(params: URLSearchParams, externalReferrer: string): MarketingAttribution {
   const hasCampaignTags = params.has('utm_source') || params.has('utm_medium') || params.has('utm_campaign');
-  const saved = readAttribution();
+  const saved = readStoredMarketingAttribution();
   if (!hasCampaignTags && saved) return saved;
 
   const attribution = {
@@ -54,7 +36,7 @@ function getAttribution(params: URLSearchParams, externalReferrer: string): Attr
     medium: params.get('utm_medium') || (externalReferrer ? 'referral' : 'none'),
     campaign: params.get('utm_campaign') || '',
   };
-  writeSessionValue('sv:marketing-attribution', JSON.stringify(attribution));
+  storeMarketingAttribution(attribution);
   return attribution;
 }
 
