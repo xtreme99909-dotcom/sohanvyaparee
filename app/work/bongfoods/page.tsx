@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   },
 };
 
-const enquiryPath = '/services/complete-website-launch?utm_source=bongfoods_case_study&utm_medium=portfolio&utm_campaign=proof_to_service#brief';
+const enquiryPath = '/services/complete-website-launch#brief';
 
 const journey = [
   {
