@@ -257,6 +257,7 @@ export default function CompleteWebsiteLaunchPage() {
           ))}
         </div>
         <p className="scope-note">The $499 starting point is deliberately narrow. A complete international launch system begins at $2,500 when the work includes deeper strategy, five to eight launch-critical pages, original direction, implementation, an agreed integration and launch QA. Complex products, marketplaces, commerce and multi-integration projects remain custom-scoped. When the budget is lower, I reduce scope rather than quietly reduce the thinking or quality.</p>
+        <a href="/services/d2c-commerce-launch" className="service-detail-link">Launching a consumer brand or storefront? <span>See the D2C commerce system →</span></a>
         <a href="#planner" className="service-detail-link">Not sure where the project starts? <span>Build a scope preview ↓</span></a>
       </section>
 

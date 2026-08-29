@@ -178,6 +178,7 @@ export default function Home() {
                 <p>A mobile-first experience for my own cloud kitchen, including visual menu, phone verification, cart, address capture, delivery-area logic and payments.</p>
                 <div className="project-links">
                   <a href="/work/bongfoods">View case study →</a>
+                  <a href="/services/d2c-commerce-launch">D2C launch service →</a>
                   <a href="https://www.bongfoods.com/" target="_blank" rel="noreferrer">Visit live website ↗</a>
                 </div>
               </div>
@@ -287,7 +288,10 @@ export default function Home() {
             <strong>$2,500+ <small>USD · custom scope</small></strong>
             <p>For a qualified D2C, SaaS, hospitality or high-trust business that needs strategy, five to eight launch-critical pages, original design, responsive implementation, an agreed integration, QA and launch ownership.</p>
           </div>
-          <a href="/services/complete-website-launch#scope">See the full scope boundary <span>↗</span></a>
+          <div className="launch-system-actions">
+            <a href="/services/complete-website-launch#scope" className="launch-primary-link">See the full scope boundary <span>↗</span></a>
+            <a href="/services/d2c-commerce-launch" className="launch-specialist-link">D2C or ecommerce? <span>See the dedicated system →</span></a>
+          </div>
         </aside>
         <a href="/services/complete-website-launch" className="service-detail-link">See the complete engagement, proof and FAQs <span>↗</span></a>
       </section>

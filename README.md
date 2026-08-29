@@ -2,7 +2,7 @@
 
 Complete, market-ready websites directed from strategy and original design through responsive development, integrations, QA and launch.
 
-[View the live studio](https://sohan-website-studio.vercel.app/) · [See the complete website engagement](https://sohan-website-studio.vercel.app/services/complete-website-launch) · [Build a scope preview](https://sohan-website-studio.vercel.app/services/complete-website-launch#planner) · [Start a project brief](https://sohan-website-studio.vercel.app/services/complete-website-launch#brief)
+[View the live studio](https://sohan-website-studio.vercel.app/) · [See the complete website engagement](https://sohan-website-studio.vercel.app/services/complete-website-launch) · [Review the D2C commerce-launch system](https://sohan-website-studio.vercel.app/services/d2c-commerce-launch) · [Build a scope preview](https://sohan-website-studio.vercel.app/services/complete-website-launch#planner) · [Start a project brief](https://sohan-website-studio.vercel.app/services/complete-website-launch#brief)
 
 ![Sohan Vyaparee independent website studio](./public/og.png)
 
