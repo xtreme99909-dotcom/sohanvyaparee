@@ -1,6 +1,6 @@
+import { env } from 'cloudflare:workers';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
 import { chatGPTSignInPath, getChatGPTUser } from '@/app/chatgpt-auth';
 import { ensureLeadsSchema } from '@/db';
 
@@ -8,6 +8,12 @@ export const dynamic = 'force-dynamic';
 export const metadata: Metadata = { title: 'Studio Leads', robots: { index: false, follow: false } };
 
 const ownerUserId = 'c7db48cc-aa8c-4865-b83c-1a12fa914a20';
+
+function isStudioOwner(user: { userId: string; email: string }) {
+  const configuredOwnerEmail = env.STUDIO_OWNER_EMAIL?.trim().toLowerCase();
+  return user.userId === ownerUserId
+    || Boolean(configuredOwnerEmail && user.email.trim().toLowerCase() === configuredOwnerEmail);
+}
 
 type Lead = {
   id: string;
@@ -38,7 +44,18 @@ export default async function LeadsPage() {
       </main>
     );
   }
-  if (user.userId !== ownerUserId) notFound();
+  if (!isStudioOwner(user)) {
+    return (
+      <main className="min-h-screen bg-[#f2f0e9] px-6 py-24 text-[#17201c]">
+        <section className="mx-auto max-w-xl border border-black/15 bg-white p-10">
+          <p className="text-xs font-bold uppercase tracking-[.18em] text-black/55">Private studio area</p>
+          <h1 className="mt-6 font-serif text-6xl leading-[.9]">This account does not have access.</h1>
+          <p className="mt-7 text-sm leading-7 text-black/65">The lead inbox is working, but it is restricted to the ChatGPT account that owns this studio.</p>
+          <a className="mt-8 inline-flex rounded-full bg-[#17201c] px-6 py-4 text-xs font-bold uppercase tracking-[.1em] text-white" href={chatGPTSignInPath('/leads')} target="_top">Sign in with the owner account →</a>
+        </section>
+      </main>
+    );
+  }
 
   const db = await ensureLeadsSchema();
   const result = await db.prepare(`SELECT id, created_at, name, email, company, project_type, budget,
