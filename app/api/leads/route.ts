@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
     }
 
     const formStartedAt = Number(input.formStartedAt || 0);
-    if (!Number.isFinite(formStartedAt) || Date.now() - formStartedAt < 1_000) {
+    if (!Number.isFinite(formStartedAt) || formStartedAt <= 0 || Date.now() - formStartedAt < 1_000) {
       return NextResponse.json({ error: 'Please review the brief before sending.' }, { status: 400 });
     }
 
