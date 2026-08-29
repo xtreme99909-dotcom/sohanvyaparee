@@ -70,7 +70,7 @@ export default function BongFoodsCaseStudy() {
           <strong>Sohan Vyaparee</strong>
         </a>
         <nav aria-label="Case study navigation">
-          <a href="/#work">Selected work</a>
+          <a href="/work">Selected work</a>
           <a href="https://www.bongfoods.com/" target="_blank" rel="noreferrer">Live website ↗</a>
           <a href={enquiryPath} className="header-cta" data-marketing-event="enquiry_click">Discuss a project ↗</a>
         </nav>

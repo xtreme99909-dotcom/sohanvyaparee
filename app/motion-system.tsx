@@ -28,6 +28,11 @@ const staggerGroups = [
   '.scope-list > div',
   '.case-proof > *',
   '.case-cta-grid > *',
+  '.work-index-heading > *',
+  '.work-index-card',
+  '.work-evidence-intro > *',
+  '.work-evidence-row:not(.work-evidence-head)',
+  '.work-index-cta-grid > *',
   '.bbj-case-intro > *',
   '.bbj-chapters > article',
   '.bbj-media-heading > *',
@@ -60,6 +65,7 @@ const entrancePanelSelectors = [
   '.responsibility-board',
   '.case-fact-board',
   '.bbj-hero-stage',
+  '.work-truth-ledger',
 ] as const;
 
 export function MotionSystem() {

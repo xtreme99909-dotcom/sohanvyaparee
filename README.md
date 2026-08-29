@@ -2,7 +2,7 @@
 
 Complete, market-ready websites directed from strategy and original design through responsive development, integrations, QA and launch.
 
-[View the live studio](https://sohan-website-studio.vercel.app/) · [See the complete website engagement](https://sohan-website-studio.vercel.app/services/complete-website-launch) · [Review the D2C commerce-launch system](https://sohan-website-studio.vercel.app/services/d2c-commerce-launch) · [Build a scope preview](https://sohan-website-studio.vercel.app/services/complete-website-launch#planner) · [Start a project brief](https://sohan-website-studio.vercel.app/services/complete-website-launch#brief)
+[View the live studio](https://sohan-website-studio.vercel.app/) · [Inspect selected work](https://sohan-website-studio.vercel.app/work) · [See the complete website engagement](https://sohan-website-studio.vercel.app/services/complete-website-launch) · [Review the D2C commerce-launch system](https://sohan-website-studio.vercel.app/services/d2c-commerce-launch) · [Build a scope preview](https://sohan-website-studio.vercel.app/services/complete-website-launch#planner) · [Start a project brief](https://sohan-website-studio.vercel.app/services/complete-website-launch#brief)
 
 ![Sohan Vyaparee independent website studio](./public/og.png)
 
@@ -19,6 +19,8 @@ This is not a coding-only service or a library of premade templates. I work with
 AI accelerates research, prototyping and production. Strategy, hierarchy, taste and final quality remain personally directed.
 
 ## Selected proof
+
+The dedicated [Selected Work index](https://sohan-website-studio.vercel.app/work) lets a buyer compare all three studies by evidence type, responsibility, commercial relevance and truth boundary before opening the detailed case.
 
 ### BongFoods — live founder-built product
 
@@ -62,6 +64,7 @@ Final scope, timing and milestones are confirmed in a written proposal before wo
 The project is a responsive Next.js and TypeScript website with:
 
 - A conversion-focused public portfolio
+- A dedicated truth-labelled work index connecting the homepage to all detailed case studies
 - A focused complete-website service and qualification journey
 - An accessible scope planner that recommends a credible starting engagement without pretending to issue an instant quotation
 - A structured, database-backed project brief

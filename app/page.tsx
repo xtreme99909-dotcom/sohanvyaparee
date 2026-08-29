@@ -74,7 +74,7 @@ export default function Home() {
         </a>
         <nav aria-label="Primary navigation">
           <a href="/services/complete-website-launch">Services</a>
-          <a href="#work">Selected work</a>
+          <a href="/work">Selected work</a>
           <a href="#approach">Approach</a>
           <a href="#contact" className="header-cta" data-marketing-event="enquiry_click">Discuss a project ↗</a>
         </nav>
@@ -92,7 +92,7 @@ export default function Home() {
           </p>
           <div className="hero-actions">
             <a href="/services/complete-website-launch#planner" className="primary-action">Build a realistic scope <span>↗</span></a>
-            <a href="#work" className="text-action">See selected work <span>↓</span></a>
+            <a href="/work" className="text-action">See selected work <span>↗</span></a>
           </div>
           <p className="fit-note">A sixty-second scope preview before the project brief · no account and no automatic quotation.</p>
         </div>
@@ -148,7 +148,7 @@ export default function Home() {
             <p className="section-index light">02 · Selected work</p>
             <h2>Proof across business, product and visual direction.</h2>
           </div>
-          <p>Live work, self-initiated systems and speculative concepts are labelled clearly. No borrowed agency credits.</p>
+          <p>Live work, self-initiated systems and speculative concepts are labelled clearly. No borrowed agency credits.<a href="/work" className="work-index-link">Compare all evidence →</a></p>
         </div>
 
         <div className="work-grid section-shell">
