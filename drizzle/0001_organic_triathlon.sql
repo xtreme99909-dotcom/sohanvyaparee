@@ -1,0 +1,1 @@
+CREATE INDEX `idx_leads_email_created_at` ON `leads` (`email`,`created_at`);

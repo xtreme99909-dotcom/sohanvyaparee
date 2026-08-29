@@ -318,7 +318,7 @@ export default function Home() {
           <div>
             <p className="section-index light">07 · Start with the business</p>
             <h2>Tell me what needs to exist when we are done.</h2>
-            <p className="contact-intro">This short brief filters for complete website projects. Your details stay in your browser until you choose to copy and send them through LinkedIn or Upwork.</p>
+            <p className="contact-intro">This short brief filters for complete website projects. Send it once and it goes directly into my private project inbox—no platform account or repeated message required.</p>
             <div className="contact-signal"><i /><span><strong>Current availability</strong>Two new project starts</span></div>
           </div>
 
