@@ -1,4 +1,4 @@
-import { index, integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { index, integer, sqliteTable, text, uniqueIndex } from 'drizzle-orm/sqlite-core';
 
 export const leads = sqliteTable(
   'leads',
@@ -41,5 +41,6 @@ export const marketingEvents = sqliteTable(
   (table) => [
     index('idx_marketing_events_created_at').on(table.createdAt),
     index('idx_marketing_events_session_type_path').on(table.sessionId, table.eventType, table.pagePath),
+    uniqueIndex('idx_marketing_events_unique_session_event_path').on(table.sessionId, table.eventType, table.pagePath),
   ],
 );

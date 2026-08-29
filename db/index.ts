@@ -44,6 +44,11 @@ export async function ensureLeadsSchema() {
       ON marketing_events(created_at)`),
     db.prepare(`CREATE INDEX IF NOT EXISTS idx_marketing_events_session_type_path
       ON marketing_events(session_id, event_type, page_path)`),
+    db.prepare(`DELETE FROM marketing_events WHERE rowid NOT IN (
+      SELECT MIN(rowid) FROM marketing_events GROUP BY session_id, event_type, page_path
+    )`),
+    db.prepare(`CREATE UNIQUE INDEX IF NOT EXISTS idx_marketing_events_unique_session_event_path
+      ON marketing_events(session_id, event_type, page_path)`),
   ]);
   await db.prepare('PRAGMA optimize').run();
   return db;

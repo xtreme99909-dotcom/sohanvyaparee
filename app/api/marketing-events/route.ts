@@ -42,32 +42,24 @@ export async function POST(request: NextRequest) {
 
     const db = await ensureLeadsSchema();
     const now = new Date();
-    const recentWindow = new Date(now.getTime() - 30 * 60 * 1_000).toISOString();
-    const recent = await db.prepare(`SELECT id FROM marketing_events
-      WHERE session_id = ? AND event_type = ? AND page_path = ? AND created_at > ? LIMIT 1`)
-      .bind(sessionId, eventType, pagePath, recentWindow)
-      .first<{ id: string }>();
-
-    if (!recent) {
-      await db.batch([
-        db.prepare(`INSERT INTO marketing_events (
-          id, created_at, event_type, page_path, source, medium, campaign, referrer_host, session_id
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`)
-          .bind(
-            crypto.randomUUID(),
-            now.toISOString(),
-            eventType,
-            pagePath,
-            clean(input.source, 120) || 'direct',
-            clean(input.medium, 120) || 'none',
-            clean(input.campaign, 160) || null,
-            referrerHost(input.referrer) || null,
-            sessionId,
-          ),
-        db.prepare('DELETE FROM marketing_events WHERE created_at < ?')
-          .bind(new Date(now.getTime() - 180 * 24 * 60 * 60 * 1_000).toISOString()),
-      ]);
-    }
+    await db.batch([
+      db.prepare(`INSERT OR IGNORE INTO marketing_events (
+        id, created_at, event_type, page_path, source, medium, campaign, referrer_host, session_id
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`)
+        .bind(
+          crypto.randomUUID(),
+          now.toISOString(),
+          eventType,
+          pagePath,
+          clean(input.source, 120) || 'direct',
+          clean(input.medium, 120) || 'none',
+          clean(input.campaign, 160) || null,
+          referrerHost(input.referrer) || null,
+          sessionId,
+        ),
+      db.prepare('DELETE FROM marketing_events WHERE created_at < ?')
+        .bind(new Date(now.getTime() - 180 * 24 * 60 * 60 * 1_000).toISOString()),
+    ]);
 
     return NextResponse.json({ ok: true });
   } catch {
