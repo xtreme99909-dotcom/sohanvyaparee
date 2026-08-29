@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist, Cormorant_Garamond } from 'next/font/google';
 import './globals.css';
+import { MarketingTracker } from './marketing-tracker';
 
 const siteUrl = 'https://sohan-website-studio.xtreme99909.chatgpt.site';
 
@@ -76,6 +77,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${editorial.variable} antialiased`}
       >
+        <MarketingTracker />
         {children}
         <script
           type="application/ld+json"

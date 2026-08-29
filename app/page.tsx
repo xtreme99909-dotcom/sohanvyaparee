@@ -75,7 +75,7 @@ export default function Home() {
         <nav aria-label="Primary navigation">
           <a href="#work">Selected work</a>
           <a href="#approach">Approach</a>
-          <a href="#contact" className="header-cta">Discuss a project ↗</a>
+          <a href="#contact" className="header-cta" data-marketing-event="enquiry_click">Discuss a project ↗</a>
         </nav>
       </header>
 
@@ -90,7 +90,7 @@ export default function Home() {
             I direct the strategy, customer journey, visual language and build—then carry it through integrations, polish and launch. One accountable creative partner, from blank page to live product.
           </p>
           <div className="hero-actions">
-            <a href="#contact" className="primary-action">Start a complete website <span>↗</span></a>
+            <a href="#contact" className="primary-action" data-marketing-event="enquiry_click">Start a complete website <span>↗</span></a>
             <a href="#work" className="text-action">See selected work <span>↓</span></a>
           </div>
           <p className="fit-note">For founders and businesses that need the complete direction—not a coder for a finished design.</p>

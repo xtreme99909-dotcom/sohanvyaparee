@@ -24,3 +24,22 @@ export const leads = sqliteTable(
     index('idx_leads_email_created_at').on(table.email, table.createdAt),
   ],
 );
+
+export const marketingEvents = sqliteTable(
+  'marketing_events',
+  {
+    id: text('id').primaryKey(),
+    createdAt: text('created_at').notNull(),
+    eventType: text('event_type').notNull(),
+    pagePath: text('page_path').notNull(),
+    source: text('source').notNull().default('direct'),
+    medium: text('medium').notNull().default('none'),
+    campaign: text('campaign'),
+    referrerHost: text('referrer_host'),
+    sessionId: text('session_id').notNull(),
+  },
+  (table) => [
+    index('idx_marketing_events_created_at').on(table.createdAt),
+    index('idx_marketing_events_session_type_path').on(table.sessionId, table.eventType, table.pagePath),
+  ],
+);
