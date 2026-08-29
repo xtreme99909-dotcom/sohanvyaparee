@@ -97,7 +97,8 @@ export default async function LeadsPage() {
       COUNT(DISTINCT CASE WHEN event_type = 'enquiry_click' THEN session_id END) AS enquiry_clicks,
       COUNT(DISTINCT CASE WHEN event_type = 'brief_start' THEN session_id END) AS brief_starts
       FROM marketing_events
-      WHERE created_at >= strftime('%Y-%m-%dT%H:%M:%fZ', 'now', '-30 days')`).first<MarketingSummary>(),
+      WHERE created_at >= strftime('%Y-%m-%dT%H:%M:%fZ', 'now', '-30 days')
+        AND source NOT LIKE 'internal_%'`).first<MarketingSummary>(),
     db.prepare(`SELECT source, medium, campaign,
       COUNT(DISTINCT CASE WHEN event_type = 'page_view' THEN session_id END) AS visits,
       COUNT(DISTINCT CASE WHEN event_type = 'page_view' AND page_path = '/work/bongfoods' THEN session_id END) AS proof_views,
@@ -105,6 +106,7 @@ export default async function LeadsPage() {
       COUNT(DISTINCT CASE WHEN event_type = 'brief_start' THEN session_id END) AS brief_starts
       FROM marketing_events
       WHERE created_at >= strftime('%Y-%m-%dT%H:%M:%fZ', 'now', '-30 days')
+        AND source NOT LIKE 'internal_%'
       GROUP BY source, medium, campaign`).all<EventChannel>(),
     db.prepare(`SELECT
       COALESCE(NULLIF(utm_source, ''), NULLIF(source, ''), 'website') AS source,
