@@ -32,6 +32,7 @@ type Lead = {
 
 type MarketingSummary = {
   visits: number;
+  service_views: number;
   proof_views: number;
   enquiry_clicks: number;
   brief_starts: number;
@@ -42,6 +43,7 @@ type EventChannel = {
   medium: string;
   campaign: string | null;
   visits: number;
+  service_views: number;
   proof_views: number;
   enquiry_clicks: number;
   brief_starts: number;
@@ -93,6 +95,7 @@ export default async function LeadsPage() {
       timing, goal, source, status, utm_source FROM leads ORDER BY created_at DESC LIMIT 200`).all<Lead>(),
     db.prepare(`SELECT
       COUNT(DISTINCT CASE WHEN event_type = 'page_view' THEN session_id END) AS visits,
+      COUNT(DISTINCT CASE WHEN event_type = 'page_view' AND page_path = '/services/complete-website-launch' THEN session_id END) AS service_views,
       COUNT(DISTINCT CASE WHEN event_type = 'page_view' AND page_path LIKE '/work/%' THEN session_id END) AS proof_views,
       COUNT(DISTINCT CASE WHEN event_type = 'enquiry_click' THEN session_id END) AS enquiry_clicks,
       COUNT(DISTINCT CASE WHEN event_type = 'brief_start' THEN session_id END) AS brief_starts
@@ -101,6 +104,7 @@ export default async function LeadsPage() {
         AND source NOT LIKE 'internal_%'`).first<MarketingSummary>(),
     db.prepare(`SELECT source, medium, campaign,
       COUNT(DISTINCT CASE WHEN event_type = 'page_view' THEN session_id END) AS visits,
+      COUNT(DISTINCT CASE WHEN event_type = 'page_view' AND page_path = '/services/complete-website-launch' THEN session_id END) AS service_views,
       COUNT(DISTINCT CASE WHEN event_type = 'page_view' AND page_path LIKE '/work/%' THEN session_id END) AS proof_views,
       COUNT(DISTINCT CASE WHEN event_type = 'enquiry_click' THEN session_id END) AS enquiry_clicks,
       COUNT(DISTINCT CASE WHEN event_type = 'brief_start' THEN session_id END) AS brief_starts
@@ -133,6 +137,7 @@ export default async function LeadsPage() {
       medium: row.medium,
       campaign: row.campaign,
       visits: 0,
+      service_views: 0,
       proof_views: 0,
       enquiry_clicks: 0,
       brief_starts: 0,
@@ -140,8 +145,8 @@ export default async function LeadsPage() {
     });
   }
   const channels = [...channelMap.values()].sort((a, b) =>
-    (b.leads * 10 + b.brief_starts * 4 + b.enquiry_clicks * 2 + b.visits)
-    - (a.leads * 10 + a.brief_starts * 4 + a.enquiry_clicks * 2 + a.visits));
+    (b.leads * 10 + b.brief_starts * 4 + b.enquiry_clicks * 3 + b.service_views * 2 + b.proof_views + b.visits)
+    - (a.leads * 10 + a.brief_starts * 4 + a.enquiry_clicks * 3 + a.service_views * 2 + a.proof_views + a.visits));
   const leadsLast30Days = leadSummary?.total || 0;
 
   return (
@@ -153,8 +158,9 @@ export default async function LeadsPage() {
 
       <section className="mx-auto mt-8 max-w-[1500px]">
         <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end"><div><p className="text-xs font-bold uppercase tracking-[.16em] text-black/50">Marketing snapshot · last 30 days</p><h2 className="mt-3 font-serif text-4xl sm:text-5xl">Attention to enquiry.</h2></div><p className="max-w-lg text-xs leading-6 text-black/55">First-party signals from this website only. LinkedIn, Instagram and Upwork profile analytics stay on those platforms until a prospect visits this site.</p></div>
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
           <div className="border border-black/15 bg-white p-6"><span className="text-xs uppercase tracking-[.14em] text-black/50">Site visits</span><strong className="mt-6 block font-serif text-6xl font-normal">{marketing?.visits || 0}</strong></div>
+          <div className="border border-black/15 bg-white p-6"><span className="text-xs uppercase tracking-[.14em] text-black/50">Offer views</span><strong className="mt-6 block font-serif text-6xl font-normal">{marketing?.service_views || 0}</strong></div>
           <div className="border border-black/15 bg-white p-6"><span className="text-xs uppercase tracking-[.14em] text-black/50">Proof views</span><strong className="mt-6 block font-serif text-6xl font-normal">{marketing?.proof_views || 0}</strong></div>
           <div className="border border-black/15 bg-white p-6"><span className="text-xs uppercase tracking-[.14em] text-black/50">Enquiry clicks</span><strong className="mt-6 block font-serif text-6xl font-normal">{marketing?.enquiry_clicks || 0}</strong></div>
           <div className="border border-black/15 bg-white p-6"><span className="text-xs uppercase tracking-[.14em] text-black/50">Briefs started</span><strong className="mt-6 block font-serif text-6xl font-normal">{marketing?.brief_starts || 0}</strong></div>
@@ -168,13 +174,13 @@ export default async function LeadsPage() {
           <p className="p-8 text-sm leading-7 text-black/60">Tracking is ready. Channel rows will appear after a public page visit or enquiry action.</p>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[820px] border-collapse text-left text-xs">
-              <thead><tr className="border-b border-black/10 text-[10px] uppercase tracking-[.12em] text-black/45"><th className="p-4 font-semibold">Source</th><th className="p-4 font-semibold">Campaign</th><th className="p-4 font-semibold">Visits</th><th className="p-4 font-semibold">Proof</th><th className="p-4 font-semibold">Clicks</th><th className="p-4 font-semibold">Starts</th><th className="p-4 font-semibold">Leads</th></tr></thead>
+            <table className="w-full min-w-[900px] border-collapse text-left text-xs">
+              <thead><tr className="border-b border-black/10 text-[10px] uppercase tracking-[.12em] text-black/45"><th className="p-4 font-semibold">Source</th><th className="p-4 font-semibold">Campaign</th><th className="p-4 font-semibold">Visits</th><th className="p-4 font-semibold">Offer</th><th className="p-4 font-semibold">Proof</th><th className="p-4 font-semibold">Clicks</th><th className="p-4 font-semibold">Starts</th><th className="p-4 font-semibold">Leads</th></tr></thead>
               <tbody>{channels.map((channel) => (
                 <tr key={channelKey(channel.source, channel.medium, channel.campaign)} className="border-b border-black/10 last:border-0">
                   <td className="p-4"><strong className="block text-sm">{channel.source}</strong><span className="mt-1 block text-black/45">{channel.medium}</span></td>
                   <td className="max-w-xs p-4 text-black/60">{channel.campaign || '—'}</td>
-                  <td className="p-4 font-serif text-2xl">{channel.visits}</td><td className="p-4 font-serif text-2xl">{channel.proof_views}</td><td className="p-4 font-serif text-2xl">{channel.enquiry_clicks}</td><td className="p-4 font-serif text-2xl">{channel.brief_starts}</td><td className="p-4 font-serif text-2xl">{channel.leads}</td>
+                  <td className="p-4 font-serif text-2xl">{channel.visits}</td><td className="p-4 font-serif text-2xl">{channel.service_views}</td><td className="p-4 font-serif text-2xl">{channel.proof_views}</td><td className="p-4 font-serif text-2xl">{channel.enquiry_clicks}</td><td className="p-4 font-serif text-2xl">{channel.brief_starts}</td><td className="p-4 font-serif text-2xl">{channel.leads}</td>
                 </tr>
               ))}</tbody>
             </table>

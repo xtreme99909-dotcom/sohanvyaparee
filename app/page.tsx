@@ -73,6 +73,7 @@ export default function Home() {
           <strong>Sohan Vyaparee</strong>
         </a>
         <nav aria-label="Primary navigation">
+          <a href="/services/complete-website-launch">Services</a>
           <a href="#work">Selected work</a>
           <a href="#approach">Approach</a>
           <a href="#contact" className="header-cta" data-marketing-event="enquiry_click">Discuss a project ↗</a>
@@ -277,6 +278,7 @@ export default function Home() {
             </article>
           ))}
         </div>
+        <a href="/services/complete-website-launch" className="service-detail-link">See the complete engagement, proof and FAQs <span>↗</span></a>
       </section>
 
       <section className="fit-section section-shell">

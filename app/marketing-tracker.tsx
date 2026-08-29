@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 
-const trackablePaths = new Set(['/', '/work/bongfoods', '/work/private-market-concept']);
+const trackablePaths = new Set(['/', '/services/complete-website-launch', '/work/bongfoods', '/work/private-market-concept']);
 
 type Attribution = {
   source: string;

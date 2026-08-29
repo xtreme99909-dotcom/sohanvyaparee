@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   },
 };
 
-const enquiryPath = '/?utm_source=private_market_concept&utm_medium=portfolio&utm_campaign=trust_to_enquiry#contact';
+const enquiryPath = '/services/complete-website-launch?utm_source=private_market_concept&utm_medium=portfolio&utm_campaign=proof_to_service#brief';
 
 const disclosureSteps = [
   { number: '01', title: 'Discover', copy: 'Show enough market context to establish relevance without exposing the sensitive asset.' },

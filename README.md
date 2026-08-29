@@ -2,7 +2,7 @@
 
 Complete, market-ready websites directed from strategy and original design through responsive development, integrations, QA and launch.
 
-[View the live studio](https://sohan-website-studio.xtreme99909.chatgpt.site/) · [Start a project brief](https://sohan-website-studio.xtreme99909.chatgpt.site/#contact)
+[View the live studio](https://sohan-website-studio.xtreme99909.chatgpt.site/) · [See the complete website engagement](https://sohan-website-studio.xtreme99909.chatgpt.site/services/complete-website-launch) · [Start a project brief](https://sohan-website-studio.xtreme99909.chatgpt.site/services/complete-website-launch#brief)
 
 ![Sohan Vyaparee independent website studio](./public/og.png)
 
@@ -38,6 +38,8 @@ The live studio site turns a broad creative-and-technical capability into a clea
 
 An independent product exploration for verified members, anonymized opportunities, progressive disclosure, NDA-gated access, mandate matching and deal-room workflows. This is concept work, not a client engagement.
 
+[Read the truth-labelled product concept](https://sohan-website-studio.xtreme99909.chatgpt.site/work/private-market-concept)
+
 ### SP Studios — creative-direction background
 
 CGI, animation, advertising and visual storytelling experience inform the composition, pacing and image-making behind the interface work. This is supporting creative-direction proof, not a website client credit.
@@ -57,6 +59,7 @@ Final scope, timing and milestones are confirmed in a written proposal before wo
 The project is a responsive Next.js and TypeScript website with:
 
 - A conversion-focused public portfolio
+- A focused complete-website service and qualification journey
 - A structured, database-backed project brief
 - Campaign-source attribution
 - A protected studio-owner lead dashboard
@@ -66,4 +69,4 @@ The repository contains no production passwords, private enquiries or deployment
 
 ## Discuss a complete website
 
-If your business needs strategy, design and the finished live build owned by one partner, [send the project brief](https://sohan-website-studio.xtreme99909.chatgpt.site/#contact). It goes directly to the private studio inbox.
+If your business needs strategy, design and the finished live build owned by one partner, [review the complete engagement and send the project brief](https://sohan-website-studio.xtreme99909.chatgpt.site/services/complete-website-launch#brief). It goes directly to the private studio inbox.
