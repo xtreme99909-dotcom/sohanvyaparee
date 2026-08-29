@@ -91,16 +91,16 @@ export default function Home() {
             I direct the strategy, customer journey, visual language and build—then carry it through integrations, polish and launch. One accountable creative partner, from blank page to live product.
           </p>
           <div className="hero-actions">
-            <a href="#contact" className="primary-action" data-marketing-event="enquiry_click">Start a complete website <span>↗</span></a>
+            <a href="/services/complete-website-launch#planner" className="primary-action">Build a realistic scope <span>↗</span></a>
             <a href="#work" className="text-action">See selected work <span>↓</span></a>
           </div>
-          <p className="fit-note">For founders and businesses that need the complete direction—not a coder for a finished design.</p>
+          <p className="fit-note">A sixty-second scope preview before the project brief · no account and no automatic quotation.</p>
         </div>
 
         <div className="direction-board" role="group" aria-label="A complete website directed from strategy through launch">
           <div className="board-topline">
             <span>Live direction board</span>
-            <span className="availability"><i /> Taking on 2 projects</span>
+            <span className="availability"><i /> Open for qualified enquiries</span>
           </div>
           <div className="board-stage">
             <div className="stage-number">01</div>
@@ -148,7 +148,7 @@ export default function Home() {
             <p className="section-index light">02 · Selected work</p>
             <h2>Proof across business, product and visual direction.</h2>
           </div>
-          <p>Real work is labelled as real. Self-initiated concept work is labelled as speculative. No borrowed agency credits.</p>
+          <p>Live work, self-initiated systems and speculative concepts are labelled clearly. No borrowed agency credits.</p>
         </div>
 
         <div className="work-grid section-shell">
@@ -211,18 +211,18 @@ export default function Home() {
 
           <article className="project-card studio-card">
             <div className="project-meta">
-              <span>Creative direction background</span>
+              <span>Live self-initiated business system</span>
               <span>03 / 03</span>
             </div>
-            <div className="studio-visual">
+            <div className="studio-visual" role="img" aria-label="Studio acquisition system connecting positioning, proof and project qualification">
               <span className="orbit orbit-one" />
               <span className="orbit orbit-two" />
-              <span className="studio-mark">SP</span>
-              <div><p>Image · Motion · Meaning</p><strong>Visual judgment<br />before software.</strong></div>
+              <span className="studio-mark">SV</span>
+              <div><p>Positioning · Proof · Qualification</p><strong>One path<br />from visit to brief.</strong></div>
             </div>
             <div className="project-copy">
-              <div><p>SP Studios · CGI and storytelling</p><h3>Art direction that gives the interface a point of view.</h3></div>
-              <div><p>CGI, animation and advertising experience shape the composition, pacing and visual storytelling behind the website work.</p></div>
+              <div><p>Sohan Vyaparee Studio · Acquisition system</p><h3>Turning a broad capability into a clear buying journey.</h3></div>
+              <div><p>An operating studio website connecting positioning, truth-labelled proof, scope guidance, a qualified project brief, attribution and persistent owner triage.</p><a href="/work/studio-system">View the live-system case study →</a><span className="concept-label">Self-initiated · Not a client result</span></div>
             </div>
           </article>
         </div>
@@ -327,7 +327,7 @@ export default function Home() {
             <p className="section-index light">07 · Start with the business</p>
             <h2>Tell me what needs to exist when we are done.</h2>
             <p className="contact-intro">This short brief filters for complete website projects. Send it once and it goes directly into my private project inbox—no platform account or repeated message required.</p>
-            <div className="contact-signal"><i /><span><strong>Current availability</strong>Two new project starts</span></div>
+            <div className="contact-signal"><i /><span><strong>Private studio inbox</strong>Open for qualified project enquiries</span></div>
           </div>
 
           <ProjectBrief />

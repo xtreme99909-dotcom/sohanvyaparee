@@ -9,17 +9,19 @@ export const metadata: Metadata = {
     title: 'Designing trust before disclosure',
     description: 'An independent speculative product concept for a verified private real-estate network.',
     type: 'article',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Private-market product concept by Sohan Vyaparee' }],
+    url: '/work/private-market-concept',
+    images: [],
   },
   twitter: {
-    card: 'summary_large_image',
+    card: 'summary',
     title: 'Designing trust before disclosure',
     description: 'An independent speculative product concept for a verified private real-estate network.',
-    images: ['/og.png'],
+    images: [],
   },
 };
 
 const enquiryPath = '/services/complete-website-launch#brief';
+const scopePath = '/services/complete-website-launch#planner';
 
 const disclosureSteps = [
   { number: '01', title: 'Discover', copy: 'Show enough market context to establish relevance without exposing the sensitive asset.' },
@@ -180,7 +182,7 @@ export default function PrivateMarketConceptCaseStudy() {
           <p className="section-index light">05 · What this proves</p>
           <h2>I can direct the promise outside the login and the product behind it.</h2>
           <p>This study demonstrates product strategy, hierarchy, permission-aware UX and serious dashboard direction. It does not claim a client outcome, a live network or proprietary transaction data.</p>
-          <a href={enquiryPath} data-marketing-event="enquiry_click">Discuss a marketplace or member product →</a>
+          <a href={scopePath}>Build a product scope preview →</a>
         </div>
         <div className="proof-note">
           <span>Truth label</span>
@@ -192,7 +194,7 @@ export default function PrivateMarketConceptCaseStudy() {
       <section className="case-cta">
         <div className="section-shell case-cta-grid">
           <div><p className="section-index light">Your product · Next</p><h2>Building a marketplace, portal or member experience?</h2></div>
-          <div><p>I can shape the public positioning and the critical workflow behind the login—then carry the approved direction into a responsive working product.</p><a href={enquiryPath} className="primary-action light-action" data-marketing-event="enquiry_click">Start a project brief <span>↗</span></a></div>
+          <div><p>Use the scope preview to separate the public website, core product workflow and connected systems before committing to pages, timing or price.</p><a href={scopePath} className="primary-action light-action">Build your scope preview <span>↗</span></a></div>
         </div>
       </section>
 

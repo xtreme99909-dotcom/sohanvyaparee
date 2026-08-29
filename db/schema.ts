@@ -14,6 +14,9 @@ export const leads = sqliteTable(
     goal: text('goal').notNull(),
     source: text('source').notNull().default('website'),
     status: text('status').notNull().default('new'),
+    ownerNotes: text('owner_notes').notNull().default(''),
+    nextActionAt: text('next_action_at'),
+    updatedAt: text('updated_at'),
     utmSource: text('utm_source'),
     utmMedium: text('utm_medium'),
     utmCampaign: text('utm_campaign'),
@@ -21,6 +24,7 @@ export const leads = sqliteTable(
   },
   (table) => [
     index('idx_leads_status_created_at').on(table.status, table.createdAt),
+    index('idx_leads_status_next_action_created_at').on(table.status, table.nextActionAt, table.createdAt),
     index('idx_leads_email_created_at').on(table.email, table.createdAt),
   ],
 );

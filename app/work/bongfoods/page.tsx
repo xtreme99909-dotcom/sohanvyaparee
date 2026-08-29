@@ -20,6 +20,7 @@ export const metadata: Metadata = {
 };
 
 const enquiryPath = '/services/complete-website-launch#brief';
+const scopePath = '/services/complete-website-launch#planner';
 
 const journey = [
   {
@@ -184,7 +185,7 @@ export default function BongFoodsCaseStudy() {
       <section className="case-cta">
         <div className="section-shell case-cta-grid">
           <div><p className="section-index light">Your business · Next</p><h2>Need the complete website—not disconnected pieces?</h2></div>
-          <div><p>Bring the business idea, the offer or the site that no longer represents you. I’ll help shape the direction and build the customer-ready result.</p><a href={enquiryPath} className="primary-action light-action" data-marketing-event="enquiry_click">Start a project brief <span>↗</span></a></div>
+          <div><p>Use the scope preview to turn what you need into a realistic starting engagement, working budget and project shape before writing the brief.</p><a href={scopePath} className="primary-action light-action">Build your scope preview <span>↗</span></a></div>
         </div>
       </section>
 

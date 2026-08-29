@@ -20,6 +20,9 @@ export async function ensureLeadsSchema() {
       goal TEXT NOT NULL,
       source TEXT NOT NULL DEFAULT 'website',
       status TEXT NOT NULL DEFAULT 'new' CHECK (status IN ('new', 'contacted', 'qualified', 'closed')),
+      owner_notes TEXT NOT NULL DEFAULT '',
+      next_action_at TEXT,
+      updated_at TEXT,
       utm_source TEXT,
       utm_medium TEXT,
       utm_campaign TEXT,
@@ -50,6 +53,22 @@ export async function ensureLeadsSchema() {
     db.prepare(`CREATE UNIQUE INDEX IF NOT EXISTS idx_marketing_events_unique_session_event_path
       ON marketing_events(session_id, event_type, page_path)`),
   ]);
+
+  const leadColumns = await db.prepare('PRAGMA table_info(leads)').all<{ name: string }>();
+  const existingColumns = new Set(leadColumns.results.map((column) => column.name));
+  const leadMigrations = [];
+  if (!existingColumns.has('owner_notes')) {
+    leadMigrations.push(db.prepare("ALTER TABLE leads ADD COLUMN owner_notes TEXT NOT NULL DEFAULT ''"));
+  }
+  if (!existingColumns.has('next_action_at')) {
+    leadMigrations.push(db.prepare('ALTER TABLE leads ADD COLUMN next_action_at TEXT'));
+  }
+  if (!existingColumns.has('updated_at')) {
+    leadMigrations.push(db.prepare('ALTER TABLE leads ADD COLUMN updated_at TEXT'));
+  }
+  if (leadMigrations.length > 0) await db.batch(leadMigrations);
+  await db.prepare(`CREATE INDEX IF NOT EXISTS idx_leads_status_next_action_created_at
+    ON leads(status, next_action_at, created_at)`).run();
   await db.prepare('PRAGMA optimize').run();
   return db;
 }

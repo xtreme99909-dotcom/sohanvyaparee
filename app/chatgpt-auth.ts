@@ -5,6 +5,9 @@ export type ChatGPTUser = {
   email: string;
 };
 
+const ownerUserId = 'c7db48cc-aa8c-4865-b83c-1a12fa914a20';
+const localPreviewOwnerEmail = 'seedy@sites.test';
+
 export async function getChatGPTUser(): Promise<ChatGPTUser | null> {
   const requestHeaders = await headers();
   const userId = requestHeaders.get('oai-authenticated-user-id');
@@ -16,4 +19,9 @@ export async function getChatGPTUser(): Promise<ChatGPTUser | null> {
 export function chatGPTSignInPath(returnTo: string): string {
   const safeReturnTo = returnTo.startsWith('/') && !returnTo.startsWith('//') ? returnTo : '/';
   return `/signin-with-chatgpt?return_to=${encodeURIComponent(safeReturnTo)}`;
+}
+
+export function isStudioOwner(user: ChatGPTUser) {
+  return user.userId === ownerUserId
+    || (process.env.NODE_ENV !== 'production' && user.email.trim().toLowerCase() === localPreviewOwnerEmail);
 }

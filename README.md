@@ -2,7 +2,7 @@
 
 Complete, market-ready websites directed from strategy and original design through responsive development, integrations, QA and launch.
 
-[View the live studio](https://sohan-website-studio.vercel.app/) · [See the complete website engagement](https://sohan-website-studio.vercel.app/services/complete-website-launch) · [Start a project brief](https://sohan-website-studio.vercel.app/services/complete-website-launch#brief)
+[View the live studio](https://sohan-website-studio.vercel.app/) · [See the complete website engagement](https://sohan-website-studio.vercel.app/services/complete-website-launch) · [Build a scope preview](https://sohan-website-studio.vercel.app/services/complete-website-launch#planner) · [Start a project brief](https://sohan-website-studio.vercel.app/services/complete-website-launch#brief)
 
 ![Sohan Vyaparee independent website studio](./public/og.png)
 
@@ -30,9 +30,11 @@ A mobile-first ordering experience for my own Bengali cloud kitchen in Nagpur, c
 
 ### Independent website studio — self-initiated work
 
-The live studio site turns a broad creative-and-technical capability into a clear buyer journey: honest proof labels, transparent starting scopes, a responsive editorial system and a structured project brief feeding a private owner-only lead inbox.
+The studio site turns a broad creative-and-technical capability into a clear buyer journey: the homepage's primary action leads into a five-decision scope preview, then into honest proof, transparent starting scopes and a structured project brief feeding a private owner-only lead inbox. The scope preview is deliberately not an automatic quotation.
 
 **Role:** Positioning, information architecture, copy framework, art direction, UX/UI, responsive implementation, lead workflow, QA and deployment.
+
+[Read the live acquisition-system case study](https://sohan-website-studio.vercel.app/work/studio-system)
 
 ### Private real-estate network — speculative product concept
 
@@ -60,9 +62,11 @@ The project is a responsive Next.js and TypeScript website with:
 
 - A conversion-focused public portfolio
 - A focused complete-website service and qualification journey
+- An accessible scope planner that recommends a credible starting engagement without pretending to issue an instant quotation
 - A structured, database-backed project brief
+- A non-destructive enquiry recovery state that preserves the buyer's answers and exposes the verified Upwork project if the private inbox cannot save the submission
 - Campaign-source attribution
-- A protected studio-owner lead dashboard
+- A protected studio-owner lead desk with persistent stage, next-action date, private notes and a tailored qualification-response draft
 - SEO metadata, sitemap, social preview and privacy information
 
 The repository contains no production passwords, private enquiries or deployment secrets.

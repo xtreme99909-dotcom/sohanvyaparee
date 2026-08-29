@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Sites/vinext Link prefetch throws at runtime; full-page navigation is intentional here. */
 import type { Metadata } from 'next';
 import { ProjectBrief } from '../../project-brief';
+import { ScopePlanner } from '../../scope-planner';
 
 const siteUrl = 'https://sohan-website-studio.vercel.app';
 
@@ -229,6 +230,10 @@ export default function CompleteWebsiteLaunchPage() {
             <div className="proof-visual"><span>P</span><i>Speculative concept</i></div>
             <div><small>Independent product exploration</small><h3>Private market — designing trust through controlled access.</h3><p>A truth-labelled concept for verified members, anonymized opportunities, access requests, NDA gates, matching and a private deal room.</p><a href="/work/private-market-concept">View the speculative case study →</a></div>
           </article>
+          <article className="proof-studio">
+            <div className="proof-visual"><span>SV</span><i>Live self-initiated system</i></div>
+            <div><small>Operating acquisition and qualification system</small><h3>Studio system — connecting the public story to a useful project brief.</h3><p>Positioning, truth-labelled proof, scope guidance, project qualification, source attribution and persistent owner triage shaped as one live business journey. This proves the connected system without claiming client results or guaranteed leads.</p><a href="/work/studio-system">View the live-system case study →</a></div>
+          </article>
         </div>
       </section>
 
@@ -246,7 +251,10 @@ export default function CompleteWebsiteLaunchPage() {
           ))}
         </div>
         <p className="scope-note">Complex products, marketplaces, commerce and multi-integration projects are custom-scoped. When the budget is lower, I reduce scope rather than quietly reduce the thinking or quality.</p>
+        <a href="#planner" className="service-detail-link">Not sure where the project starts? <span>Build a scope preview ↓</span></a>
       </section>
+
+      <ScopePlanner />
 
       <section className="service-fit section-shell">
         <div className="fit-card fit-yes">
@@ -262,7 +270,7 @@ export default function CompleteWebsiteLaunchPage() {
       </section>
 
       <section className="service-faq section-shell">
-        <div className="service-faq-heading"><p className="section-index">05 · Practical questions</p><h2>Before you send the brief.</h2></div>
+        <div className="service-faq-heading"><p className="section-index">06 · Practical questions</p><h2>Before you send the brief.</h2></div>
         <div className="faq-list">
           {faqs.map((faq, index) => (
             <details key={faq.question} open={index === 0}>
@@ -276,7 +284,7 @@ export default function CompleteWebsiteLaunchPage() {
       <section id="brief" className="contact-section service-contact">
         <div className="section-shell contact-grid">
           <div>
-            <p className="section-index light">06 · Start with the real project</p>
+            <p className="section-index light">07 · Start with the real project</p>
             <h2>Tell me what the website must make possible.</h2>
             <p className="contact-intro">Send the business, current situation, timing and working budget. I’ll review the goal and tell you honestly whether the fit and starting scope make sense.</p>
             <div className="contact-signal"><i /><span><strong>Private studio inbox</strong>One brief · no mailing list · normally answered within two working days</span></div>

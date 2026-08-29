@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Geist, Cormorant_Garamond } from 'next/font/google';
 import './globals.css';
 import { MarketingTracker } from './marketing-tracker';
+import { MotionSystem } from './motion-system';
 
 const siteUrl = 'https://sohan-website-studio.vercel.app';
 
@@ -78,6 +79,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${editorial.variable} antialiased`}
       >
         <MarketingTracker />
+        <MotionSystem />
         {children}
         <script
           type="application/ld+json"
