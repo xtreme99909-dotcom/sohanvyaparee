@@ -1,18 +1,37 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "functions": {
-    "api/proxy.mjs": {
-      "maxDuration": 10
-    }
-  },
   "rewrites": [
     {
+      "source": "/leads",
+      "destination": "/api/not-found"
+    },
+    {
+      "source": "/leads/:path*",
+      "destination": "/api/not-found"
+    },
+    {
+      "source": "/signin-with-chatgpt",
+      "destination": "/api/not-found"
+    },
+    {
+      "source": "/signin-with-chatgpt/:path*",
+      "destination": "/api/not-found"
+    },
+    {
+      "source": "/api/leads",
+      "destination": "/api/proxy?path=api/leads"
+    },
+    {
+      "source": "/api/marketing-events",
+      "destination": "/api/proxy?path=api/marketing-events"
+    },
+    {
       "source": "/",
-      "destination": "/api/proxy?path="
+      "destination": "https://sohan-website-studio.xtreme99909.chatgpt.site/"
     },
     {
       "source": "/:path*",
-      "destination": "/api/proxy?path=:path*"
+      "destination": "https://sohan-website-studio.xtreme99909.chatgpt.site/:path*"
     }
   ]
 }

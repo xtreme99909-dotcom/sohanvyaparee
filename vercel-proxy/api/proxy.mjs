@@ -15,8 +15,25 @@ const skippedResponseHeaders = new Set([
   'connection',
   'content-encoding',
   'content-length',
+  'set-cookie',
   'transfer-encoding',
 ]);
+
+function stripUpstreamBrowserChallenge(html) {
+  let cleanHtml = html;
+  const marker = 'window.__CF$cv$params';
+
+  for (;;) {
+    const markerIndex = cleanHtml.indexOf(marker);
+    if (markerIndex === -1) return cleanHtml;
+
+    const scriptStart = cleanHtml.lastIndexOf('<script', markerIndex);
+    const scriptEnd = cleanHtml.indexOf('</script>', markerIndex);
+    if (scriptStart === -1 || scriptEnd === -1) return cleanHtml;
+
+    cleanHtml = `${cleanHtml.slice(0, scriptStart)}${cleanHtml.slice(scriptEnd + 9)}`;
+  }
+}
 
 function requestPath(req) {
   const raw = Array.isArray(req.query.path) ? req.query.path.join('/') : (req.query.path || '');
@@ -70,7 +87,11 @@ export default async function handler(req, res) {
     res.status(upstream.status);
     const contentType = upstream.headers.get('content-type') || '';
     if (contentType.includes('text/') || contentType.includes('json') || contentType.includes('javascript') || contentType.includes('xml')) {
-      const text = (await upstream.text()).replaceAll(UPSTREAM_ORIGIN, publicOrigin);
+      const upstreamText = await upstream.text();
+      const safeText = contentType.includes('text/html')
+        ? stripUpstreamBrowserChallenge(upstreamText)
+        : upstreamText;
+      const text = safeText.replaceAll(UPSTREAM_ORIGIN, publicOrigin);
       res.send(text);
       return;
     }
