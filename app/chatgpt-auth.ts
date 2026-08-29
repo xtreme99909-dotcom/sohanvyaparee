@@ -1,3 +1,4 @@
+import { env } from 'cloudflare:workers';
 import { headers } from 'next/headers';
 
 export type ChatGPTUser = {
@@ -22,6 +23,8 @@ export function chatGPTSignInPath(returnTo: string): string {
 }
 
 export function isStudioOwner(user: ChatGPTUser) {
+  const configuredOwnerEmail = env.STUDIO_OWNER_EMAIL?.trim().toLowerCase();
   return user.userId === ownerUserId
+    || Boolean(configuredOwnerEmail && user.email.trim().toLowerCase() === configuredOwnerEmail)
     || (process.env.NODE_ENV !== 'production' && user.email.trim().toLowerCase() === localPreviewOwnerEmail);
 }
