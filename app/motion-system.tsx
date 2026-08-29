@@ -82,6 +82,8 @@ export function MotionSystem() {
 
     const revealTargets = new Set<HTMLElement>();
     const entrancePanels = new Set<HTMLElement>();
+    const tiltTargets = new Set<HTMLElement>();
+    const tiltCleanups: Array<() => void> = [];
 
     for (const selector of staggerGroups) {
       document.querySelectorAll<HTMLElement>(selector).forEach((element, index) => {
@@ -119,6 +121,59 @@ export function MotionSystem() {
 
     revealTargets.forEach((element) => observer.observe(element));
 
+    const tiltSelectors = [
+      '.project-card',
+      '.work-index-card',
+      '.services-grid > article',
+      '.service-proof-grid > article',
+    ];
+
+    tiltSelectors.forEach((selector) => {
+      document.querySelectorAll<HTMLElement>(selector).forEach((element) => {
+        element.dataset.motionTilt = 'true';
+        tiltTargets.add(element);
+
+        let tiltFrame = 0;
+        let latestX = 0;
+        let latestY = 0;
+
+        const paintTilt = () => {
+          tiltFrame = 0;
+          const rect = element.getBoundingClientRect();
+          const xRatio = Math.min(1, Math.max(0, (latestX - rect.left) / rect.width));
+          const yRatio = Math.min(1, Math.max(0, (latestY - rect.top) / rect.height));
+          element.style.setProperty('--tilt-x', `${((0.5 - yRatio) * 3.2).toFixed(2)}deg`);
+          element.style.setProperty('--tilt-y', `${((xRatio - 0.5) * 4.2).toFixed(2)}deg`);
+          element.style.setProperty('--card-x', `${(xRatio * 100).toFixed(1)}%`);
+          element.style.setProperty('--card-y', `${(yRatio * 100).toFixed(1)}%`);
+        };
+
+        const onPointerMove = (event: PointerEvent) => {
+          if (event.pointerType === 'touch') return;
+          latestX = event.clientX;
+          latestY = event.clientY;
+          if (!tiltFrame) tiltFrame = window.requestAnimationFrame(paintTilt);
+        };
+
+        const resetTilt = () => {
+          if (tiltFrame) window.cancelAnimationFrame(tiltFrame);
+          tiltFrame = 0;
+          element.style.setProperty('--tilt-x', '0deg');
+          element.style.setProperty('--tilt-y', '0deg');
+          element.style.setProperty('--card-x', '50%');
+          element.style.setProperty('--card-y', '50%');
+        };
+
+        element.addEventListener('pointermove', onPointerMove, { passive: true });
+        element.addEventListener('pointerleave', resetTilt, { passive: true });
+        tiltCleanups.push(() => {
+          element.removeEventListener('pointermove', onPointerMove);
+          element.removeEventListener('pointerleave', resetTilt);
+          if (tiltFrame) window.cancelAnimationFrame(tiltFrame);
+        });
+      });
+    });
+
     let frame = 0;
     let pointerFrame = 0;
     let pointerX = window.innerWidth / 2;
@@ -128,6 +183,9 @@ export function MotionSystem() {
       const scrollable = document.documentElement.scrollHeight - window.innerHeight;
       const progress = scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0;
       root.style.setProperty('--page-progress', progress.toFixed(4));
+      document.querySelectorAll<HTMLElement>('.site-header').forEach((header) => {
+        header.classList.toggle('is-scrolled', window.scrollY > 18);
+      });
     };
     const requestProgressUpdate = () => {
       if (frame) return;
@@ -159,6 +217,7 @@ export function MotionSystem() {
       window.removeEventListener('pointermove', updatePointer);
       if (frame) window.cancelAnimationFrame(frame);
       if (pointerFrame) window.cancelAnimationFrame(pointerFrame);
+      tiltCleanups.forEach((cleanup) => cleanup());
       root.classList.remove('motion-enabled');
       root.style.removeProperty('--page-progress');
       root.style.removeProperty('--pointer-x');
@@ -171,6 +230,14 @@ export function MotionSystem() {
         element.classList.remove('motion-entrance-panel');
         element.style.removeProperty('--entrance-delay');
       });
+      tiltTargets.forEach((element) => {
+        delete element.dataset.motionTilt;
+        element.style.removeProperty('--tilt-x');
+        element.style.removeProperty('--tilt-y');
+        element.style.removeProperty('--card-x');
+        element.style.removeProperty('--card-y');
+      });
+      document.querySelectorAll<HTMLElement>('.site-header').forEach((header) => header.classList.remove('is-scrolled'));
     };
   }, []);
 

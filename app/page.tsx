@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { DirectionBoard } from './direction-board';
 import { ProjectBrief } from './project-brief';
 
 const disciplines = [
@@ -97,30 +98,7 @@ export default function Home() {
           <p className="fit-note">A sixty-second scope preview before the project brief · no account and no automatic quotation.</p>
         </div>
 
-        <div className="direction-board" role="group" aria-label="A complete website directed from strategy through launch">
-          <div className="board-topline">
-            <span>Live direction board</span>
-            <span className="availability"><i /> Open for qualified enquiries</span>
-          </div>
-          <div className="board-stage">
-            <div className="stage-number">01</div>
-            <p>Current stage</p>
-            <h2>Find the sharpest story the business can own.</h2>
-            <div className="signal-card">
-              <span>Positioning signal</span>
-              <strong>Clarity before decoration.</strong>
-              <p>Every page earns its place in the customer journey.</p>
-            </div>
-          </div>
-          <div className="board-progress" role="group" aria-label="Project stages">
-            {['Direction', 'Experience', 'Build', 'Launch'].map((item, index) => (
-              <div key={item} className={index === 0 ? 'active' : ''}>
-                <span>0{index + 1}</span>
-                <p>{item}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+        <DirectionBoard />
       </section>
 
       <section className="discipline-strip" aria-label="Capabilities">
