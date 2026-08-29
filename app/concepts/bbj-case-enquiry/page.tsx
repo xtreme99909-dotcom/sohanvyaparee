@@ -4,6 +4,18 @@ export const metadata: Metadata = {
   title: 'Bread Butter Jamm — Case Story + Qualified Enquiry Concept',
   description: 'An independent, uncommissioned experience concept prepared after permission for Bread Butter Jamm.',
   robots: { index: false, follow: false, noarchive: true, nosnippet: true },
+  openGraph: {
+    title: 'Bread Butter Jamm — Case Story + Qualified Enquiry Concept',
+    description: 'An independent, uncommissioned experience concept prepared after permission for Bread Butter Jamm.',
+    type: 'website',
+    images: [],
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Bread Butter Jamm — Case Story + Qualified Enquiry Concept',
+    description: 'An independent, uncommissioned experience concept prepared after permission for Bread Butter Jamm.',
+    images: [],
+  },
 };
 
 const chapters = [
