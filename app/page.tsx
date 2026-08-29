@@ -204,7 +204,7 @@ export default function Home() {
             </div>
             <div className="project-copy">
               <div><p>Private-market platform · PropTech</p><h3>Turning discretion into a usable product.</h3></div>
-              <div><p>An independently initiated concept exploring verified members, anonymized opportunities, access requests, NDA gating, matching, documents and Deal Room workflows.</p><span className="concept-label">Concept study · Not a client engagement</span></div>
+              <div><p>An independently initiated concept exploring verified members, anonymized opportunities, access requests, NDA gating, matching, documents and Deal Room workflows.</p><a href="/work/private-market-concept">View concept study →</a><span className="concept-label">Concept study · Not a client engagement</span></div>
             </div>
           </article>
 

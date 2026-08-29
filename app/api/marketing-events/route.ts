@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { ensureLeadsSchema } from '@/db';
 
 const allowedEvents = new Set(['page_view', 'enquiry_click', 'brief_start']);
-const allowedPaths = new Set(['/', '/work/bongfoods']);
+const allowedPaths = new Set(['/', '/work/bongfoods', '/work/private-market-concept']);
 
 type EventInput = Record<string, unknown>;
 

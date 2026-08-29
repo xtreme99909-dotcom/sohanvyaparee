@@ -2,7 +2,13 @@
 
 import { useEffect } from 'react';
 
-const trackablePaths = new Set(['/', '/work/bongfoods']);
+const trackablePaths = new Set(['/', '/work/bongfoods', '/work/private-market-concept']);
+
+type Attribution = {
+  source: string;
+  medium: string;
+  campaign: string;
+};
 
 function readSessionValue(key: string) {
   try { return window.sessionStorage.getItem(key); } catch { return null; }
@@ -25,6 +31,33 @@ function getSessionId() {
   return created;
 }
 
+function readAttribution() {
+  const value = readSessionValue('sv:marketing-attribution');
+  if (!value) return null;
+  try {
+    const parsed = JSON.parse(value) as Partial<Attribution>;
+    return typeof parsed.source === 'string' && typeof parsed.medium === 'string' && typeof parsed.campaign === 'string'
+      ? parsed as Attribution
+      : null;
+  } catch {
+    return null;
+  }
+}
+
+function getAttribution(params: URLSearchParams, externalReferrer: string): Attribution {
+  const hasCampaignTags = params.has('utm_source') || params.has('utm_medium') || params.has('utm_campaign');
+  const saved = readAttribution();
+  if (!hasCampaignTags && saved) return saved;
+
+  const attribution = {
+    source: params.get('utm_source') || externalReferrer || 'direct',
+    medium: params.get('utm_medium') || (externalReferrer ? 'referral' : 'none'),
+    campaign: params.get('utm_campaign') || '',
+  };
+  writeSessionValue('sv:marketing-attribution', JSON.stringify(attribution));
+  return attribution;
+}
+
 export function MarketingTracker() {
   useEffect(() => {
     const pagePath = window.location.pathname;
@@ -34,14 +67,13 @@ export function MarketingTracker() {
     const referrer = document.referrer;
     let referrerHost = '';
     try { referrerHost = referrer ? new URL(referrer).hostname : ''; } catch { referrerHost = ''; }
-    const externalReferrer = referrerHost && referrerHost !== window.location.hostname;
+    const externalReferrer = referrerHost && referrerHost !== window.location.hostname ? referrerHost : '';
     const sessionId = getSessionId();
+    const attribution = getAttribution(params, externalReferrer);
     const base = {
       pagePath,
       sessionId,
-      source: params.get('utm_source') || (externalReferrer ? referrerHost : 'direct'),
-      medium: params.get('utm_medium') || (externalReferrer ? 'referral' : 'none'),
-      campaign: params.get('utm_campaign') || '',
+      ...attribution,
       referrer,
     };
 
