@@ -2,7 +2,7 @@
 
 Complete, market-ready websites directed from strategy and original design through responsive development, integrations, QA and launch.
 
-[View the live studio](https://sohan-website-studio.xtreme99909.chatgpt.site/) · [See the complete website engagement](https://sohan-website-studio.xtreme99909.chatgpt.site/services/complete-website-launch) · [Start a project brief](https://sohan-website-studio.xtreme99909.chatgpt.site/services/complete-website-launch#brief)
+[View the live studio](https://sohan-website-studio.vercel.app/) · [See the complete website engagement](https://sohan-website-studio.vercel.app/services/complete-website-launch) · [Start a project brief](https://sohan-website-studio.vercel.app/services/complete-website-launch#brief)
 
 ![Sohan Vyaparee independent website studio](./public/og.png)
 
@@ -26,7 +26,7 @@ A mobile-first ordering experience for my own Bengali cloud kitchen in Nagpur, c
 
 **Role:** Founder, product direction, website strategy, UX/UI, responsive implementation, ordering-flow integration, QA and launch.
 
-[Read the BongFoods case study](https://sohan-website-studio.xtreme99909.chatgpt.site/work/bongfoods) · [Visit the live product](https://www.bongfoods.com/)
+[Read the BongFoods case study](https://sohan-website-studio.vercel.app/work/bongfoods) · [Visit the live product](https://www.bongfoods.com/)
 
 ### Independent website studio — self-initiated work
 
@@ -38,7 +38,7 @@ The live studio site turns a broad creative-and-technical capability into a clea
 
 An independent product exploration for verified members, anonymized opportunities, progressive disclosure, NDA-gated access, mandate matching and deal-room workflows. This is concept work, not a client engagement.
 
-[Read the truth-labelled product concept](https://sohan-website-studio.xtreme99909.chatgpt.site/work/private-market-concept)
+[Read the truth-labelled product concept](https://sohan-website-studio.vercel.app/work/private-market-concept)
 
 ### SP Studios — creative-direction background
 
@@ -69,4 +69,4 @@ The repository contains no production passwords, private enquiries or deployment
 
 ## Discuss a complete website
 
-If your business needs strategy, design and the finished live build owned by one partner, [review the complete engagement and send the project brief](https://sohan-website-studio.xtreme99909.chatgpt.site/services/complete-website-launch#brief). It goes directly to the private studio inbox.
+If your business needs strategy, design and the finished live build owned by one partner, [review the complete engagement and send the project brief](https://sohan-website-studio.vercel.app/services/complete-website-launch#brief). It goes directly to the private studio inbox.

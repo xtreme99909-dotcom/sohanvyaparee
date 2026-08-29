@@ -3,7 +3,7 @@ import { Geist, Cormorant_Garamond } from 'next/font/google';
 import './globals.css';
 import { MarketingTracker } from './marketing-tracker';
 
-const siteUrl = 'https://sohan-website-studio.xtreme99909.chatgpt.site';
+const siteUrl = 'https://sohan-website-studio.vercel.app';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',

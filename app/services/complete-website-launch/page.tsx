@@ -2,7 +2,7 @@
 import type { Metadata } from 'next';
 import { ProjectBrief } from '../../project-brief';
 
-const siteUrl = 'https://sohan-website-studio.xtreme99909.chatgpt.site';
+const siteUrl = 'https://sohan-website-studio.vercel.app';
 
 export const metadata: Metadata = {
   title: 'Complete Website Design & Development for Founders | Sohan Vyaparee',

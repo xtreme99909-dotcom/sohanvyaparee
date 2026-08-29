@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 
-const baseUrl = 'https://sohan-website-studio.xtreme99909.chatgpt.site';
+const baseUrl = 'https://sohan-website-studio.vercel.app';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
