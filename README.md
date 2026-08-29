@@ -26,7 +26,7 @@ A mobile-first ordering experience for my own Bengali cloud kitchen in Nagpur, c
 
 **Role:** Founder, product direction, website strategy, UX/UI, responsive implementation, ordering-flow integration, QA and launch.
 
-[Visit BongFoods](https://www.bongfoods.com/)
+[Read the BongFoods case study](https://sohan-website-studio.xtreme99909.chatgpt.site/work/bongfoods) · [Visit the live product](https://www.bongfoods.com/)
 
 ### Independent website studio — self-initiated work
 

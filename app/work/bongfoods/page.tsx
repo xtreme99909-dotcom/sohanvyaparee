@@ -9,9 +9,17 @@ export const metadata: Metadata = {
     title: 'BongFoods — From food discovery to a real order',
     description: 'A live, founder-built restaurant commerce case study by Sohan Vyaparee.',
     type: 'article',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'BongFoods website case study by Sohan Vyaparee' }],
+    images: [{ url: '/bongfoods-case-og.png', width: 1280, height: 633, alt: 'BongFoods restaurant commerce case study by Sohan Vyaparee' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'BongFoods — From food discovery to a real order',
+    description: 'A live, founder-built restaurant commerce case study by Sohan Vyaparee.',
+    images: ['/bongfoods-case-og.png'],
   },
 };
+
+const enquiryPath = '/?utm_source=bongfoods_case_study&utm_medium=portfolio&utm_campaign=proof_to_enquiry#contact';
 
 const journey = [
   {
@@ -63,7 +71,7 @@ export default function BongFoodsCaseStudy() {
         <nav aria-label="Case study navigation">
           <a href="/#work">Selected work</a>
           <a href="https://www.bongfoods.com/" target="_blank" rel="noreferrer">Live website ↗</a>
-          <a href="/#contact" className="header-cta">Discuss a project ↗</a>
+          <a href={enquiryPath} className="header-cta">Discuss a project ↗</a>
         </nav>
       </header>
 
@@ -176,7 +184,7 @@ export default function BongFoodsCaseStudy() {
       <section className="case-cta">
         <div className="section-shell case-cta-grid">
           <div><p className="section-index light">Your business · Next</p><h2>Need the complete website—not disconnected pieces?</h2></div>
-          <div><p>Bring the business idea, the offer or the site that no longer represents you. I’ll help shape the direction and build the customer-ready result.</p><a href="/#contact" className="primary-action light-action">Start a project brief <span>↗</span></a></div>
+          <div><p>Bring the business idea, the offer or the site that no longer represents you. I’ll help shape the direction and build the customer-ready result.</p><a href={enquiryPath} className="primary-action light-action">Start a project brief <span>↗</span></a></div>
         </div>
       </section>
 
