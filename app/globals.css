@@ -234,6 +234,10 @@ h1 span { display: block; margin-top: .16em; color: #5b655f; font-style: italic;
 .services-grid li { border-top: 1px solid var(--line); padding: 13px 0; color: #56615b; font-size: 11px; }
 .services-grid li::before { content: '↗'; margin-right: 12px; color: #34443d; }
 .services-grid article > small { margin-top: auto; border-top: 1px solid var(--line); padding-top: 20px; color: #56625c; font-size: 8px; font-weight: 700; letter-spacing: .11em; text-transform: uppercase; }
+.delivery-speed-note { display: grid; grid-template-columns: .45fr .95fr 1fr; gap: clamp(28px,4.5vw,80px); align-items: start; margin-top: 18px; border: 1px solid var(--line); border-left: 3px solid var(--acid); background: rgba(255,255,255,.34); padding: clamp(28px,3.8vw,52px); }
+.delivery-speed-note > span { color: #5d6862; font-size: 8px; font-weight: 740; letter-spacing: .14em; text-transform: uppercase; }
+.delivery-speed-note > strong { max-width: 520px; font-family: var(--font-editorial), Georgia, serif; font-size: clamp(2rem,3vw,3.8rem); font-weight: 500; letter-spacing: -.035em; line-height: .96; }
+.delivery-speed-note > p { max-width: 690px; margin: 0; color: #59645e; font-size: 12px; line-height: 1.72; }
 .launch-system-callout { display: grid; grid-template-columns: .82fr 1.18fr auto; gap: clamp(32px, 5vw, 90px); align-items: center; margin-top: 18px; border: 1px solid rgba(216,255,99,.34); background: var(--ink); padding: clamp(30px, 4vw, 58px); color: white; }
 .launch-system-callout > div:first-child > p { margin: 0; color: var(--acid); font-size: 8px; font-weight: 720; letter-spacing: .14em; text-transform: uppercase; }
 .launch-system-callout h3 { margin: 22px 0 0; font-family: var(--font-editorial), Georgia, serif; font-size: clamp(2.8rem, 4vw, 5rem); font-weight: 500; letter-spacing: -.045em; line-height: .88; }
@@ -338,6 +342,8 @@ footer { background: #0f1512; color: white; padding: 45px 4.4vw 25px; }
   .services-grid { grid-template-columns: 1fr; }
   .services-grid article { min-height: auto; }
   .services-grid article > small { margin-top: 40px; }
+  .delivery-speed-note { grid-template-columns: 1fr 1fr; }
+  .delivery-speed-note > p { grid-column: 2; }
   .launch-system-callout { grid-template-columns: 1fr 1fr; }
   .launch-system-actions { width: fit-content; }
   .food-visual, .market-visual, .studio-visual { min-height: 520px; }
@@ -399,6 +405,8 @@ footer { background: #0f1512; color: white; padding: 45px 4.4vw 25px; }
   .process-grid h3 { margin-top: 45px; }
   .ai-rules { grid-template-columns: 1fr; }
   .launch-system-callout { grid-template-columns: 1fr; padding: 30px 22px; }
+  .delivery-speed-note { grid-template-columns: 1fr; padding: 30px 22px; }
+  .delivery-speed-note > p { grid-column: auto; }
   .launch-system-callout strong small { display: block; margin: 9px 0 0; }
   .launch-system-actions { width: 100%; min-width: 0; }
   .fit-section { grid-template-columns: 1fr; width: 100%; }

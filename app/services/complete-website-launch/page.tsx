@@ -89,13 +89,17 @@ const internationalWorkingModel = [
 ];
 
 const engagements = [
-  { name: 'Launch Essentials', price: '$499', schemaPrice: '499', pages: '1–3 purposeful pages', fit: 'Narrow offer or small-business launch', timing: '7–10 working days' },
-  { name: 'Business Launch', price: '$999', schemaPrice: '999', pages: 'Up to 5 custom pages', fit: 'Complete public business website', timing: '2–3 weeks' },
-  { name: 'Signature + Integration', price: '$1,799+', schemaPrice: '1799', pages: '6–8 custom pages', fit: 'Deeper story plus one agreed integration', timing: '3–5 weeks' },
-  { name: 'International Launch System', price: '$2,500+', schemaPrice: '2500', pages: '5–8 launch-critical pages', fit: 'D2C, SaaS, hospitality or high-trust launch', timing: '4–6+ weeks' },
+  { name: 'Launch Essentials', price: '$499', schemaPrice: '499', pages: '1–3 purposeful pages', fit: 'Narrow offer or small-business launch', timing: '5–7 working days' },
+  { name: 'Business Launch', price: '$999', schemaPrice: '999', pages: 'Up to 5 custom pages', fit: 'Complete public business website', timing: '7–12 working days' },
+  { name: 'Signature + Integration', price: '$1,799+', schemaPrice: '1799', pages: '6–8 custom pages', fit: 'Deeper story plus one agreed integration', timing: '2–4 weeks' },
+  { name: 'International Launch System', price: '$2,500+', schemaPrice: '2500', pages: '5–8 launch-critical pages', fit: 'D2C, SaaS, hospitality or high-trust launch', timing: '3–6 weeks' },
 ];
 
 const faqs = [
+  {
+    question: 'How quickly can the website launch?',
+    answer: 'A prepared one-to-three-page launch can often ship in five to seven working days. A complete business site is usually seven to twelve working days, while a signature or integrated launch commonly takes two to six weeks. Complex platforms, migrations, multiple integrations or heavy content production can require six to twelve weeks or longer. These windows depend on a defined scope, prepared facts and assets, required account access, one decision-maker and timely feedback; the proposal names the real schedule before production.',
+  },
   {
     question: 'Why do focused scopes start at $499 while launch systems start at $2,500?',
     answer: 'They solve different problems. The $499 engagement is a deliberately narrow one-to-three-page launch with one primary conversion and no complex workflow. A launch system carries a broader business story through original design, five to eight launch-critical pages, implementation, an agreed integration, QA and launch ownership. The written scope makes that boundary explicit before work begins.',
@@ -148,7 +152,7 @@ const serviceSchema = {
     name: engagement.name,
     price: engagement.schemaPrice,
     priceCurrency: 'USD',
-    description: `${engagement.pages}. ${engagement.fit}.`,
+    description: `${engagement.pages}. ${engagement.fit}. Typical delivery: ${engagement.timing}.`,
   })),
 };
 
@@ -283,7 +287,7 @@ export default function CompleteWebsiteLaunchPage() {
             </div>
           ))}
         </div>
-        <p className="scope-note">The $499 starting point is deliberately narrow. A complete international launch system begins at $2,500 when the work includes deeper strategy, five to eight launch-critical pages, original direction, implementation, an agreed integration and launch QA. Complex products, marketplaces, commerce and multi-integration projects remain custom-scoped. When the budget is lower, I reduce scope rather than quietly reduce the thinking or quality.</p>
+        <p className="scope-note">The $499 starting point is deliberately narrow and normally moves in five to seven working days when the inputs are ready. A complete business website is typically seven to twelve working days. An international launch system begins at $2,500 and usually runs three to six weeks when the work includes deeper strategy, five to eight launch-critical pages, original direction, implementation, an agreed integration and launch QA. Complex products, marketplaces, migrations and multi-integration work may run six to twelve weeks or longer and remain custom-scoped. When the budget is lower, I reduce scope rather than quietly reduce the thinking or quality.</p>
         <a href="/services/d2c-commerce-launch" className="service-detail-link">Launching a consumer brand or storefront? <span>See the D2C commerce system →</span></a>
         <a href="#planner" className="service-detail-link">Not sure where the project starts? <span>Build a scope preview ↓</span></a>
       </section>
