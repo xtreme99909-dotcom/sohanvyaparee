@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { marketingPagePaths, readStoredMarketingAttribution, storeMarketingAttribution, type MarketingAttribution } from '@/app/marketing-attribution';
 import { marketingEventTypes, type MarketingEventType } from '@/app/marketing-events';
+import { ownerBrowserStorageKey } from '@/app/marketing-owner';
 
 const trackablePaths = new Set<string>(marketingPagePaths);
 
@@ -16,6 +17,10 @@ function writeSessionValue(key: string, value: string) {
 
 function removeSessionValue(key: string) {
   try { window.sessionStorage.removeItem(key); } catch { /* Nothing to clear. */ }
+}
+
+function isOwnerBrowser() {
+  try { return window.localStorage.getItem(ownerBrowserStorageKey) === '1'; } catch { return false; }
 }
 
 function getSessionId() {
@@ -45,6 +50,7 @@ export function MarketingTracker() {
   useEffect(() => {
     const pagePath = window.location.pathname;
     if (!trackablePaths.has(pagePath)) return;
+    if (isOwnerBrowser()) return;
 
     const params = new URLSearchParams(window.location.search);
     const referrer = document.referrer;

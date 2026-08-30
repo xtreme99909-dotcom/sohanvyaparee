@@ -2,6 +2,7 @@
 import type { Metadata } from 'next';
 import { chatGPTSignInPath, getChatGPTUser, isStudioOwner } from '@/app/chatgpt-auth';
 import { LeadInbox, type LeadRecord } from '@/app/leads/lead-inbox';
+import { OwnerTrackingExclusion } from '@/app/leads/owner-tracking-exclusion';
 
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = { title: 'Studio Leads', robots: { index: false, follow: false } };
@@ -208,7 +209,8 @@ export default async function LeadsPage() {
       </header>
 
       <section className="mx-auto mt-8 max-w-[1500px]">
-        <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end"><div><p className="text-xs font-bold uppercase tracking-[.16em] text-black/50">Marketing snapshot · last 30 days</p><h2 className="mt-3 font-serif text-4xl sm:text-5xl">Attention to enquiry.</h2></div><p className="max-w-lg text-xs leading-6 text-black/55">First-party signals from this website only. LinkedIn, Instagram and Upwork profile analytics stay on those platforms until a prospect visits this site.</p></div>
+        <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end"><div><p className="text-xs font-bold uppercase tracking-[.16em] text-black/50">Marketing snapshot · last 30 days</p><h2 className="mt-3 font-serif text-4xl sm:text-5xl">Attention to enquiry.</h2></div><p className="max-w-lg text-xs leading-6 text-black/55">First-party browser sessions from this website only—not identified people or customers. Known owner browsers are excluded after opening this protected dashboard, but older unmarked visits may remain in the totals.</p></div>
+        <OwnerTrackingExclusion />
         <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
           <div className="border border-black/15 bg-white p-6"><span className="text-xs uppercase tracking-[.14em] text-black/50">Site visits</span><strong className="mt-6 block font-serif text-6xl font-normal">{marketing?.visits || 0}</strong></div>
           <div className="border border-black/15 bg-white p-6"><span className="text-xs uppercase tracking-[.14em] text-black/50">Offer views</span><strong className="mt-6 block font-serif text-6xl font-normal">{marketing?.service_views || 0}</strong></div>
