@@ -10,8 +10,14 @@ type MarketingSummary = {
   visits: number;
   service_views: number;
   proof_views: number;
+  proof_clicks: number;
   enquiry_clicks: number;
+  planner_starts: number;
+  planner_completions: number;
   brief_starts: number;
+  brief_submits: number;
+  brief_successes: number;
+  brief_errors: number;
 };
 
 type EventChannel = {
@@ -21,8 +27,14 @@ type EventChannel = {
   visits: number;
   service_views: number;
   proof_views: number;
+  proof_clicks: number;
   enquiry_clicks: number;
+  planner_starts: number;
+  planner_completions: number;
   brief_starts: number;
+  brief_submits: number;
+  brief_successes: number;
+  brief_errors: number;
 };
 
 type LeadChannel = {
@@ -100,8 +112,14 @@ export default async function LeadsPage() {
       COUNT(DISTINCT CASE WHEN event_type = 'page_view' THEN session_id END) AS visits,
       COUNT(DISTINCT CASE WHEN event_type = 'page_view' AND page_path = '/services/complete-website-launch' THEN session_id END) AS service_views,
       COUNT(DISTINCT CASE WHEN event_type = 'page_view' AND page_path LIKE '/work/%' THEN session_id END) AS proof_views,
+      COUNT(DISTINCT CASE WHEN event_type = 'proof_click' THEN session_id END) AS proof_clicks,
       COUNT(DISTINCT CASE WHEN event_type = 'enquiry_click' THEN session_id END) AS enquiry_clicks,
-      COUNT(DISTINCT CASE WHEN event_type = 'brief_start' THEN session_id END) AS brief_starts
+      COUNT(DISTINCT CASE WHEN event_type = 'planner_start' THEN session_id END) AS planner_starts,
+      COUNT(DISTINCT CASE WHEN event_type = 'planner_complete' THEN session_id END) AS planner_completions,
+      COUNT(DISTINCT CASE WHEN event_type = 'brief_start' THEN session_id END) AS brief_starts,
+      COUNT(DISTINCT CASE WHEN event_type = 'brief_submit' THEN session_id END) AS brief_submits,
+      COUNT(DISTINCT CASE WHEN event_type = 'brief_success' THEN session_id END) AS brief_successes,
+      COUNT(DISTINCT CASE WHEN event_type = 'brief_error' THEN session_id END) AS brief_errors
       FROM marketing_events
       WHERE created_at >= strftime('%Y-%m-%dT%H:%M:%fZ', 'now', '-30 days')
         AND source NOT LIKE 'internal_%'`).first<MarketingSummary>(),
@@ -109,8 +127,14 @@ export default async function LeadsPage() {
       COUNT(DISTINCT CASE WHEN event_type = 'page_view' THEN session_id END) AS visits,
       COUNT(DISTINCT CASE WHEN event_type = 'page_view' AND page_path = '/services/complete-website-launch' THEN session_id END) AS service_views,
       COUNT(DISTINCT CASE WHEN event_type = 'page_view' AND page_path LIKE '/work/%' THEN session_id END) AS proof_views,
+      COUNT(DISTINCT CASE WHEN event_type = 'proof_click' THEN session_id END) AS proof_clicks,
       COUNT(DISTINCT CASE WHEN event_type = 'enquiry_click' THEN session_id END) AS enquiry_clicks,
-      COUNT(DISTINCT CASE WHEN event_type = 'brief_start' THEN session_id END) AS brief_starts
+      COUNT(DISTINCT CASE WHEN event_type = 'planner_start' THEN session_id END) AS planner_starts,
+      COUNT(DISTINCT CASE WHEN event_type = 'planner_complete' THEN session_id END) AS planner_completions,
+      COUNT(DISTINCT CASE WHEN event_type = 'brief_start' THEN session_id END) AS brief_starts,
+      COUNT(DISTINCT CASE WHEN event_type = 'brief_submit' THEN session_id END) AS brief_submits,
+      COUNT(DISTINCT CASE WHEN event_type = 'brief_success' THEN session_id END) AS brief_successes,
+      COUNT(DISTINCT CASE WHEN event_type = 'brief_error' THEN session_id END) AS brief_errors
       FROM marketing_events
       WHERE created_at >= strftime('%Y-%m-%dT%H:%M:%fZ', 'now', '-30 days')
         AND source NOT LIKE 'internal_%'
@@ -149,15 +173,32 @@ export default async function LeadsPage() {
       visits: 0,
       service_views: 0,
       proof_views: 0,
+      proof_clicks: 0,
       enquiry_clicks: 0,
+      planner_starts: 0,
+      planner_completions: 0,
       brief_starts: 0,
+      brief_submits: 0,
+      brief_successes: 0,
+      brief_errors: 0,
       leads: row.leads,
     });
   }
   const channels = [...channelMap.values()].sort((a, b) =>
-    (b.leads * 10 + b.brief_starts * 4 + b.enquiry_clicks * 3 + b.service_views * 2 + b.proof_views + b.visits)
-    - (a.leads * 10 + a.brief_starts * 4 + a.enquiry_clicks * 3 + a.service_views * 2 + a.proof_views + a.visits));
+    (b.leads * 14 + b.brief_successes * 12 + b.brief_errors * 9 + b.brief_submits * 8
+      + b.planner_completions * 5 + b.planner_starts * 4 + b.brief_starts * 4
+      + b.enquiry_clicks * 3 + b.proof_clicks * 2 + b.service_views * 2 + b.proof_views + b.visits)
+    - (a.leads * 14 + a.brief_successes * 12 + a.brief_errors * 9 + a.brief_submits * 8
+      + a.planner_completions * 5 + a.planner_starts * 4 + a.brief_starts * 4
+      + a.enquiry_clicks * 3 + a.proof_clicks * 2 + a.service_views * 2 + a.proof_views + a.visits));
   const leadsLast30Days = leadSummary?.total || 0;
+  const diagnosticMessage = marketing?.brief_errors
+    ? 'Submission errors were recorded. Check the affected channel and compare stored successes with the lead inbox before following up.'
+    : marketing?.brief_submits && marketing.brief_successes < marketing.brief_submits
+      ? 'At least one tracked submission has no matching success event yet. This can indicate abandonment during the request or a server-side failure.'
+      : marketing?.brief_successes
+        ? 'The tracked form is recording successful submissions. Compare stored successes with Leads captured to spot any attribution mismatch.'
+        : 'These diagnostic events begin with the 31 August release. Older sessions remain visible in the acquisition totals above, but are not retroactively classified.';
 
   return (
     <main className="min-h-screen bg-[#f2f0e9] px-4 py-8 text-[#17201c] sm:px-8 lg:px-12">
@@ -176,6 +217,18 @@ export default async function LeadsPage() {
           <div className="border border-black/15 bg-white p-6"><span className="text-xs uppercase tracking-[.14em] text-black/50">Briefs started</span><strong className="mt-6 block font-serif text-6xl font-normal">{marketing?.brief_starts || 0}</strong></div>
           <div className="border border-black/15 bg-[#d8ff63] p-6"><span className="text-xs uppercase tracking-[.14em] text-black/55">Leads captured</span><strong className="mt-6 block font-serif text-6xl font-normal">{leadsLast30Days}</strong></div>
         </div>
+        <div className="mt-8 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
+          <div><p className="text-xs font-bold uppercase tracking-[.16em] text-black/50">Conversion diagnostics · new release</p><h2 className="mt-3 font-serif text-4xl sm:text-5xl">Where intent stops.</h2></div>
+          <p className="max-w-2xl text-xs leading-6 text-black/55">{diagnosticMessage}</p>
+        </div>
+        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
+          <div className="border border-black/15 bg-white p-6"><span className="text-xs uppercase tracking-[.14em] text-black/50">Proof clicks</span><strong className="mt-6 block font-serif text-5xl font-normal">{marketing?.proof_clicks || 0}</strong></div>
+          <div className="border border-black/15 bg-white p-6"><span className="text-xs uppercase tracking-[.14em] text-black/50">Planner starts</span><strong className="mt-6 block font-serif text-5xl font-normal">{marketing?.planner_starts || 0}</strong></div>
+          <div className="border border-black/15 bg-white p-6"><span className="text-xs uppercase tracking-[.14em] text-black/50">Plans completed</span><strong className="mt-6 block font-serif text-5xl font-normal">{marketing?.planner_completions || 0}</strong></div>
+          <div className="border border-black/15 bg-white p-6"><span className="text-xs uppercase tracking-[.14em] text-black/50">Brief submissions</span><strong className="mt-6 block font-serif text-5xl font-normal">{marketing?.brief_submits || 0}</strong></div>
+          <div className="border border-black/15 bg-[#d8ff63] p-6"><span className="text-xs uppercase tracking-[.14em] text-black/55">Stored successfully</span><strong className="mt-6 block font-serif text-5xl font-normal">{marketing?.brief_successes || 0}</strong></div>
+          <div className={`border p-6 ${marketing?.brief_errors ? 'border-[#a4382c]/35 bg-[#f7ded9]' : 'border-black/15 bg-white'}`}><span className="text-xs uppercase tracking-[.14em] text-black/50">Error sessions</span><strong className="mt-6 block font-serif text-5xl font-normal">{marketing?.brief_errors || 0}</strong></div>
+        </div>
       </section>
 
       <section className="mx-auto mt-8 max-w-[1500px] border border-black/15 bg-white">
@@ -184,13 +237,21 @@ export default async function LeadsPage() {
           <p className="p-8 text-sm leading-7 text-black/60">Tracking is ready. Channel rows will appear after a public page visit or enquiry action.</p>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[900px] border-collapse text-left text-xs">
-              <thead><tr className="border-b border-black/10 text-[10px] uppercase tracking-[.12em] text-black/45"><th className="p-4 font-semibold">Source</th><th className="p-4 font-semibold">Campaign</th><th className="p-4 font-semibold">Visits</th><th className="p-4 font-semibold">Offer</th><th className="p-4 font-semibold">Proof</th><th className="p-4 font-semibold">Clicks</th><th className="p-4 font-semibold">Starts</th><th className="p-4 font-semibold">Leads</th></tr></thead>
+            <table className="w-full min-w-[1300px] border-collapse text-left text-xs">
+              <thead><tr className="border-b border-black/10 text-[10px] uppercase tracking-[.12em] text-black/45"><th className="p-4 font-semibold">Source</th><th className="p-4 font-semibold">Campaign</th><th className="p-4 font-semibold">Visits</th><th className="p-4 font-semibold">Offer</th><th className="p-4 font-semibold">Proof</th><th className="p-4 font-semibold">Enquiry</th><th className="p-4 font-semibold">Planner</th><th className="p-4 font-semibold">Brief</th><th className="p-4 font-semibold">Stored</th><th className="p-4 font-semibold">Errors</th><th className="p-4 font-semibold">Leads</th></tr></thead>
               <tbody>{channels.map((channel) => (
                 <tr key={channelKey(channel.source, channel.medium, channel.campaign)} className="border-b border-black/10 last:border-0">
                   <td className="p-4"><strong className="block text-sm">{channel.source}</strong><span className="mt-1 block text-black/45">{channel.medium}</span></td>
                   <td className="max-w-xs p-4 text-black/60">{channel.campaign || '—'}</td>
-                  <td className="p-4 font-serif text-2xl">{channel.visits}</td><td className="p-4 font-serif text-2xl">{channel.service_views}</td><td className="p-4 font-serif text-2xl">{channel.proof_views}</td><td className="p-4 font-serif text-2xl">{channel.enquiry_clicks}</td><td className="p-4 font-serif text-2xl">{channel.brief_starts}</td><td className="p-4 font-serif text-2xl">{channel.leads}</td>
+                  <td className="p-4 font-serif text-2xl">{channel.visits}</td>
+                  <td className="p-4 font-serif text-2xl">{channel.service_views}</td>
+                  <td className="p-4"><strong className="font-serif text-2xl font-normal">{channel.proof_views} / {channel.proof_clicks}</strong><span className="mt-1 block text-[9px] uppercase tracking-[.1em] text-black/40">view / click</span></td>
+                  <td className="p-4 font-serif text-2xl">{channel.enquiry_clicks}</td>
+                  <td className="p-4"><strong className="font-serif text-2xl font-normal">{channel.planner_starts} / {channel.planner_completions}</strong><span className="mt-1 block text-[9px] uppercase tracking-[.1em] text-black/40">start / done</span></td>
+                  <td className="p-4"><strong className="font-serif text-2xl font-normal">{channel.brief_starts} / {channel.brief_submits}</strong><span className="mt-1 block text-[9px] uppercase tracking-[.1em] text-black/40">start / submit</span></td>
+                  <td className="p-4 font-serif text-2xl">{channel.brief_successes}</td>
+                  <td className={`p-4 font-serif text-2xl ${channel.brief_errors ? 'text-[#a4382c]' : ''}`}>{channel.brief_errors}</td>
+                  <td className="p-4 font-serif text-2xl">{channel.leads}</td>
                 </tr>
               ))}</tbody>
             </table>
