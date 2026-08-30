@@ -7,7 +7,7 @@ import { publicSiteUrl as siteUrl } from '../../site';
 
 export const metadata: Metadata = {
   title: 'Complete Website Design & Development for Founders | SP Studios',
-  description: 'One accountable partner for website strategy, original art direction, UX, responsive development, integrations, QA and launch. Focused scopes start at $499; launch systems at $2,500+.',
+  description: 'One accountable partner for website strategy, original art direction, UX, responsive development, integrations, QA and launch. Focused launches start at $1,500; connected launch systems at $6,500+.',
   alternates: { canonical: '/services/complete-website-launch' },
   keywords: [
     'complete website design and development',
@@ -89,10 +89,10 @@ const internationalWorkingModel = [
 ];
 
 const engagements = [
-  { name: 'Launch Essentials', price: '$499', schemaPrice: '499', pages: '1–3 purposeful pages', fit: 'Narrow offer or small-business launch', timing: '5–7 working days' },
-  { name: 'Business Launch', price: '$999', schemaPrice: '999', pages: 'Up to 5 custom pages', fit: 'Complete public business website', timing: '7–12 working days' },
-  { name: 'Signature + Integration', price: '$1,799+', schemaPrice: '1799', pages: '6–8 custom pages', fit: 'Deeper story plus one agreed integration', timing: '2–4 weeks' },
-  { name: 'International Launch System', price: '$2,500+', schemaPrice: '2500', pages: '5–8 launch-critical pages', fit: 'D2C, SaaS, hospitality or high-trust launch', timing: '3–6 weeks' },
+  { name: 'Launch Essentials', price: '$1,500+', schemaPrice: '1500', pages: '1–3 purposeful pages', fit: 'Narrow offer or focused first launch', timing: '5–7 working days' },
+  { name: 'Business Launch', price: '$3,000+', schemaPrice: '3000', pages: 'Up to 5 custom pages', fit: 'Complete public business website', timing: '7–15 working days' },
+  { name: 'Signature + Integration', price: '$5,000+', schemaPrice: '5000', pages: '6–8 custom pages', fit: 'Deeper story plus one agreed integration', timing: '3–6 weeks' },
+  { name: 'International Launch System', price: '$6,500+', schemaPrice: '6500', pages: '5–8 launch-critical pages', fit: 'D2C, SaaS, hospitality or high-trust launch', timing: '4–8 weeks' },
 ];
 
 const faqs = [
@@ -101,8 +101,8 @@ const faqs = [
     answer: 'A prepared one-to-three-page launch can often ship in five to seven working days. A complete business site is usually seven to twelve working days, while a signature or integrated launch commonly takes two to six weeks. Complex platforms, migrations, multiple integrations or heavy content production can require six to twelve weeks or longer. These windows depend on a defined scope, prepared facts and assets, required account access, one decision-maker and timely feedback; the proposal names the real schedule before production.',
   },
   {
-    question: 'Why do focused scopes start at $499 while launch systems start at $2,500?',
-    answer: 'They solve different problems. The $499 engagement is a deliberately narrow one-to-three-page launch with one primary conversion and no complex workflow. A launch system carries a broader business story through original design, five to eight launch-critical pages, implementation, an agreed integration, QA and launch ownership. The written scope makes that boundary explicit before work begins.',
+    question: 'Why do focused launches start at $1,500 while connected systems start at $6,500?',
+    answer: 'They solve different problems. The focused engagement is a deliberately narrow one-to-three-page launch with one primary conversion and no complex workflow. A connected launch system carries a broader business story through original design, five to eight launch-critical pages, implementation, an agreed integration, QA and launch ownership. The written scope makes that boundary explicit before work begins.',
   },
   {
     question: 'Do I need finished copy or designs before we begin?',
@@ -261,15 +261,15 @@ export default function CompleteWebsiteLaunchPage() {
         <div className="service-proof-grid">
           <article className="proof-food">
             <div className="proof-visual"><span>B</span><i>Live product</i></div>
-            <div><small>Founder-built restaurant commerce</small><h3>BongFoods — from craving to confirmed order.</h3><p>Product direction, UX/UI, responsive implementation, phone verification, cart, address, delivery-area logic, payments and launch for my own operating food business.</p><a href="/work/bongfoods">View the live-product case study →</a></div>
+            <div><small>Founder-built restaurant commerce</small><h3>BongFoods — from craving to confirmed order.</h3><p>Product direction, UX/UI, responsive implementation, phone verification, cart, address, delivery-area logic, payments and launch for my own operating food business.</p><a href="/work/bongfoods" data-marketing-event="proof_click">View the live-product case study →</a></div>
           </article>
           <article className="proof-market">
             <div className="proof-visual"><span>P</span><i>Speculative concept</i></div>
-            <div><small>Independent product exploration</small><h3>Private market — designing trust through controlled access.</h3><p>A truth-labelled concept for verified members, anonymized opportunities, access requests, NDA gates, matching and a private deal room.</p><a href="/work/private-market-concept">View the speculative case study →</a></div>
+            <div><small>Independent product exploration</small><h3>Private market — designing trust through controlled access.</h3><p>A truth-labelled concept for verified members, anonymized opportunities, access requests, NDA gates, matching and a private deal room.</p><a href="/work/private-market-concept" data-marketing-event="proof_click">View the speculative case study →</a></div>
           </article>
           <article className="proof-studio">
             <div className="proof-visual"><span>SP</span><i>Live self-initiated system</i></div>
-            <div><small>Operating acquisition and qualification system</small><h3>Studio system — connecting the public story to a useful project brief.</h3><p>Positioning, truth-labelled proof, scope guidance, project qualification, source attribution and persistent owner triage shaped as one live business journey. This proves the connected system without claiming client results or guaranteed leads.</p><a href="/work/studio-system">View the live-system case study →</a></div>
+            <div><small>Operating acquisition and qualification system</small><h3>Studio system — connecting the public story to a useful project brief.</h3><p>Positioning, truth-labelled proof, scope guidance, project qualification, source attribution and persistent owner triage shaped as one live business journey. This proves the connected system without claiming client results or guaranteed leads.</p><a href="/work/studio-system" data-marketing-event="proof_click">View the live-system case study →</a></div>
           </article>
         </div>
       </section>
@@ -287,7 +287,7 @@ export default function CompleteWebsiteLaunchPage() {
             </div>
           ))}
         </div>
-        <p className="scope-note">The $499 starting point is deliberately narrow and normally moves in five to seven working days when the inputs are ready. A complete business website is typically seven to twelve working days. An international launch system begins at $2,500 and usually runs three to six weeks when the work includes deeper strategy, five to eight launch-critical pages, original direction, implementation, an agreed integration and launch QA. Complex products, marketplaces, migrations and multi-integration work may run six to twelve weeks or longer and remain custom-scoped. When the budget is lower, I reduce scope rather than quietly reduce the thinking or quality.</p>
+        <p className="scope-note">The $1,500 starting point is deliberately narrow and normally moves in five to seven working days when the inputs are ready. A complete business website starts at $3,000 and is typically seven to fifteen working days. A connected international launch system begins at $6,500 and usually runs four to eight weeks when the work includes deeper strategy, five to eight launch-critical pages, original direction, implementation, an agreed integration and launch QA. Complex products, marketplaces, migrations and multi-integration work may run six to twelve weeks or longer and remain custom-scoped.</p>
         <a href="/services/d2c-commerce-launch" className="service-detail-link">Launching a consumer brand or storefront? <span>See the D2C commerce system →</span></a>
         <a href="#planner" className="service-detail-link">Not sure where the project starts? <span>Build a scope preview ↓</span></a>
       </section>

@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { marketingPagePaths, readStoredMarketingAttribution, storeMarketingAttribution, type MarketingAttribution } from '@/app/marketing-attribution';
+import { marketingEventTypes, type MarketingEventType } from '@/app/marketing-events';
 
 const trackablePaths = new Set<string>(marketingPagePaths);
 
@@ -59,7 +60,7 @@ export function MarketingTracker() {
       referrer,
     };
 
-    function send(eventType: 'page_view' | 'enquiry_click' | 'brief_start') {
+    function send(eventType: MarketingEventType) {
       const storageKey = `sv:event:${eventType}:${pagePath}`;
       if (readSessionValue(storageKey)) return;
       writeSessionValue(storageKey, '1');
@@ -74,8 +75,9 @@ export function MarketingTracker() {
     send('page_view');
 
     function trackClick(event: MouseEvent) {
-      const target = event.target instanceof Element ? event.target.closest('[data-marketing-event="enquiry_click"]') : null;
-      if (target) send('enquiry_click');
+      const target = event.target instanceof Element ? event.target.closest<HTMLElement>('[data-marketing-event]') : null;
+      const eventType = target?.dataset.marketingEvent;
+      if (eventType && marketingEventTypes.includes(eventType as MarketingEventType)) send(eventType as MarketingEventType);
     }
 
     function trackFormStart(event: FocusEvent) {
@@ -83,11 +85,18 @@ export function MarketingTracker() {
       if (target) send('brief_start');
     }
 
+    function trackCustomEvent(event: Event) {
+      const eventType = (event as CustomEvent<{ eventType?: string }>).detail?.eventType;
+      if (eventType && marketingEventTypes.includes(eventType as MarketingEventType)) send(eventType as MarketingEventType);
+    }
+
     document.addEventListener('click', trackClick, { capture: true });
     document.addEventListener('focusin', trackFormStart, { capture: true });
+    window.addEventListener('sv:marketing-event', trackCustomEvent);
     return () => {
       document.removeEventListener('click', trackClick, { capture: true });
       document.removeEventListener('focusin', trackFormStart, { capture: true });
+      window.removeEventListener('sv:marketing-event', trackCustomEvent);
     };
   }, []);
 

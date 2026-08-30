@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { emitMarketingEvent } from '@/app/marketing-events';
 
 type LaunchState = 'new' | 'redesign' | 'connected';
 type CustomerAction = 'trust' | 'enquiry' | 'transaction' | 'workflow';
@@ -65,7 +66,7 @@ function getRecommendation(answers: Required<Answers>) {
   if (answers.customerAction === 'workflow' || answers.integration === 'several') {
     return {
       name: 'Launch System',
-      budget: '$4,000+',
+      budget: '$12,000+',
       project: 'A product or platform experience',
       reason: 'A product workflow or several connected systems needs launch discovery before the customer journey, technical boundary, timing and investment can be fixed responsibly.',
       includes: 'Launch discovery · journey mapping · original interface direction · technical scope · milestone plan',
@@ -75,7 +76,7 @@ function getRecommendation(answers: Required<Answers>) {
   if (answers.customerAction === 'transaction' || answers.integration === 'one' || answers.pageRange === '6–8' || answers.launchState === 'connected') {
     return {
       name: 'Signature + Integration',
-      budget: '$2,000–$4,000',
+      budget: '$6,000–$12,000',
       project: answers.customerAction === 'transaction' ? 'A commerce or ordering experience' : 'A product or platform experience',
       reason: 'The customer journey must connect a deeper public experience to one practical business system, so the integration belongs inside the scope from the start.',
       includes: '6–8 custom pages · original art direction · responsive build · one agreed integration',
@@ -85,7 +86,7 @@ function getRecommendation(answers: Required<Answers>) {
   if (answers.pageRange === '4–5' || answers.pageRange === 'needs-mapping' || answers.contentState === 'needs-shaping' || answers.launchState === 'redesign') {
     return {
       name: 'Business Launch',
-      budget: '$1,000–$2,000',
+      budget: '$3,000–$6,000',
       project: answers.launchState === 'redesign' ? 'A serious website redesign' : 'A new website from scratch',
       reason: 'The business needs a complete public story and enough direction to connect the offer, proof, pages and enquiry journey coherently.',
       includes: 'Up to 5 custom pages · message structure · original design · responsive build · launch',
@@ -94,7 +95,7 @@ function getRecommendation(answers: Required<Answers>) {
 
   return {
     name: 'Launch Essentials',
-    budget: '$500–$1,000',
+    budget: '$1,500–$3,000',
     project: 'A new website from scratch',
     reason: 'The project has one focused goal, a compact page surface and no significant integration, so a deliberately narrow launch is the credible place to begin.',
     includes: '1–3 purposeful pages · focused direction · responsive build · launch',
@@ -137,6 +138,19 @@ export function ScopePlanner() {
   const complete = Boolean(answers.launchState && answers.customerAction && answers.pageRange && answers.integration && answers.contentState);
   const recommendation = complete ? getRecommendation(answers as Required<Answers>) : null;
   const answeredCount = Object.values(answers).filter(Boolean).length;
+  const plannerStarted = useRef(false);
+  const plannerCompleted = useRef(false);
+
+  useEffect(() => {
+    if (answeredCount > 0 && !plannerStarted.current) {
+      plannerStarted.current = true;
+      emitMarketingEvent('planner_start');
+    }
+    if (complete && !plannerCompleted.current) {
+      plannerCompleted.current = true;
+      emitMarketingEvent('planner_complete');
+    }
+  }, [answeredCount, complete]);
 
   function update<K extends keyof Answers>(key: K, value: NonNullable<Answers[K]>) {
     setAnswers((current) => ({ ...current, [key]: value }));

@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { readStoredMarketingAttribution } from '@/app/marketing-attribution';
+import { emitMarketingEvent } from '@/app/marketing-events';
 
 type Brief = {
   name: string;
@@ -18,14 +19,12 @@ const emptyBrief: Brief = {
   name: '',
   email: '',
   company: '',
-  project: 'A new website from scratch',
-  budget: '$500–$1,000',
-  timing: 'Complete business site · 7–12 working days',
+  project: 'Not decided yet',
+  budget: 'Not sure yet',
+  timing: 'Exploring the right timeline',
   goal: '',
   consent: false,
 };
-
-const upworkProjectUrl = 'https://www.upwork.com/services/product/development-it-a-complete-launch-ready-website-for-your-startup-or-small-business-2092747598122889534';
 
 export function ProjectBrief() {
   const [brief, setBrief] = useState<Brief>(emptyBrief);
@@ -80,6 +79,7 @@ export function ProjectBrief() {
       });
       return;
     }
+    emitMarketingEvent('brief_submit');
     setStatus('submitting');
     try {
       const params = new URLSearchParams(window.location.search);
@@ -104,8 +104,10 @@ export function ProjectBrief() {
       const result = (await response.json()) as { reference?: string };
       setReference(result.reference || 'received');
       setStatus('success');
+      emitMarketingEvent('brief_success');
     } catch {
       setStatus('error');
+      emitMarketingEvent('brief_error');
     }
   }
 
@@ -117,7 +119,7 @@ export function ProjectBrief() {
         <p>I’ll review the business goal, scope and timing together and reply using the email you supplied—normally within two working days.</p>
         <div>
           <button type="button" onClick={() => { setBrief(emptyBrief); setReference(''); setStatus('idle'); startedAt.current = 0; }}>Send another enquiry</button>
-          <a href={upworkProjectUrl} target="_blank" rel="noreferrer">Prefer an Upwork contract? ↗</a>
+          <a href="/trust">See how projects are protected →</a>
         </div>
       </div>
     );
@@ -130,22 +132,7 @@ export function ProjectBrief() {
         <label>Your name<input required value={brief.name} onChange={(event) => updateBrief('name', event.target.value)} placeholder="Name" /></label>
         <label>Work email<input required type="email" value={brief.email} onChange={(event) => updateBrief('email', event.target.value)} placeholder="you@company.com" /></label>
       </div>
-      <label>Company or project<input required value={brief.company} onChange={(event) => updateBrief('company', event.target.value)} placeholder="Company name or working title" /></label>
-      <div className="form-row">
-        <label>What do you need?<select value={brief.project} onChange={(event) => updateBrief('project', event.target.value)}><option>A new website from scratch</option><option>A serious website redesign</option><option>A product or platform experience</option><option>A commerce or ordering experience</option></select></label>
-        <label>Working budget<select value={brief.budget} onChange={(event) => updateBrief('budget', event.target.value)}><option>$500–$1,000</option><option>$1,000–$2,000</option><option>$2,000–$4,000</option><option>$4,000+</option><option>Not sure yet</option></select></label>
-      </div>
-      <label>Preferred delivery window
-        <select value={brief.timing} onChange={(event) => updateBrief('timing', event.target.value)}>
-          <option>Focused launch · 5–7 working days</option>
-          <option>Complete business site · 7–12 working days</option>
-          <option>Integrated launch · 2–6 weeks</option>
-          <option>Complex system · 6–12+ weeks</option>
-          <option>There is a fixed launch date</option>
-          <option>Exploring for later</option>
-        </select>
-        <small className="field-help">Fast windows assume approved inputs, required account access, one decision-maker and focused feedback.</small>
-      </label>
+      <label>Company or current website<input required value={brief.company} onChange={(event) => updateBrief('company', event.target.value)} placeholder="Company name or website URL" /></label>
       <label htmlFor="business-goal">What must the website help the business achieve?
         <textarea
           ref={goalField}
@@ -160,6 +147,25 @@ export function ProjectBrief() {
         />
         <small id="business-goal-help" className="field-help">Name the business result, not only the page or feature. If a scope preview was carried in, complete its final prompt.</small>
       </label>
+      <details className="brief-qualifier">
+        <summary>Add scope, budget and timing <span>Optional →</span></summary>
+        <div className="brief-qualifier-fields">
+          <label>What do you need?<select value={brief.project} onChange={(event) => updateBrief('project', event.target.value)}><option>Not decided yet</option><option>A new website from scratch</option><option>A serious website redesign</option><option>A product or platform experience</option><option>A commerce or ordering experience</option></select></label>
+          <label>Working budget<select value={brief.budget} onChange={(event) => updateBrief('budget', event.target.value)}><option>Not sure yet</option><option>$1,500–$3,000</option><option>$3,000–$6,000</option><option>$6,000–$12,000</option><option>$12,000+</option></select></label>
+          <label>Preferred delivery window
+            <select value={brief.timing} onChange={(event) => updateBrief('timing', event.target.value)}>
+              <option>Exploring the right timeline</option>
+              <option>Focused launch · 5–7 working days</option>
+              <option>Complete business site · 7–12 working days</option>
+              <option>Integrated launch · 2–6 weeks</option>
+              <option>Complex system · 6–12+ weeks</option>
+              <option>There is a fixed launch date</option>
+              <option>Exploring for later</option>
+            </select>
+            <small className="field-help">Useful context, not a commitment. The final scope is written after review.</small>
+          </label>
+        </div>
+      </details>
       <label className="consent-field"><input required type="checkbox" checked={brief.consent} onChange={(event) => setBrief((current) => ({ ...current, consent: event.target.checked }))} /><span>I agree that these details may be used to respond to my project enquiry. No mailing list or resale.</span></label>
       <label className="website-field" aria-hidden="true">Website<input tabIndex={-1} autoComplete="off" value={website} onChange={(event) => setWebsite(event.target.value)} /></label>
       <button className="prepare-button" type="submit" disabled={status === 'submitting'}>{status === 'submitting' ? 'Sending securely…' : 'Send project enquiry'} <span>→</span></button>
@@ -168,8 +174,8 @@ export function ProjectBrief() {
       {status === 'error' ? (
         <div className="form-error form-error-recovery" role="alert">
           <strong>The enquiry could not be saved.</strong>
-          <span>Your answers are still here. Try the send button once more, or continue through the verified Upwork project.</span>
-          <a href={upworkProjectUrl} target="_blank" rel="noreferrer">Open the complete-website project on Upwork ↗</a>
+          <span>Your answers are still here. Try the send button once more or email the same brief directly.</span>
+          <a href="mailto:contact@thespstudios.com?subject=Website%20project%20enquiry">Email the studio instead ↗</a>
         </div>
       ) : null}
     </form>

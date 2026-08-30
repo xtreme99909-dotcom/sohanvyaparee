@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ensureLeadsSchema } from '@/db';
 import { marketingPagePaths } from '@/app/marketing-attribution';
+import { marketingEventTypes } from '@/app/marketing-events';
 
-const allowedEvents = new Set(['page_view', 'enquiry_click', 'brief_start']);
+const allowedEvents = new Set<string>(marketingEventTypes);
 const allowedPaths = new Set<string>(marketingPagePaths);
 
 type EventInput = Record<string, unknown>;

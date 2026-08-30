@@ -48,7 +48,7 @@ const services = [
   {
     label: 'A focused first launch',
     title: 'Launch Essentials',
-    price: '$499',
+    price: '$1,500+',
     copy: 'A polished, original website for a new offer or small business that needs to look credible and start generating enquiries.',
     scope: ['Direction call and page plan', '1–3 responsive pages', 'Original visual direction', 'Contact or enquiry flow', 'Deployment and launch support'],
     timing: 'Typical timeline · 5–7 working days',
@@ -56,7 +56,7 @@ const services = [
   {
     label: 'The complete business site',
     title: 'Business Launch',
-    price: '$999',
+    price: '$3,000+',
     copy: 'A complete customer-facing website that explains the business clearly, builds trust and turns attention into a useful next step.',
     scope: ['Strategy and customer journey', 'Up to 5 custom pages', 'Copy and proof structure', 'Forms, analytics and basic SEO', 'Responsive QA and launch'],
     timing: 'Typical timeline · 7–12 working days',
@@ -64,7 +64,7 @@ const services = [
   {
     label: 'More pages, polish and systems',
     title: 'Signature + Integration',
-    price: '$1,799',
+    price: '$5,000+',
     copy: 'A more distinctive website for an established brand, product or service that needs deeper storytelling and a connected business workflow.',
     scope: ['Positioning and creative direction', '6–8 custom pages', 'Advanced responsive interactions', 'One agreed CRM, booking or API integration', 'Performance, QA and launch support'],
     timing: 'Typical timeline · 2–4 weeks',
@@ -107,9 +107,9 @@ export default function Home() {
           </div>
           <div className="hero-actions">
             <a href="/services/complete-website-launch#planner" className="primary-action">Plan your website <span>↗</span></a>
-            <a href="/work" className="text-action">See real work <span>↗</span></a>
+            <a href="/work" className="text-action" data-marketing-event="proof_click">See real work <span>↗</span></a>
           </div>
-          <p className="fit-note">Focused projects from $499 · complete business sites from $999 · no account required · normally answered within two working days.</p>
+          <p className="fit-note">Focused launches from $1,500 · complete business sites from $3,000 · no account required · normally answered within two working days.</p>
         </div>
 
         <DirectionBoard />
@@ -256,8 +256,8 @@ export default function Home() {
 
       <section className="services-section section-shell">
         <div className="section-heading-row">
-          <div><p className="section-index">05 · Engagements</p><h2>Clear starting prices. No mystery.</h2></div>
-          <p>Focused engagements start at $499. Larger launch systems begin at $2,500 when strategy, deeper customer journeys, integrations and launch responsibility need to work together. Final scope, timing and milestones are written before production.</p>
+          <div><p className="section-index">05 · Engagements</p><h2>Clear starting investments. Written scope.</h2></div>
+          <p>Focused launches start at $1,500. Complete business sites start at $3,000, while connected launch systems begin at $6,500. Final scope, timing, milestones and commercial terms are written before production.</p>
         </div>
         <div className="services-grid">
           {services.map((service, index) => (
@@ -282,7 +282,7 @@ export default function Home() {
             <h3 id="launch-system-title">International Launch System</h3>
           </div>
           <div>
-            <strong>$2,500+ <small>USD · custom scope</small></strong>
+            <strong>$6,500+ <small>USD · custom scope</small></strong>
             <p>For a qualified D2C, SaaS, hospitality or high-trust business that needs strategy, five to eight launch-critical pages, original design, responsive implementation, an agreed integration, QA and launch ownership. Typical delivery is three to six weeks when content, access and decisions are ready.</p>
           </div>
           <div className="launch-system-actions">

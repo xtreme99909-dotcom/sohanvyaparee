@@ -62,7 +62,7 @@ const professionalServiceSchema = {
   url: siteUrl,
   image: `${siteUrl}/og.png`,
   description: 'Complete websites from strategy and art direction through responsive build, integrations and launch.',
-  priceRange: '$499–$2,500+',
+  priceRange: '$1,500–$6,500+',
   areaServed: [
     { '@type': 'Country', name: 'India' },
     { '@type': 'Place', name: 'Worldwide' },
@@ -72,9 +72,9 @@ const professionalServiceSchema = {
     '@type': 'OfferCatalog',
     name: 'Complete website engagements',
     itemListElement: [
-      { '@type': 'Offer', name: 'Launch Essentials', price: '499', priceCurrency: 'USD', url: `${siteUrl}/services/complete-website-launch#scope` },
-      { '@type': 'Offer', name: 'Business Launch', price: '999', priceCurrency: 'USD', url: `${siteUrl}/services/complete-website-launch#scope` },
-      { '@type': 'Offer', name: 'International Launch System', price: '2500', priceCurrency: 'USD', url: `${siteUrl}/services/complete-website-launch#scope` },
+      { '@type': 'Offer', name: 'Launch Essentials', price: '1500', priceCurrency: 'USD', url: `${siteUrl}/services/complete-website-launch#scope` },
+      { '@type': 'Offer', name: 'Business Launch', price: '3000', priceCurrency: 'USD', url: `${siteUrl}/services/complete-website-launch#scope` },
+      { '@type': 'Offer', name: 'International Launch System', price: '6500', priceCurrency: 'USD', url: `${siteUrl}/services/complete-website-launch#scope` },
     ],
   },
   founder: {

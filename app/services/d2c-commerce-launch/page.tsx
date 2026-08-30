@@ -7,7 +7,7 @@ const servicePath = '/services/d2c-commerce-launch';
 
 export const metadata: Metadata = {
   title: 'D2C & Ecommerce Website Design and Launch | SP Studios',
-  description: 'A complete D2C website launch system connecting brand positioning, product discovery, trust, responsive commerce, integrations, QA and launch. Engagements start at $2,500+.',
+  description: 'A complete D2C website launch system connecting brand positioning, product discovery, trust, responsive commerce, integrations, QA and launch. Qualified systems start at $6,500+.',
   alternates: { canonical: servicePath },
   keywords: [
     'D2C website design and development',
@@ -77,7 +77,7 @@ const faqs = [
   },
   {
     question: 'How much does a D2C launch website cost?',
-    answer: 'The International Launch System starts at $2,500 for a qualified launch with five to eight launch-critical pages, original direction, implementation, one agreed integration, QA and launch ownership. Larger catalogues, migrations, custom operations, multiple integrations or content production increase the written scope.',
+    answer: 'The International Launch System starts at $6,500 for a qualified launch with five to eight launch-critical pages, original direction, implementation, one agreed integration, QA and launch ownership. Larger catalogues, migrations, custom operations, multiple integrations or content production increase the written scope.',
   },
   {
     question: 'What must the founder or team provide?',
@@ -98,7 +98,7 @@ const serviceSchema = {
   offers: {
     '@type': 'Offer',
     name: 'International Launch System',
-    price: '2500',
+    price: '6500',
     priceCurrency: 'USD',
     description: 'Starting scope for qualified D2C launches. Final price follows catalogue, content, integrations, migration and launch risk.',
   },
@@ -146,7 +146,7 @@ export default function D2CCommerceLaunchPage() {
             <a href="#brief" className="primary-action" data-marketing-event="enquiry_click">Discuss the launch <span>↗</span></a>
             <a href="#journey" className="text-action">See the buying system <span>↓</span></a>
           </div>
-          <small>Independent studio · India / Worldwide · Qualified launch systems from $2,500</small>
+          <small>Independent studio · India / Worldwide · Qualified launch systems from $6,500</small>
         </div>
 
         <aside className="d2c-journey-board" aria-label="D2C customer journey from discovery to repeat relationship">
@@ -165,7 +165,7 @@ export default function D2CCommerceLaunchPage() {
 
       <section className="service-signal-strip" aria-label="D2C launch working model">
         <div><span>System</span><strong>Brand through checkout</strong></div>
-        <div><span>Starting scope</span><strong>$2,500+ after qualification</strong></div>
+        <div><span>Starting scope</span><strong>$6,500+ after qualification</strong></div>
         <div><span>Accountability</span><strong>Direction through launch QA</strong></div>
       </section>
 
@@ -225,7 +225,7 @@ export default function D2CCommerceLaunchPage() {
 
       <section id="investment" className="d2c-investment">
         <div className="section-shell d2c-investment-grid">
-          <div><p className="section-index light">05 · Investment boundary</p><h2>Launch systems start at <em>$2,500.</em></h2></div>
+          <div><p className="section-index light">05 · Investment boundary</p><h2>Launch systems start at <em>$6,500.</em></h2></div>
           <div>
             <p>This is not a blanket store price. Final investment follows catalogue size, product content, migration, custom operations, integrations, launch timing and the team’s readiness to decide.</p>
             <ul><li>Focused 5–8 page launch-critical scope</li><li>Original direction and responsive implementation</li><li>One agreed integration inside the starting boundary</li><li>QA, deployment and launch handover</li></ul>

@@ -296,6 +296,14 @@ h1 span { display: block; margin-top: .16em; color: #5b655f; font-style: italic;
 .brief-form .field-help { color: rgba(255,255,255,.52); font-size: 8px; font-weight: 500; letter-spacing: 0; line-height: 1.55; text-transform: none; }
 .brief-form option { color: var(--ink); }
 .brief-form ::placeholder { color: rgba(255,255,255,.56); }
+.brief-qualifier { border-block: 1px solid rgba(255,255,255,.14); }
+.brief-qualifier summary { display: flex; align-items: center; justify-content: space-between; gap: 20px; cursor: pointer; list-style: none; padding: 16px 0; color: rgba(255,255,255,.72); font-size: 9px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.brief-qualifier summary::-webkit-details-marker { display: none; }
+.brief-qualifier summary::before { content: '+'; display: grid; flex: 0 0 22px; width: 22px; height: 22px; place-items: center; border: 1px solid rgba(255,255,255,.28); border-radius: 50%; color: var(--acid); font-size: 13px; transition: transform .2s ease, border-color .2s ease; }
+.brief-qualifier[open] summary::before { transform: rotate(45deg); border-color: var(--acid); }
+.brief-qualifier summary span { margin-left: auto; color: var(--acid); font-size: 8px; }
+.brief-qualifier-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; padding: 5px 0 22px; }
+.brief-qualifier-fields label:last-child { grid-column: 1 / -1; }
 .prepare-button { display: flex; align-items: center; justify-content: space-between; width: 100%; margin-top: 8px; border: 0; border-radius: 999px; background: var(--acid); color: var(--ink); padding: 17px 22px; font-size: 10px; font-weight: 750; letter-spacing: .07em; text-transform: uppercase; }
 .prepare-button:disabled { cursor: wait; opacity: .7; }
 .consent-field { display: grid !important; grid-template-columns: 18px 1fr; align-items: start; gap: 11px !important; text-transform: none !important; letter-spacing: 0 !important; line-height: 1.55; }
@@ -414,6 +422,8 @@ footer { background: #0f1512; color: white; padding: 45px 4.4vw 25px; }
   .founder-portrait, .founder-portrait img { min-height: 430px; }
   .founder-portrait figcaption { align-items: flex-start; flex-direction: column; gap: 8px; }
   .form-row { grid-template-columns: 1fr; }
+  .brief-qualifier-fields { grid-template-columns: 1fr; }
+  .brief-qualifier-fields label:last-child { grid-column: auto; }
   .footer-main { align-items: flex-start; flex-direction: column; }
   .footer-small { flex-direction: column; gap: 10px; }
 }
