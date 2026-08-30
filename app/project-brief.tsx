@@ -36,6 +36,10 @@ export function ProjectBrief() {
   const goalField = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
+    startedAt.current = Date.now();
+  }, []);
+
+  useEffect(() => {
     function applyScopePlan(event: Event) {
       const detail = (event as CustomEvent<Partial<Brief> & { recommendation?: string }>).detail;
       if (!detail || typeof detail.project !== 'string' || typeof detail.budget !== 'string' || typeof detail.goal !== 'string') return;
@@ -128,24 +132,26 @@ export function ProjectBrief() {
   return (
     <form onSubmit={submitBrief} onFocusCapture={() => { if (!startedAt.current) startedAt.current = Date.now(); }} className="brief-form">
       {plannerApplied ? <p className="scope-plan-applied" role="status"><span>Scope carried in</span><strong>{plannerApplied}</strong>Review the prefilled choices and add the business-specific result before sending.</p> : null}
+      <p className="brief-time"><strong>Three details · about 45 seconds</strong><span>No account, sales sequence or repeated form.</span></p>
       <div className="form-row">
-        <label>Your name<input required value={brief.name} onChange={(event) => updateBrief('name', event.target.value)} placeholder="Name" /></label>
-        <label>Work email<input required type="email" value={brief.email} onChange={(event) => updateBrief('email', event.target.value)} placeholder="you@company.com" /></label>
+        <label>Your name<input required autoComplete="name" value={brief.name} onChange={(event) => updateBrief('name', event.target.value)} placeholder="Name" /></label>
+        <label>Email<input required type="email" autoComplete="email" value={brief.email} onChange={(event) => updateBrief('email', event.target.value)} placeholder="you@company.com" /></label>
       </div>
-      <label>Company or current website<input required value={brief.company} onChange={(event) => updateBrief('company', event.target.value)} placeholder="Company name or website URL" /></label>
-      <label htmlFor="business-goal">What must the website help the business achieve?
+      <label><span className="field-label">Company or current website <em className="optional-label">Optional</em></span><input autoComplete="organization" value={brief.company} onChange={(event) => updateBrief('company', event.target.value)} placeholder="Company name or website URL" /></label>
+      <label htmlFor="business-goal">What are you building—and what should it help the business achieve?
         <textarea
           ref={goalField}
           id="business-goal"
           required
+          minLength={12}
           rows={4}
           value={brief.goal}
           onChange={(event) => updateBrief('goal', event.target.value)}
-          placeholder="For example: explain a new product clearly, generate qualified enquiries, take direct orders, or reposition the company…"
+          placeholder="For example: a new service website that explains the offer clearly and generates qualified enquiries…"
           aria-invalid={status === 'needs-detail'}
           aria-describedby={status === 'needs-detail' ? 'business-goal-help business-goal-error' : 'business-goal-help'}
         />
-        <small id="business-goal-help" className="field-help">Name the business result, not only the page or feature. If a scope preview was carried in, complete its final prompt.</small>
+        <small id="business-goal-help" className="field-help">Two or three sentences are enough. If a scope preview was carried in, complete its final prompt.</small>
       </label>
       <details className="brief-qualifier">
         <summary>Add scope, budget and timing <span>Optional →</span></summary>
@@ -156,8 +162,8 @@ export function ProjectBrief() {
             <select value={brief.timing} onChange={(event) => updateBrief('timing', event.target.value)}>
               <option>Exploring the right timeline</option>
               <option>Focused launch · 5–7 working days</option>
-              <option>Complete business site · 7–12 working days</option>
-              <option>Integrated launch · 2–6 weeks</option>
+              <option>Complete business site · 7–15 working days</option>
+              <option>Integrated launch · 3–8 weeks</option>
               <option>Complex system · 6–12+ weeks</option>
               <option>There is a fixed launch date</option>
               <option>Exploring for later</option>
@@ -166,9 +172,9 @@ export function ProjectBrief() {
           </label>
         </div>
       </details>
-      <label className="consent-field"><input required type="checkbox" checked={brief.consent} onChange={(event) => setBrief((current) => ({ ...current, consent: event.target.checked }))} /><span>I agree that these details may be used to respond to my project enquiry. No mailing list or resale.</span></label>
+      <label className="consent-field"><input required type="checkbox" checked={brief.consent} onChange={(event) => setBrief((current) => ({ ...current, consent: event.target.checked }))} /><span>Use these details only to respond to this project enquiry. No mailing list or resale.</span></label>
       <label className="website-field" aria-hidden="true">Website<input tabIndex={-1} autoComplete="off" value={website} onChange={(event) => setWebsite(event.target.value)} /></label>
-      <button className="prepare-button" type="submit" disabled={status === 'submitting'}>{status === 'submitting' ? 'Sending securely…' : 'Send project enquiry'} <span>→</span></button>
+      <button className="prepare-button" type="submit" disabled={status === 'submitting'}>{status === 'submitting' ? 'Sending securely…' : 'Send my project brief'} <span>→</span></button>
       <p className="form-privacy">One submission reaches the studio directly. Read the <a href="/privacy">privacy note</a>.</p>
       {status === 'needs-detail' ? <p id="business-goal-error" className="form-error" role="alert">Add the specific business result the website must achieve after “Business-specific result needed” before sending.</p> : null}
       {status === 'error' ? (

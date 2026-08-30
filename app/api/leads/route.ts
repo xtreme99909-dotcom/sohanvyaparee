@@ -35,14 +35,14 @@ export async function POST(request: NextRequest) {
 
     const name = clean(input.name, 100);
     const email = clean(input.email, 160).toLowerCase();
-    const company = clean(input.company, 140);
+    const company = clean(input.company, 140) || 'Not supplied';
     const projectType = clean(input.project, 100);
     const budget = clean(input.budget, 60);
     const timing = clean(input.timing, 80);
     const goal = clean(input.goal, 2_500);
     const consent = input.consent === true;
 
-    if (!name || !validEmail(email) || !company || !projectType || !budget || !timing || goal.length < 12 || !consent) {
+    if (!name || !validEmail(email) || !projectType || !budget || !timing || goal.length < 12 || !consent) {
       return NextResponse.json({ error: 'Please complete every required field.' }, { status: 400 });
     }
 

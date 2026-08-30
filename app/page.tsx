@@ -59,7 +59,7 @@ const services = [
     price: '$3,000+',
     copy: 'A complete customer-facing website that explains the business clearly, builds trust and turns attention into a useful next step.',
     scope: ['Strategy and customer journey', 'Up to 5 custom pages', 'Copy and proof structure', 'Forms, analytics and basic SEO', 'Responsive QA and launch'],
-    timing: 'Typical timeline · 7–12 working days',
+    timing: 'Typical timeline · 7–15 working days',
   },
   {
     label: 'More pages, polish and systems',
@@ -67,7 +67,7 @@ const services = [
     price: '$5,000+',
     copy: 'A more distinctive website for an established brand, product or service that needs deeper storytelling and a connected business workflow.',
     scope: ['Positioning and creative direction', '6–8 custom pages', 'Advanced responsive interactions', 'One agreed CRM, booking or API integration', 'Performance, QA and launch support'],
-    timing: 'Typical timeline · 2–4 weeks',
+    timing: 'Typical timeline · 3–6 weeks',
   },
 ];
 
@@ -274,7 +274,7 @@ export default function Home() {
         <aside className="delivery-speed-note" aria-labelledby="delivery-speed-title">
           <span>Focused delivery</span>
           <strong id="delivery-speed-title">Most business websites launch in days or weeks—not open-ended months.</strong>
-          <p>A prepared one-to-three-page launch can move live in roughly one working week. A complete business site is usually seven to twelve working days. Larger integrations, commerce, migrations or platform work are planned in phases and may run six to twelve weeks or longer. The written scope names the real window before production.</p>
+          <p>A prepared one-to-three-page launch can move live in roughly one working week. A complete business site is usually seven to fifteen working days. Larger integrations, commerce, migrations or platform work are planned in phases and may run six to twelve weeks or longer. The written scope names the real window before production.</p>
         </aside>
         <aside className="launch-system-callout" aria-labelledby="launch-system-title">
           <div>
@@ -283,7 +283,7 @@ export default function Home() {
           </div>
           <div>
             <strong>$6,500+ <small>USD · custom scope</small></strong>
-            <p>For a qualified D2C, SaaS, hospitality or high-trust business that needs strategy, five to eight launch-critical pages, original design, responsive implementation, an agreed integration, QA and launch ownership. Typical delivery is three to six weeks when content, access and decisions are ready.</p>
+            <p>For a qualified D2C, SaaS, hospitality or high-trust business that needs strategy, five to eight launch-critical pages, original design, responsive implementation, an agreed integration, QA and launch ownership. Typical delivery is four to eight weeks when content, access and decisions are ready.</p>
           </div>
           <div className="launch-system-actions">
             <a href="/services/complete-website-launch#scope" className="launch-primary-link">See the full scope boundary <span>↗</span></a>

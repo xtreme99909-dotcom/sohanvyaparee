@@ -10,15 +10,15 @@ This packet replaces the earlier, inaccurate assumption that those features were
 
 Approve or decline one **public positioning, proof, attribution, discovery and focused D2C inbound release**:
 
-- Add the **International Launch System** as a clearly bounded `$2,500+` engagement for qualified D2C, SaaS, hospitality and high-trust launches.
+- Add the **International Launch System** as a clearly bounded `$6,500+` engagement for qualified D2C, SaaS, hospitality and high-trust launches.
 - Give international buyers one explicit working model for written scope and currency, asynchronous time-zone collaboration, 50 / 30 / 20 milestone gates and private provider-verified payment after agreement. Do not imply that a public checkout or merchant integration is already live.
-- Preserve the focused `$499 / $999 / $1,799+` entry ladder and explain that the lowest price is deliberately narrow.
+- Use one current offer ladder everywhere: `$1,500+` focused launch, `$3,000+` complete business site, `$5,000+` signature integration and `$6,500+` international launch system.
 - Rename the planner's complex-work result from generic “Custom scope” to “Launch System” while retaining responsible discovery before quotation.
 - Update the service schema and repository offer table to the same upper boundary.
 - Count the live Studio-system case study as proof and use one shared public-page allowlist so client and server tracking cannot drift.
 - Preserve the original campaign source when a visitor lands on one page, navigates internally and submits the project brief later.
 - Connect the studio, founder, service and verified public identity profiles in structured data, expose the public GitHub source as proof and remove false generated-today dates from the static sitemap.
-- Add one substantive D2C and ecommerce launch destination for qualified brands. It connects customer discovery, trust, commerce, integrations, QA and launch; uses only truthful BongFoods proof; keeps a `$2,500+` boundary; and routes buyers into the existing qualified brief. Connect it contextually from both the BongFoods proof and the larger launch-system offer on the homepage.
+- Add one substantive D2C and ecommerce launch destination for qualified brands. It connects customer discovery, trust, commerce, integrations, QA and launch; uses only truthful BongFoods proof; keeps a `$6,500+` boundary; and routes buyers into the existing qualified brief. Connect it contextually from both the BongFoods proof and the larger launch-system offer on the homepage.
 - Add one dedicated **Selected Work** index that lets a buyer compare the live founder-built product, live self-initiated acquisition system and speculative product concept by evidence, responsibility, commercial relevance and truth boundary. Connect it from the homepage and all three detailed case studies, include it in attribution and the sitemap, and preserve the existing honest labels.
 - Add a buyer-controlled proof navigator to Selected Work. Commerce, service-business and platform buyers can choose the commercial problem closest to theirs and immediately see the recommended case, the risk it addresses, the evidence signals and a relevant next step. Preserve all three server-rendered studies below it so discovery and truth labels do not depend on interaction.
 - Make the homepage direction board genuinely interactive: four selectable Direction / Experience / Build / Launch states, calm automatic progression, pause on pointer or keyboard engagement and a complete reduced-motion stop. Add only restrained scroll-header and proof-card depth so the buyer path remains the focus.
@@ -28,6 +28,7 @@ Approve or decline one **public positioning, proof, attribution, discovery and f
 - Sharpen the homepage search title, description, service keywords and ProfessionalService offer catalogue around complete website design and development for businesses in India and worldwide. Preserve the existing Google verification token, sitemap, robots rules and honest service-page structured data.
 - Make delivery speed a credible commercial advantage: five to seven working days for a prepared focused launch, seven to twelve working days for a complete business site, two to six weeks for signature and launch-system work, and six to twelve-plus weeks only for genuinely complex platforms, migrations, multi-integration or content-heavy work. Tie every window to scope, access, inputs, one decision-maker and timely feedback instead of claiming an unsupported universal rush delivery.
 - Align the project brief to the same delivery bands so fast-launch enquiries arrive with a realistic selected window. Explain beside the field that the shortest schedules require approved inputs, account access, one decision-maker and focused feedback; preserve the existing database shape by storing the choice in the current timing field.
+- Reduce avoidable brief friction without opening the inbox to anonymous requests: name, email and business outcome remain required; company becomes optional; autofill works safely with the anti-spam timer; consent and the private-inbox boundary remain explicit.
 
 Approval for this release does not authorize outreach, public posting, follow-ups, profile changes, paid promotion, production form submissions or sharing any private prospect concept.
 
@@ -45,7 +46,7 @@ If Tenderma positively asks to review the direction later, prepare a separate no
 
 ## Current evidence — read-only check
 
-- Protected website desk: **23 visits, 3 offer views, 2 proof views, 1 enquiry click, 2 brief starts and 0 captured leads** in the displayed rolling 30-day snapshot.
+- Protected website desk: **64 visits, 8 offer views, 6 proof views, 4 enquiry clicks, 7 brief starts and 0 captured leads** in the displayed rolling 30-day snapshot on 31 August 2026.
 - Bread Butter Jamm: the clean concept link remains seen by Abhishek with no new reply.
 - Growfusely: no reply is visible to the delivered partnership message.
 - Upwork Project Catalog: **4 views and 0 orders** in the displayed rolling 30-day snapshot.
