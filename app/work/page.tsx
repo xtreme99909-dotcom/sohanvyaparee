@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Sites/vinext Link prefetch throws at runtime; full-page navigation is intentional here. */
 import type { Metadata } from 'next';
+import { WorkProofNavigator } from './work-proof-navigator';
 
 export const metadata: Metadata = {
   title: 'Selected Work & Website Case Studies — Sohan Vyaparee',
@@ -123,9 +124,11 @@ export default function WorkIndex() {
         {capabilities.map((capability) => <span key={capability}>{capability}</span>)}
       </section>
 
+      <WorkProofNavigator />
+
       <section id="projects" className="work-index-projects">
         <div className="section-shell work-index-heading">
-          <div><p className="section-index light">01 · Inspect the work</p><h2>Different contexts. One connected standard.</h2></div>
+          <div><p className="section-index light">02 · Inspect the work</p><h2>Different contexts. One connected standard.</h2></div>
           <p>The visual language changes with the business. The discipline does not: clarify the decision, design the journey, build the real surface and protect the truth.</p>
         </div>
 
@@ -158,7 +161,7 @@ export default function WorkIndex() {
 
       <section id="evidence" className="work-evidence section-shell">
         <div className="work-evidence-intro">
-          <p className="section-index">02 · How to read the evidence</p>
+          <p className="section-index">03 · How to read the evidence</p>
           <h2>Choose the proof closest to your risk.</h2>
           <p>A restaurant owner may care most about the live transaction path. A founder launching a service needs the studio’s positioning and qualification system. A platform team may care about the private-market workflow depth.</p>
         </div>
