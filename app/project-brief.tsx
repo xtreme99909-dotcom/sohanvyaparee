@@ -20,7 +20,7 @@ const emptyBrief: Brief = {
   company: '',
   project: 'A new website from scratch',
   budget: '$500–$1,000',
-  timing: 'Within 1–2 months',
+  timing: 'Complete business site · 7–12 working days',
   goal: '',
   consent: false,
 };
@@ -135,7 +135,17 @@ export function ProjectBrief() {
         <label>What do you need?<select value={brief.project} onChange={(event) => updateBrief('project', event.target.value)}><option>A new website from scratch</option><option>A serious website redesign</option><option>A product or platform experience</option><option>A commerce or ordering experience</option></select></label>
         <label>Working budget<select value={brief.budget} onChange={(event) => updateBrief('budget', event.target.value)}><option>$500–$1,000</option><option>$1,000–$2,000</option><option>$2,000–$4,000</option><option>$4,000+</option><option>Not sure yet</option></select></label>
       </div>
-      <label>Preferred timing<select value={brief.timing} onChange={(event) => updateBrief('timing', event.target.value)}><option>Within 1–2 months</option><option>Within 3–4 months</option><option>Exploring for later</option><option>There is a fixed launch date</option></select></label>
+      <label>Preferred delivery window
+        <select value={brief.timing} onChange={(event) => updateBrief('timing', event.target.value)}>
+          <option>Focused launch · 5–7 working days</option>
+          <option>Complete business site · 7–12 working days</option>
+          <option>Integrated launch · 2–6 weeks</option>
+          <option>Complex system · 6–12+ weeks</option>
+          <option>There is a fixed launch date</option>
+          <option>Exploring for later</option>
+        </select>
+        <small className="field-help">Fast windows assume approved inputs, required account access, one decision-maker and focused feedback.</small>
+      </label>
       <label htmlFor="business-goal">What must the website help the business achieve?
         <textarea
           ref={goalField}
