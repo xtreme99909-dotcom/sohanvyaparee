@@ -320,7 +320,12 @@ export default function Home() {
         <p className="section-index">06 · The person directing it</p>
         <div className="about-grid">
           <figure className="founder-portrait">
-            <Image src="/founder-sohan.jpg" width={1200} height={1187} sizes="(max-width: 1080px) 91vw, 36vw" alt="Sohan Vyaparee, founder and website creative director" />
+            <Image
+              src="/founder-sohan-black-shirt.jpg"
+              fill
+              sizes="(max-width: 1080px) 91vw, 36vw"
+              alt="Sohan Vyaparee, founder and creative director of SP Studios"
+            />
             <figcaption><span>Founder · Director · Builder</span><strong>Sohan Vyaparee</strong></figcaption>
           </figure>
           <div>
