@@ -52,10 +52,10 @@ CGI, animation, advertising and visual storytelling experience inform the compos
 
 | Engagement | Best for | Typical delivery | Starting at |
 | --- | --- | --- | ---: |
-| Launch Essentials | A focused 1–3 page first launch | 5–7 working days | $499 |
-| Business Launch | A complete business website of up to 5 custom pages | 7–12 working days | $999 |
-| Signature + Integration | Deeper storytelling, 6–8 pages and one agreed integration | 2–4 weeks | $1,799+ |
-| International Launch System | Strategy, 5–8 launch-critical pages, original design, implementation, an agreed integration, QA and launch ownership | 3–6 weeks | $2,500+ custom |
+| Launch Essentials | A focused 1–3 page first launch | 5–7 working days | $1,500+ |
+| Business Launch | A complete business website of up to 5 custom pages | 7–15 working days | $3,000+ |
+| Signature + Integration | Deeper storytelling, 6–8 pages and one agreed integration | 3–6 weeks | $5,000+ |
+| International Launch System | Strategy, 5–8 launch-critical pages, original design, implementation, an agreed integration, QA and launch ownership | 4–8 weeks | $6,500+ |
 
 Complex platforms, migrations, multi-integration or content-heavy systems may require 6–12 weeks or longer. Final scope, timing and milestones are confirmed in a written proposal before work begins.
 
