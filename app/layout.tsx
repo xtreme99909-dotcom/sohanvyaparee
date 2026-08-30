@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     'complete business website',
     'business website design India',
     'creative website development',
-    'AI assisted website development',
+    'end to end website design and development',
   ],
   verification: { google: '15b--V8aDq-uI8hK9-ye9vJP0yT2wSOeGey-HlJqbfs' },
   robots: { index: true, follow: true },

@@ -98,7 +98,7 @@ const engagements = [
 const faqs = [
   {
     question: 'How quickly can the website launch?',
-    answer: 'A prepared one-to-three-page launch can often ship in five to seven working days. A complete business site is usually seven to twelve working days, while a signature or integrated launch commonly takes two to six weeks. Complex platforms, migrations, multiple integrations or heavy content production can require six to twelve weeks or longer. These windows depend on a defined scope, prepared facts and assets, required account access, one decision-maker and timely feedback; the proposal names the real schedule before production.',
+    answer: 'A prepared one-to-three-page launch can often ship in five to seven working days. A complete business site is usually seven to fifteen working days, while a signature or integrated launch commonly takes three to eight weeks. Complex platforms, migrations, multiple integrations or heavy content production can require six to twelve weeks or longer. These windows depend on a defined scope, prepared facts and assets, required account access, one decision-maker and timely feedback; the proposal names the real schedule before production.',
   },
   {
     question: 'Why do focused launches start at $1,500 while connected systems start at $6,500?',
@@ -166,6 +166,15 @@ const faqSchema = {
   })),
 };
 
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'SP Studios', item: siteUrl },
+    { '@type': 'ListItem', position: 2, name: 'Complete Website Design and Development', item: `${siteUrl}/services/complete-website-launch` },
+  ],
+};
+
 export default function CompleteWebsiteLaunchPage() {
   return (
     <main id="top" className="service-page">
@@ -191,7 +200,7 @@ export default function CompleteWebsiteLaunchPage() {
             <a href="#brief" className="primary-action" data-marketing-event="enquiry_click">Describe the project <span>↗</span></a>
             <a href="#proof" className="text-action">See honest proof <span>↓</span></a>
           </div>
-          <small>Independent studio · India / Worldwide · Focused scopes from $499 · Launch systems from $2,500</small>
+          <small>Independent studio · India / Worldwide · Focused launches from $1,500 · Complete business sites from $3,000</small>
         </div>
 
         <aside className="responsibility-board" aria-label="What the complete website engagement includes">
@@ -361,6 +370,7 @@ export default function CompleteWebsiteLaunchPage() {
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
     </main>
   );
 }

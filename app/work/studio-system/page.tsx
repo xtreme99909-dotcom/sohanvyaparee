@@ -173,7 +173,7 @@ export default function StudioSystemCaseStudy() {
                 </div>
 
                 <div className="market-deal-strip">
-                  <div><span>Starting engagements</span><strong>$499 · $999 · $1,799</strong></div>
+                  <div><span>Starting engagements</span><strong>$1,500 · $3,000 · $5,000+</strong></div>
                   <div><span>Response</span><strong>Normally within 2 working days</strong></div>
                   <div><span>Owner desk</span><strong>Triage · reply · next action</strong></div>
                   <div><span>Attribution</span><strong>Original source preserved</strong></div>
