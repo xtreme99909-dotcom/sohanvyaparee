@@ -3,12 +3,18 @@ import { DirectionBoard } from './direction-board';
 import { ProjectBrief } from './project-brief';
 
 const disciplines = [
-  'Strategy',
-  'Art direction',
-  'UX & copy structure',
-  'Responsive build',
-  'Integrations',
-  'Launch',
+  'Business clarity',
+  'Original design',
+  'Mobile-ready build',
+  'Forms & bookings',
+  'SEO foundations',
+  'Launch support',
+];
+
+const heroClarity = [
+  { label: 'You bring', value: 'The business, offer or problem' },
+  { label: 'I handle', value: 'Strategy, design, build & integrations' },
+  { label: 'We launch', value: 'A clear, customer-ready website' },
 ];
 
 const process = [
@@ -83,19 +89,27 @@ export default function Home() {
 
       <section id="top" className="hero-shell">
         <div className="hero-copy">
-          <p className="eyebrow"><span /> Independent website studio · India / Worldwide</p>
+          <p className="eyebrow"><span /> Website strategy, design & development · India / Worldwide</p>
           <h1>
-            From business idea
-            <span>to a website ready for market.</span>
+            A complete website,
+            <span>built around your business.</span>
           </h1>
           <p className="hero-intro">
-            I direct the strategy, customer journey, visual language and build—then carry it through integrations, polish and launch. One accountable creative partner, from blank page to live product.
+            For founders and growing businesses. Tell me what you are launching; I shape the message, original design, responsive build, integrations and go-live—so you do not have to coordinate separate strategists, designers and developers.
           </p>
-          <div className="hero-actions">
-            <a href="/services/complete-website-launch#planner" className="primary-action">Build a realistic scope <span>↗</span></a>
-            <a href="/work" className="text-action">See selected work <span>↗</span></a>
+          <div className="hero-clarity" aria-label="How a complete website project works">
+            {heroClarity.map((item, index) => (
+              <div key={item.label}>
+                <span>0{index + 1} · {item.label}</span>
+                <strong>{item.value}</strong>
+              </div>
+            ))}
           </div>
-          <p className="fit-note">A sixty-second scope preview before the project brief · no account and no automatic quotation.</p>
+          <div className="hero-actions">
+            <a href="/services/complete-website-launch#planner" className="primary-action">Plan your website <span>↗</span></a>
+            <a href="/work" className="text-action">See real work <span>↗</span></a>
+          </div>
+          <p className="fit-note">Focused projects from $499 · complete business sites from $999 · no account required · normally answered within two working days.</p>
         </div>
 
         <DirectionBoard />

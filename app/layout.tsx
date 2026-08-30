@@ -22,15 +22,16 @@ const editorial = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'Sohan Vyaparee — Complete Websites from Direction to Launch',
-  description: 'Strategy, art direction, customer experience, responsive development and launch—directed as one complete website project.',
+  title: 'Website Design & Development for Businesses | Sohan Vyaparee',
+  description: 'Complete website strategy, original design, responsive development, integrations and launch for founders and growing businesses in India and worldwide.',
   applicationName: 'Sohan Vyaparee — Independent Website Studio',
   alternates: { canonical: '/' },
   keywords: [
-    'website design and development',
+    'website design and development services',
+    'website designer and developer India',
     'website designer for startups',
     'complete business website',
-    'web design India',
+    'business website design India',
     'creative website development',
     'AI assisted website development',
   ],
@@ -59,7 +60,20 @@ const professionalServiceSchema = {
   image: `${siteUrl}/og.png`,
   description: 'Complete websites from strategy and art direction through responsive build, integrations and launch.',
   priceRange: '$499–$2,500+',
-  areaServed: 'Worldwide',
+  areaServed: [
+    { '@type': 'Country', name: 'India' },
+    { '@type': 'Place', name: 'Worldwide' },
+  ],
+  knowsAbout: ['Website strategy', 'UX and content structure', 'Original web design', 'Responsive web development', 'Website integrations', 'Website launch'],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Complete website engagements',
+    itemListElement: [
+      { '@type': 'Offer', name: 'Launch Essentials', price: '499', priceCurrency: 'USD', url: `${siteUrl}/services/complete-website-launch#scope` },
+      { '@type': 'Offer', name: 'Business Launch', price: '999', priceCurrency: 'USD', url: `${siteUrl}/services/complete-website-launch#scope` },
+      { '@type': 'Offer', name: 'International Launch System', price: '2500', priceCurrency: 'USD', url: `${siteUrl}/services/complete-website-launch#scope` },
+    ],
+  },
   founder: {
     '@type': 'Person',
     '@id': `${siteUrl}/#sohan-vyaparee`,

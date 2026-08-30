@@ -78,8 +78,14 @@ h1 {
   line-height: .78;
 }
 h1 span { display: block; margin-top: .16em; color: #5b655f; font-style: italic; }
-.hero-intro { max-width: 670px; margin: 42px 0 0; color: #535e59; font-size: clamp(16px, 1.15vw, 19px); line-height: 1.7; }
-.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 30px; margin-top: 34px; }
+.hero-intro { max-width: 735px; margin: 36px 0 0; color: #535e59; font-size: clamp(16px, 1.15vw, 19px); line-height: 1.7; }
+.hero-clarity { display: grid; max-width: 790px; grid-template-columns: repeat(3,1fr); margin-top: 30px; border-block: 1px solid var(--line); }
+.hero-clarity > div { position: relative; min-height: 96px; border-right: 1px solid var(--line); padding: 17px 20px 18px 0; }
+.hero-clarity > div:not(:first-child) { padding-left: 20px; }
+.hero-clarity > div:last-child { border-right: 0; }
+.hero-clarity span { display: block; color: #68716c; font-size: 8px; font-weight: 720; letter-spacing: .12em; text-transform: uppercase; }
+.hero-clarity strong { display: block; max-width: 210px; margin-top: 13px; font-family: var(--font-editorial), Georgia, serif; font-size: clamp(17px,1.45vw,23px); font-weight: 500; letter-spacing: -.015em; line-height: 1.08; }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 30px; margin-top: 30px; }
 .primary-action { display: inline-flex; align-items: center; justify-content: space-between; gap: 32px; min-width: 272px; border-radius: 999px; background: var(--ink); color: white; padding: 17px 23px; font-size: 11px; font-weight: 680; letter-spacing: .025em; transition: transform .25s ease, background .25s ease; }
 .primary-action:hover { transform: translateY(-2px); background: #2b3731; }
 .primary-action span { color: var(--acid); }
@@ -347,6 +353,11 @@ footer { background: #0f1512; color: white; padding: 45px 4.4vw 25px; }
   .hero-shell { min-height: auto; gap: 52px; padding: 68px 20px 44px; }
   h1 { font-size: clamp(4rem, 20vw, 6.5rem); line-height: .82; }
   .hero-intro { margin-top: 30px; }
+  .hero-clarity { grid-template-columns: 1fr; }
+  .hero-clarity > div { min-height: auto; border-right: 0; border-bottom: 1px solid var(--line); padding: 16px 0; }
+  .hero-clarity > div:not(:first-child) { padding-left: 0; }
+  .hero-clarity > div:last-child { border-bottom: 0; }
+  .hero-clarity strong { max-width: none; font-size: 20px; }
   .direction-board { min-height: 570px; }
   .board-topline { padding: 20px; }
   .availability { font-size: 0; }
