@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { PolicyShell } from '@/app/legal/policy-shell';
 
-export const metadata: Metadata = { title: 'Refund and cancellation policy | Sohan Vyaparee Studio', alternates: { canonical: '/refund-cancellation' } };
+export const metadata: Metadata = { title: 'Refund and cancellation policy | SP Studios', alternates: { canonical: '/refund-cancellation' } };
 
 const rules = [
   { title: 'Duplicate or incorrect payment', copy: 'A verified duplicate, excess or wrong-currency payment is corrected or refunded after the provider record is matched. Any bank conversion difference outside the studio’s control is explained with the transaction record.' },

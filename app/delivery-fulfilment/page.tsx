@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { PolicyShell } from '@/app/legal/policy-shell';
 
-export const metadata: Metadata = { title: 'Digital delivery and fulfilment policy | Sohan Vyaparee Studio', alternates: { canonical: '/delivery-fulfilment' } };
+export const metadata: Metadata = { title: 'Digital delivery and fulfilment policy | SP Studios', alternates: { canonical: '/delivery-fulfilment' } };
 
 const phases = [
   ['01', 'Direction', 'Written direction, sitemap or scope decisions named in the SOW.'],

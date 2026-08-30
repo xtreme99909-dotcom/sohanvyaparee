@@ -1,8 +1,8 @@
-# Sohan Vyaparee — Independent Website Studio
+# SP Studios — Independent Digital Studio
 
 Complete, market-ready websites directed from strategy and original design through responsive development, integrations, QA and launch.
 
-[View the live studio](https://sohan-website-studio.vercel.app/) · [Inspect selected work](https://sohan-website-studio.vercel.app/work) · [See the complete website engagement](https://sohan-website-studio.vercel.app/services/complete-website-launch) · [Review the D2C commerce-launch system](https://sohan-website-studio.vercel.app/services/d2c-commerce-launch) · [Build a scope preview](https://sohan-website-studio.vercel.app/services/complete-website-launch#planner) · [Start a project brief](https://sohan-website-studio.vercel.app/services/complete-website-launch#brief)
+[View the studio](https://www.thespstudios.com/) · [Inspect selected work](https://www.thespstudios.com/work) · [See the complete website engagement](https://www.thespstudios.com/services/complete-website-launch) · [Review the D2C commerce-launch system](https://www.thespstudios.com/services/d2c-commerce-launch) · [Build a scope preview](https://www.thespstudios.com/services/complete-website-launch#planner) · [Start a project brief](https://www.thespstudios.com/services/complete-website-launch#brief)
 
 ![Sohan Vyaparee independent website studio](./public/og.png)
 
@@ -20,7 +20,7 @@ AI accelerates research, prototyping and production. Strategy, hierarchy, taste 
 
 ## Selected proof
 
-The dedicated [Selected Work index](https://sohan-website-studio.vercel.app/work) lets a buyer compare all three studies by evidence type, responsibility, commercial relevance and truth boundary before opening the detailed case.
+The dedicated [Selected Work index](https://www.thespstudios.com/work) lets a buyer compare all three studies by evidence type, responsibility, commercial relevance and truth boundary before opening the detailed case.
 
 ### BongFoods — live founder-built product
 
@@ -28,7 +28,7 @@ A mobile-first ordering experience for my own Bengali cloud kitchen in Nagpur, c
 
 **Role:** Founder, product direction, website strategy, UX/UI, responsive implementation, ordering-flow integration, QA and launch.
 
-[Read the BongFoods case study](https://sohan-website-studio.vercel.app/work/bongfoods) · [Visit the live product](https://www.bongfoods.com/)
+[Read the BongFoods case study](https://www.thespstudios.com/work/bongfoods) · [Visit the live product](https://www.bongfoods.com/)
 
 ### Independent website studio — self-initiated work
 
@@ -36,13 +36,13 @@ The studio site turns a broad creative-and-technical capability into a clear buy
 
 **Role:** Positioning, information architecture, copy framework, art direction, UX/UI, responsive implementation, lead workflow, QA and deployment.
 
-[Read the live acquisition-system case study](https://sohan-website-studio.vercel.app/work/studio-system)
+[Read the live acquisition-system case study](https://www.thespstudios.com/work/studio-system)
 
 ### Private real-estate network — speculative product concept
 
 An independent product exploration for verified members, anonymized opportunities, progressive disclosure, NDA-gated access, mandate matching and deal-room workflows. This is concept work, not a client engagement.
 
-[Read the truth-labelled product concept](https://sohan-website-studio.vercel.app/work/private-market-concept)
+[Read the truth-labelled product concept](https://www.thespstudios.com/work/private-market-concept)
 
 ### SP Studios — creative-direction background
 
@@ -85,4 +85,4 @@ Production activation requires Sohan's own Razorpay KYC and international-paymen
 
 ## Discuss a complete website
 
-If your business needs strategy, design and the finished live build owned by one partner, [review the complete engagement and send the project brief](https://sohan-website-studio.vercel.app/services/complete-website-launch#brief). It goes directly to the private studio inbox.
+If your business needs strategy, design and the finished live build owned by one partner, [review the complete engagement and send the project brief](https://www.thespstudios.com/services/complete-website-launch#brief). It goes directly to the private studio inbox.

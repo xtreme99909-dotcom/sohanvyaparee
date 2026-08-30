@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { PolicyShell } from '@/app/legal/policy-shell';
 
-export const metadata: Metadata = { title: 'Privacy policy | Sohan Vyaparee Studio', alternates: { canonical: '/privacy' } };
+export const metadata: Metadata = { title: 'Privacy policy | SP Studios', alternates: { canonical: '/privacy' } };
 
 const sections = [
   ['Project information', 'The project form collects the name, work email, company, budget, timing and project information you choose to provide. Campaign-source tags may be saved so the studio can understand which channel introduced you. This information is used to assess and reply to the enquiry, prepare a relevant proposal and maintain the project record.'],

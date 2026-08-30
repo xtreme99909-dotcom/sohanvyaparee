@@ -6,7 +6,7 @@ import { publicSiteUrl as siteUrl } from '../../site';
 
 
 export const metadata: Metadata = {
-  title: 'Complete Website Design & Development for Founders | Sohan Vyaparee',
+  title: 'Complete Website Design & Development for Founders | SP Studios',
   description: 'One accountable partner for website strategy, original art direction, UX, responsive development, integrations, QA and launch. Focused scopes start at $499; launch systems at $2,500+.',
   alternates: { canonical: '/services/complete-website-launch' },
   keywords: [
@@ -142,7 +142,7 @@ const serviceSchema = {
   provider: {
     '@type': 'ProfessionalService',
     '@id': `${siteUrl}/#studio`,
-    name: 'Sohan Vyaparee — Independent Website Studio',
+    name: 'SP Studios',
     url: siteUrl,
   },
   areaServed: 'Worldwide',
@@ -170,9 +170,9 @@ export default function CompleteWebsiteLaunchPage() {
   return (
     <main id="top" className="service-page">
       <header className="site-header service-site-header">
-        <a href="/" className="wordmark" aria-label="Sohan Vyaparee — home">
-          <span>SV</span>
-          <strong>Sohan Vyaparee</strong>
+        <a href="/" className="wordmark" aria-label="SP Studios — home">
+          <span>SP</span>
+          <strong>SP Studios</strong>
         </a>
         <nav aria-label="Service navigation">
           <a href="#proof">Proof</a>
@@ -268,7 +268,7 @@ export default function CompleteWebsiteLaunchPage() {
             <div><small>Independent product exploration</small><h3>Private market — designing trust through controlled access.</h3><p>A truth-labelled concept for verified members, anonymized opportunities, access requests, NDA gates, matching and a private deal room.</p><a href="/work/private-market-concept">View the speculative case study →</a></div>
           </article>
           <article className="proof-studio">
-            <div className="proof-visual"><span>SV</span><i>Live self-initiated system</i></div>
+            <div className="proof-visual"><span>SP</span><i>Live self-initiated system</i></div>
             <div><small>Operating acquisition and qualification system</small><h3>Studio system — connecting the public story to a useful project brief.</h3><p>Positioning, truth-labelled proof, scope guidance, project qualification, source attribution and persistent owner triage shaped as one live business journey. This proves the connected system without claiming client results or guaranteed leads.</p><a href="/work/studio-system">View the live-system case study →</a></div>
           </article>
         </div>
@@ -355,8 +355,8 @@ export default function CompleteWebsiteLaunchPage() {
       </section>
 
       <footer>
-        <div className="footer-main"><a href="/" className="wordmark light-mark"><span>SV</span><strong>Sohan Vyaparee</strong></a><p>Complete websites from direction to launch.</p><a href="#top">Back to top ↑</a></div>
-        <div className="footer-small"><span>Service · Complete website launch</span><span><a href="/trust">Trust & payments</a> · <a href="/terms">Terms</a> · © 2026 Sohan Vyaparee</span></div>
+        <div className="footer-main"><a href="/" className="wordmark light-mark"><span>SP</span><strong>SP Studios</strong></a><p>Complete websites from direction to launch.</p><a href="#top">Back to top ↑</a></div>
+        <div className="footer-small"><span>Service · Complete website launch</span><span><a href="/trust">Trust & payments</a> · <a href="/terms">Terms</a> · Directed by Sohan Vyaparee</span></div>
       </footer>
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />

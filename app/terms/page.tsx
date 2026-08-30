@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import { PolicyShell } from '@/app/legal/policy-shell';
 
-export const metadata: Metadata = { title: 'Service terms | Sohan Vyaparee Studio', alternates: { canonical: '/terms' } };
+export const metadata: Metadata = { title: 'Service terms | SP Studios', alternates: { canonical: '/terms' } };
 
 const sections = [
-  ['1. How an engagement is formed', 'A website enquiry, call, estimate or public price is not a contract. An engagement begins only when the client and studio accept a written proposal or statement of work (“SOW”) that identifies the parties, scope, price, billing currency, milestone schedule, dependencies, delivery assumptions and governing legal terms. Electronic acceptance and signed electronic records may be used.'],
+  ['1. How an engagement is formed', 'SP Studios is the public studio name directed by Sohan Vyaparee. A website enquiry, call, estimate or public price is not a contract. An engagement begins only when the client and studio accept a written proposal or statement of work (“SOW”) that identifies the exact contracting parties, scope, price, billing currency, milestone schedule, dependencies, delivery assumptions and governing legal terms. Electronic acceptance and signed electronic records may be used.'],
   ['2. Scope hierarchy', 'The signed SOW controls the project. These public terms, the refund policy, delivery policy and privacy policy support it. If they conflict, the project-specific SOW controls except where applicable law does not allow a right or obligation to be excluded. A client should not pay if the payment request, invoice and SOW do not match.'],
   ['3. Client responsibilities', 'The client supplies accurate business facts, lawful content, timely access, one authorised decision-maker and feedback within the agreed windows. The client confirms it has rights to materials it provides. Delays in required inputs or approvals pause the schedule and may require a revised delivery date.'],
   ['4. Fees, currency and taxes', 'Fees are stated in one agreed currency and tied to named milestones. Bank, conversion or intermediary charges are allocated in the SOW. Applicable tax treatment and invoice details are stated on the commercial record; public prices do not by themselves determine tax. The studio never requests card credentials, bank passwords, a PIN or an OTP directly.'],

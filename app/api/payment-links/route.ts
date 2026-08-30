@@ -2,6 +2,7 @@ import { env } from 'cloudflare:workers';
 import { NextRequest, NextResponse } from 'next/server';
 import { getChatGPTUser, isStudioOwner } from '@/app/chatgpt-auth';
 import { paymentPolicyVersion } from '@/app/payments/policy';
+import { createPaymentReference } from '@/app/payments/reference';
 import { ensureLeadsSchema } from '@/db';
 
 const supportedCurrencies = new Set(['INR', 'USD', 'EUR', 'GBP', 'AED']);
@@ -54,7 +55,7 @@ export async function POST(request: NextRequest) {
     }
 
     const id = crypto.randomUUID();
-    const referenceId = `SV-${id.replaceAll('-', '').slice(0, 20).toUpperCase()}`;
+    const referenceId = createPaymentReference(id);
     const expiresAtSeconds = Math.floor(Date.now() / 1000) + (14 * 24 * 60 * 60);
     const expiresAt = new Date(expiresAtSeconds * 1000).toISOString();
     const credentials = btoa(`${env.RAZORPAY_KEY_ID}:${env.RAZORPAY_KEY_SECRET}`);

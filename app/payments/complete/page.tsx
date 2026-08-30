@@ -1,9 +1,10 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Sites/vinext Link prefetch throws at runtime; full-page navigation is intentional here. */
 import type { Metadata } from 'next';
 import { ensureLeadsSchema } from '@/db';
+import { paymentReferencePattern } from '@/app/payments/reference';
 
 export const metadata: Metadata = {
-  title: 'Payment confirmation | Sohan Vyaparee',
+  title: 'Payment confirmation | SP Studios',
   robots: { index: false, follow: false },
 };
 
@@ -20,7 +21,7 @@ function formatMoney(amount: number, currency: string) {
 export default async function PaymentCompletePage({ searchParams }: { searchParams: Promise<{ reference?: string }> }) {
   const { reference = '' } = await searchParams;
   let record: ConfirmationRecord | null = null;
-  if (/^SV-[A-Z0-9]{20}$/.test(reference)) {
+  if (paymentReferencePattern.test(reference)) {
     try {
       const db = await ensureLeadsSchema();
       record = await db.prepare(`SELECT reference_id, status, description, amount, amount_paid, refunded_amount, currency

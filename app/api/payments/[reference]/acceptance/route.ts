@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { paymentPolicyVersion } from '@/app/payments/policy';
+import { paymentReferencePattern } from '@/app/payments/reference';
 import { ensureLeadsSchema } from '@/db';
 
 export async function POST(request: NextRequest, { params }: { params: Promise<{ reference: string }> }) {
@@ -8,7 +9,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
   if (Number(request.headers.get('content-length') || 0) > 2_000) return NextResponse.json({ error: 'Request too large.' }, { status: 413 });
 
   const { reference } = await params;
-  if (!/^SV-[A-Z0-9]{20}$/.test(reference)) return NextResponse.json({ error: 'Payment request not found.' }, { status: 404 });
+  if (!paymentReferencePattern.test(reference)) return NextResponse.json({ error: 'Payment request not found.' }, { status: 404 });
 
   try {
     const input = await request.json() as Record<string, unknown>;

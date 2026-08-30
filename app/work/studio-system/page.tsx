@@ -2,7 +2,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Studio Acquisition System Case Study — Sohan Vyaparee',
+  title: 'SP Studios Acquisition System Case Study',
   description: 'A live, self-initiated website system connecting positioning, honest proof, scope guidance, project qualification and a private owner inbox.',
   alternates: { canonical: '/work/studio-system' },
   openGraph: {
@@ -66,9 +66,9 @@ export default function StudioSystemCaseStudy() {
   return (
     <main id="top" className="case-page studio-system-case">
       <header className="site-header case-header">
-        <a href="/" className="wordmark" aria-label="Sohan Vyaparee — home">
-          <span>SV</span>
-          <strong>Sohan Vyaparee</strong>
+        <a href="/" className="wordmark" aria-label="SP Studios — home">
+          <span>SP</span>
+          <strong>SP Studios</strong>
         </a>
         <nav aria-label="Case study navigation">
           <a href="/work">Selected work</a>
@@ -207,7 +207,7 @@ export default function StudioSystemCaseStudy() {
         <div className="proof-note">
           <span>Truth label</span>
           <strong>Live self-initiated operating system</strong>
-          <p>Created and operated by Sohan Vyaparee for his independent website studio. Not a client engagement or performance case study.</p>
+          <p>Created and operated by Sohan Vyaparee for SP Studios. Not a client engagement or performance case study.</p>
         </div>
       </section>
 
@@ -219,8 +219,8 @@ export default function StudioSystemCaseStudy() {
       </section>
 
       <footer>
-        <div className="footer-main"><a href="/" className="wordmark light-mark"><span>SV</span><strong>Sohan Vyaparee</strong></a><p>Complete websites from direction to launch.</p><a href="#top">Back to top ↑</a></div>
-        <div className="footer-small"><span>Case study · Studio acquisition system</span><span>© 2026 Sohan Vyaparee</span></div>
+        <div className="footer-main"><a href="/" className="wordmark light-mark"><span>SP</span><strong>SP Studios</strong></a><p>Complete websites from direction to launch.</p><a href="#top">Back to top ↑</a></div>
+        <div className="footer-small"><span>Case study · Studio acquisition system</span><span>SP Studios · Directed by Sohan Vyaparee</span></div>
       </footer>
     </main>
   );

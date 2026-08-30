@@ -8,7 +8,7 @@ import { publicSiteUrl as siteUrl } from '../site';
 
 
 export const metadata: Metadata = {
-  title: 'Website Delivery Partner for Creative and Growth Specialists — Sohan Vyaparee',
+  title: 'Website Delivery Partner for Creative and Growth Specialists — SP Studios',
   description: 'A transparent collaboration path for brand, copy, photography, growth and automation specialists whose clients need complete website strategy, original UX/UI, development, integrations and launch.',
   alternates: { canonical: '/partners' },
   openGraph: {
@@ -65,7 +65,7 @@ export default function PartnersPage() {
   return (
     <main className="partner-page">
       <header className="site-header">
-        <a href="/" className="wordmark" aria-label="Sohan Vyaparee — home"><span>SV</span><strong>Sohan Vyaparee</strong></a>
+        <a href="/" className="wordmark" aria-label="SP Studios — home"><span>SP</span><strong>SP Studios</strong></a>
         <nav aria-label="Primary navigation">
           <a href="/services/complete-website-launch">Services</a>
           <a href="/work">Selected work</a>
@@ -157,8 +157,8 @@ export default function PartnersPage() {
       </section>
 
       <footer>
-        <div className="footer-main"><a href="/" className="wordmark light-mark"><span>SV</span><strong>Sohan Vyaparee</strong></a><p>Complete websites from direction to launch.</p><a href="#top">Back to top ↑</a></div>
-        <div className="footer-small"><span>Transparent collaboration · Qualified opportunities only</span><span>© 2026 Sohan Vyaparee</span></div>
+        <div className="footer-main"><a href="/" className="wordmark light-mark"><span>SP</span><strong>SP Studios</strong></a><p>Complete websites from direction to launch.</p><a href="#top">Back to top ↑</a></div>
+        <div className="footer-small"><span>Transparent collaboration · Qualified opportunities only</span><span>SP Studios · Directed by Sohan Vyaparee</span></div>
       </footer>
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(partnerServiceSchema) }} />

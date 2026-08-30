@@ -2,7 +2,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'BongFoods Case Study — Sohan Vyaparee',
+  title: 'BongFoods Case Study — SP Studios',
   description: 'A founder-built restaurant commerce experience shaped from customer journey and visual direction through ordering, payments and launch.',
   alternates: { canonical: '/work/bongfoods' },
   openGraph: {
@@ -65,9 +65,9 @@ export default function BongFoodsCaseStudy() {
   return (
     <main id="top" className="case-page">
       <header className="site-header case-header">
-        <a href="/" className="wordmark" aria-label="Sohan Vyaparee — home">
-          <span>SV</span>
-          <strong>Sohan Vyaparee</strong>
+        <a href="/" className="wordmark" aria-label="SP Studios — home">
+          <span>SP</span>
+          <strong>SP Studios</strong>
         </a>
         <nav aria-label="Case study navigation">
           <a href="/work">Selected work</a>
@@ -190,8 +190,8 @@ export default function BongFoodsCaseStudy() {
       </section>
 
       <footer>
-        <div className="footer-main"><a href="/" className="wordmark light-mark"><span>SV</span><strong>Sohan Vyaparee</strong></a><p>Complete websites from direction to launch.</p><a href="#top">Back to top ↑</a></div>
-        <div className="footer-small"><span>Case study · BongFoods</span><span>© 2026 Sohan Vyaparee</span></div>
+        <div className="footer-main"><a href="/" className="wordmark light-mark"><span>SP</span><strong>SP Studios</strong></a><p>Complete websites from direction to launch.</p><a href="#top">Back to top ↑</a></div>
+        <div className="footer-small"><span>Case study · BongFoods</span><span>SP Studios · Directed by Sohan Vyaparee</span></div>
       </footer>
     </main>
   );

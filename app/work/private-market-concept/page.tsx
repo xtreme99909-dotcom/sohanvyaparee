@@ -2,7 +2,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Private-Market Product Concept — Sohan Vyaparee',
+  title: 'Private-Market Product Concept — SP Studios',
   description: 'A speculative PropTech case study exploring verified members, progressive disclosure, access requests, matching and private deal-room workflows.',
   alternates: { canonical: '/work/private-market-concept' },
   openGraph: {
@@ -46,9 +46,9 @@ export default function PrivateMarketConceptCaseStudy() {
   return (
     <main id="top" className="case-page private-case">
       <header className="site-header case-header">
-        <a href="/" className="wordmark" aria-label="Sohan Vyaparee — home">
-          <span>SV</span>
-          <strong>Sohan Vyaparee</strong>
+        <a href="/" className="wordmark" aria-label="SP Studios — home">
+          <span>SP</span>
+          <strong>SP Studios</strong>
         </a>
         <nav aria-label="Case study navigation">
           <a href="/work">Selected work</a>
@@ -199,8 +199,8 @@ export default function PrivateMarketConceptCaseStudy() {
       </section>
 
       <footer>
-        <div className="footer-main"><a href="/" className="wordmark light-mark"><span>SV</span><strong>Sohan Vyaparee</strong></a><p>Complete websites from direction to launch.</p><a href="#top">Back to top ↑</a></div>
-        <div className="footer-small"><span>Concept study · Private-market product</span><span>© 2026 Sohan Vyaparee</span></div>
+        <div className="footer-main"><a href="/" className="wordmark light-mark"><span>SP</span><strong>SP Studios</strong></a><p>Complete websites from direction to launch.</p><a href="#top">Back to top ↑</a></div>
+        <div className="footer-small"><span>Concept study · Private-market product</span><span>SP Studios · Directed by Sohan Vyaparee</span></div>
       </footer>
     </main>
   );

@@ -1,12 +1,11 @@
-import { env } from 'cloudflare:workers';
-
-export function getD1() {
+export async function getD1() {
+  const { env } = await import('cloudflare:workers');
   if (!env.DB) throw new Error('The studio lead database is unavailable.');
   return env.DB;
 }
 
 export async function ensureLeadsSchema() {
-  const db = getD1();
+  const db = await getD1();
   await db.batch([
     db.prepare(`CREATE TABLE IF NOT EXISTS leads (
       id TEXT PRIMARY KEY NOT NULL,

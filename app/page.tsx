@@ -75,9 +75,9 @@ export default function Home() {
   return (
     <main className="min-h-screen overflow-hidden bg-[#f2f0e9] text-[#17201c]">
       <header className="site-header">
-        <a href="#top" className="wordmark" aria-label="Sohan Vyaparee — home">
-          <span>SV</span>
-          <strong>Sohan Vyaparee</strong>
+        <a href="#top" className="wordmark" aria-label="SP Studios — home">
+          <span>SP</span>
+          <strong>SP Studios</strong>
         </a>
         <nav aria-label="Primary navigation">
           <a href="/services/complete-website-launch">Services</a>
@@ -89,7 +89,7 @@ export default function Home() {
 
       <section id="top" className="hero-shell">
         <div className="hero-copy">
-          <p className="eyebrow"><span /> Website strategy, design & development · India / Worldwide</p>
+          <p className="eyebrow"><span /> Independent digital studio · India / Worldwide</p>
           <h1>
             A complete website,
             <span>built around your business.</span>
@@ -210,11 +210,11 @@ export default function Home() {
             <div className="studio-visual" role="img" aria-label="Studio acquisition system connecting positioning, proof and project qualification">
               <span className="orbit orbit-one" />
               <span className="orbit orbit-two" />
-              <span className="studio-mark">SV</span>
+              <span className="studio-mark">SP</span>
               <div><p>Positioning · Proof · Qualification</p><strong>One path<br />from visit to brief.</strong></div>
             </div>
             <div className="project-copy">
-              <div><p>Sohan Vyaparee Studio · Acquisition system</p><h3>Turning a broad capability into a clear buying journey.</h3></div>
+              <div><p>SP Studios · Acquisition system</p><h3>Turning a broad capability into a clear buying journey.</h3></div>
               <div><p>An operating studio website connecting positioning, truth-labelled proof, scope guidance, a qualified project brief, attribution and persistent owner triage.</p><a href="/work/studio-system">View the live-system case study →</a><span className="concept-label">Self-initiated · Not a client result</span></div>
             </div>
           </article>
@@ -325,7 +325,7 @@ export default function Home() {
           </figure>
           <div>
             <h2>Visual taste, business instinct and hands-on execution.</h2>
-            <p>I’m Sohan Vyaparee, a website creative director and the founder behind SP Studios and BongFoods. I help founders turn a business idea, offer or outdated presence into one clear, customer-ready website.</p>
+            <p>I’m Sohan Vyaparee, founder and creative director of SP Studios—and the founder behind BongFoods. I help businesses turn an idea, offer or outdated presence into one clear, customer-ready website.</p>
             <p>My background in CGI, animation, advertising and art direction gives the work a strong visual point of view. Building and operating my own food business keeps that creativity grounded in practical questions: Will people understand it? Trust it? Act on it?</p>
             <p>I use an AI-assisted workflow to research, prototype and build faster, but every important decision—strategy, hierarchy, taste and final quality—stays personally directed.</p>
             <div className="about-links"><a href="https://www.linkedin.com/services/page/a8036034688b927420/" target="_blank" rel="noreferrer">LinkedIn services ↗</a><a href="https://www.upwork.com/freelancers/~01b29ff9dfbe850b7b" target="_blank" rel="noreferrer">Upwork ↗</a><a href="https://github.com/xtreme99909-dotcom/sohanvyaparee" target="_blank" rel="noreferrer">GitHub source ↗</a><a href="/trust">Trust & payments ↗</a><a href="/partners">For collaborators ↗</a></div>
@@ -347,8 +347,8 @@ export default function Home() {
       </section>
 
       <footer>
-        <div className="footer-main"><a href="#top" className="wordmark light-mark"><span>SV</span><strong>Sohan Vyaparee</strong></a><p>Complete websites from direction to launch.</p><a href="#top">Back to top ↑</a></div>
-        <div className="footer-small"><span>SP Studios · BongFoods · Independent worldwide</span><span><a href="/trust">Trust & payments</a> · <a href="/privacy">Privacy</a> · <a href="/partners">Collaboration</a> · © 2026 Sohan Vyaparee</span></div>
+        <div className="footer-main"><a href="#top" className="wordmark light-mark"><span>SP</span><strong>SP Studios</strong></a><p>Complete websites from direction to launch.</p><a href="#top">Back to top ↑</a></div>
+        <div className="footer-small"><span>Independent digital studio · Directed by Sohan Vyaparee</span><span><a href="/trust">Trust & payments</a> · <a href="/privacy">Privacy</a> · <a href="/partners">Collaboration</a> · © 2026 Sohan Vyaparee</span></div>
       </footer>
     </main>
   );

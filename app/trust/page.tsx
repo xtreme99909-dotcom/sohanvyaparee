@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { PolicyShell } from '@/app/legal/policy-shell';
 
 export const metadata: Metadata = {
-  title: 'Payment trust centre | Sohan Vyaparee Studio',
+  title: 'Payment trust centre | SP Studios',
   description: 'How scope, milestone payments, secure checkout, delivery evidence, refunds and project handover are documented before a website client pays.',
   alternates: { canonical: '/trust' },
 };

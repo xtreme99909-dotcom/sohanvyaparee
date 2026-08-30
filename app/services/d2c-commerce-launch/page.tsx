@@ -6,7 +6,7 @@ import { publicSiteUrl as siteUrl } from '../../site';
 const servicePath = '/services/d2c-commerce-launch';
 
 export const metadata: Metadata = {
-  title: 'D2C & Ecommerce Website Design and Launch | Sohan Vyaparee',
+  title: 'D2C & Ecommerce Website Design and Launch | SP Studios',
   description: 'A complete D2C website launch system connecting brand positioning, product discovery, trust, responsive commerce, integrations, QA and launch. Engagements start at $2,500+.',
   alternates: { canonical: servicePath },
   keywords: [
@@ -91,7 +91,7 @@ const serviceSchema = {
   '@id': `${siteUrl}${servicePath}#service`,
   name: 'D2C and Ecommerce Website Design and Launch',
   serviceType: 'D2C website strategy, UX/UI design, commerce development, integrations, QA and launch',
-  provider: { '@type': 'ProfessionalService', '@id': `${siteUrl}/#studio`, name: 'Sohan Vyaparee — Independent Website Studio', url: siteUrl },
+  provider: { '@type': 'ProfessionalService', '@id': `${siteUrl}/#studio`, name: 'SP Studios', url: siteUrl },
   areaServed: 'Worldwide',
   audience: { '@type': 'BusinessAudience', audienceType: 'Founder-led consumer and D2C brands' },
   description: 'A complete D2C website launch system connecting brand positioning, product discovery, trust, responsive commerce, integrations, QA and launch ownership.',
@@ -128,7 +128,7 @@ export default function D2CCommerceLaunchPage() {
   return (
     <main id="top" className="service-page d2c-service-page">
       <header className="site-header service-site-header">
-        <a href="/" className="wordmark" aria-label="Sohan Vyaparee — home"><span>SV</span><strong>Sohan Vyaparee</strong></a>
+        <a href="/" className="wordmark" aria-label="SP Studios — home"><span>SP</span><strong>SP Studios</strong></a>
         <nav aria-label="D2C service navigation">
           <a href="#journey">Journey</a>
           <a href="#proof">Proof</a>
@@ -254,8 +254,8 @@ export default function D2CCommerceLaunchPage() {
       </section>
 
       <footer>
-        <div className="footer-main"><a href="/" className="wordmark light-mark"><span>SV</span><strong>Sohan Vyaparee</strong></a><p>D2C websites from product truth to launch.</p><a href="#top">Back to top ↑</a></div>
-        <div className="footer-small"><span>Service · D2C commerce launch</span><span>© 2026 Sohan Vyaparee</span></div>
+        <div className="footer-main"><a href="/" className="wordmark light-mark"><span>SP</span><strong>SP Studios</strong></a><p>D2C websites from product truth to launch.</p><a href="#top">Back to top ↑</a></div>
+        <div className="footer-small"><span>Service · D2C commerce launch</span><span>SP Studios · Directed by Sohan Vyaparee</span></div>
       </footer>
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />

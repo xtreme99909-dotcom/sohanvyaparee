@@ -3,7 +3,7 @@ import { Geist, Cormorant_Garamond } from 'next/font/google';
 import './globals.css';
 import { MarketingTracker } from './marketing-tracker';
 import { MotionSystem } from './motion-system';
-import { publicSiteUrl as siteUrl } from './site';
+import { publicSiteUrl as siteUrl, studioBrand } from './site';
 
 const personalLinkedInUrl = 'https://www.linkedin.com/in/sohan-vyaparee-397a29352/';
 const githubProfileUrl = 'https://github.com/xtreme99909-dotcom';
@@ -22,9 +22,9 @@ const editorial = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'Website Design & Development for Businesses | Sohan Vyaparee',
+  title: 'Website Design & Development for Businesses | SP Studios',
   description: 'Complete website strategy, original design, responsive development, integrations and launch for founders and growing businesses in India and worldwide.',
-  applicationName: 'Sohan Vyaparee — Independent Website Studio',
+  applicationName: 'SP Studios',
   alternates: { canonical: '/' },
   keywords: [
     'website design and development services',
@@ -55,7 +55,8 @@ const professionalServiceSchema = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
   '@id': `${siteUrl}/#studio`,
-  name: 'Sohan Vyaparee — Independent Website Studio',
+  name: studioBrand.name,
+  alternateName: studioBrand.descriptor,
   url: siteUrl,
   image: `${siteUrl}/og.png`,
   description: 'Complete websites from strategy and art direction through responsive build, integrations and launch.',
@@ -77,7 +78,7 @@ const professionalServiceSchema = {
   founder: {
     '@type': 'Person',
     '@id': `${siteUrl}/#sohan-vyaparee`,
-    name: 'Sohan Vyaparee',
+    name: studioBrand.founder,
     jobTitle: 'Website Creative Director',
     url: `${siteUrl}/#about`,
     image: `${siteUrl}/founder-sohan.jpg`,

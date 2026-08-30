@@ -162,7 +162,7 @@ export default async function LeadsPage() {
   return (
     <main className="min-h-screen bg-[#f2f0e9] px-4 py-8 text-[#17201c] sm:px-8 lg:px-12">
       <header className="mx-auto flex max-w-[1500px] flex-col justify-between gap-5 border-b border-black/15 pb-7 sm:flex-row sm:items-end">
-        <div><p className="text-xs font-bold uppercase tracking-[.18em] text-black/55">Sohan Vyaparee · Private studio</p><h1 className="mt-4 font-serif text-6xl leading-none sm:text-8xl">Lead inbox</h1></div>
+        <div><p className="text-xs font-bold uppercase tracking-[.18em] text-black/55">SP Studios · Private owner area</p><h1 className="mt-4 font-serif text-6xl leading-none sm:text-8xl">Lead inbox</h1></div>
         <div className="flex gap-3"><a className="rounded-full border border-black/20 px-5 py-3 text-xs font-bold uppercase tracking-[.08em]" href="/">View studio ↗</a><a className="rounded-full bg-[#17201c] px-5 py-3 text-xs font-bold uppercase tracking-[.08em]" style={{ color: '#fff' }} href="/leads">Refresh</a></div>
       </header>
 

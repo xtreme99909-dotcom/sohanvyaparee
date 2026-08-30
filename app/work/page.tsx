@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { WorkProofNavigator } from './work-proof-navigator';
 
 export const metadata: Metadata = {
-  title: 'Selected Work & Website Case Studies — Sohan Vyaparee',
+  title: 'Selected Work & Website Case Studies — SP Studios',
   description: 'Inspect live founder-built work, an operating acquisition system and a speculative product concept—with clear evidence, responsibilities and truth labels.',
   alternates: { canonical: '/work' },
   openGraph: {
@@ -85,9 +85,9 @@ export default function WorkIndex() {
   return (
     <main id="top" className="work-index-page">
       <header className="site-header work-index-header">
-        <a href="/" className="wordmark" aria-label="Sohan Vyaparee — home">
-          <span>SV</span>
-          <strong>Sohan Vyaparee</strong>
+        <a href="/" className="wordmark" aria-label="SP Studios — home">
+          <span>SP</span>
+          <strong>SP Studios</strong>
         </a>
         <nav aria-label="Selected work navigation">
           <a href="/services/complete-website-launch">Services</a>
@@ -181,8 +181,8 @@ export default function WorkIndex() {
       </section>
 
       <footer>
-        <div className="footer-main"><a href="/" className="wordmark light-mark"><span>SV</span><strong>Sohan Vyaparee</strong></a><p>Complete websites from direction to launch.</p><a href="#top">Back to top ↑</a></div>
-        <div className="footer-small"><span>Selected work · Truth-labelled evidence</span><span>© 2026 Sohan Vyaparee</span></div>
+        <div className="footer-main"><a href="/" className="wordmark light-mark"><span>SP</span><strong>SP Studios</strong></a><p>Complete websites from direction to launch.</p><a href="#top">Back to top ↑</a></div>
+        <div className="footer-small"><span>Selected work · Truth-labelled evidence</span><span>SP Studios · Directed by Sohan Vyaparee</span></div>
       </footer>
     </main>
   );

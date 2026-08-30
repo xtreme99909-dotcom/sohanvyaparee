@@ -27,9 +27,9 @@ export function PolicyShell({
     <main className="min-h-screen bg-[#f2f0e9] text-[#17201c]">
       <header className="border-b border-black/10 bg-[#f2f0e9]/95 px-5 py-5 backdrop-blur sm:px-8 lg:px-12">
         <div className="mx-auto flex max-w-[1280px] flex-col justify-between gap-5 sm:flex-row sm:items-center">
-          <a className="flex items-center gap-3" href="/" aria-label="Sohan Vyaparee Studio home">
-            <span className="grid size-10 place-items-center rounded-full bg-[#17201c] font-serif text-sm italic text-white">SV</span>
-            <strong className="text-sm">Sohan Vyaparee</strong>
+          <a className="flex items-center gap-3" href="/" aria-label="SP Studios home">
+            <span className="grid size-10 place-items-center rounded-full bg-[#17201c] font-serif text-sm italic text-white">SP</span>
+            <strong className="text-sm">SP Studios</strong>
           </a>
           <nav className="flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-bold uppercase tracking-[.1em] text-black/55" aria-label="Trust and policy navigation">
             {policyLinks.map((link) => <a key={link.href} className="border-b border-transparent pb-1 hover:border-black/30 hover:text-black" href={link.href}>{link.label}</a>)}

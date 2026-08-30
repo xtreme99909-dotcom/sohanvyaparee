@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Sites/vinext Link prefetch throws at runtime; full-page navigation is intentional here. */
 import type { Metadata } from 'next';
 import { ensureLeadsSchema } from '@/db';
+import { paymentReferencePattern } from '@/app/payments/reference';
 import { CheckoutButton } from './checkout-button';
 
 export const dynamic = 'force-dynamic';
@@ -27,7 +28,7 @@ type PaymentReview = {
 };
 
 export async function generateMetadata(): Promise<Metadata> {
-  return { title: 'Private payment review | Sohan Vyaparee Studio', robots: { index: false, follow: false, noarchive: true } };
+  return { title: 'Private payment review | SP Studios', robots: { index: false, follow: false, noarchive: true } };
 }
 
 function formatMoney(amount: number, currency: string) {
@@ -43,7 +44,7 @@ function formatDate(value: string | null) {
 export default async function PaymentReviewPage({ params }: { params: Promise<{ reference: string }> }) {
   const { reference } = await params;
   let payment: PaymentReview | null = null;
-  if (/^SV-[A-Z0-9]{20}$/.test(reference)) {
+  if (paymentReferencePattern.test(reference)) {
     try {
       const db = await ensureLeadsSchema();
       payment = await db.prepare(`SELECT payment_links.reference_id, payment_links.created_at,
@@ -74,7 +75,7 @@ export default async function PaymentReviewPage({ params }: { params: Promise<{ 
 
   return (
     <main className="min-h-screen bg-[#f2f0e9] text-[#17201c]">
-      <header className="border-b border-black/10 px-5 py-5 sm:px-8 lg:px-12"><div className="mx-auto flex max-w-[1240px] items-center justify-between gap-4"><a className="flex items-center gap-3" href="/"><span className="grid size-10 place-items-center rounded-full bg-[#17201c] font-serif text-sm italic text-white">SV</span><strong className="text-sm">Sohan Vyaparee</strong></a><a className="text-[10px] font-bold uppercase tracking-[.1em] text-black/50" href="/trust">Payment trust centre ↗</a></div></header>
+      <header className="border-b border-black/10 px-5 py-5 sm:px-8 lg:px-12"><div className="mx-auto flex max-w-[1240px] items-center justify-between gap-4"><a className="flex items-center gap-3" href="/"><span className="grid size-10 place-items-center rounded-full bg-[#17201c] font-serif text-sm italic text-white">SP</span><strong className="text-sm">SP Studios</strong></a><a className="text-[10px] font-bold uppercase tracking-[.1em] text-black/50" href="/trust">Payment trust centre ↗</a></div></header>
 
       <section className="mx-auto grid max-w-[1240px] gap-10 px-5 py-14 sm:px-8 sm:py-20 lg:grid-cols-[1fr_.72fr] lg:px-12">
         <div>
