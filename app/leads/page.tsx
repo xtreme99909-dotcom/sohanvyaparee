@@ -111,7 +111,7 @@ export default async function LeadsPage() {
       FROM leads ORDER BY created_at DESC LIMIT 200`).all<LeadRecord>(),
     db.prepare(`SELECT
       COUNT(DISTINCT CASE WHEN event_type = 'page_view' THEN session_id END) AS visits,
-      COUNT(DISTINCT CASE WHEN event_type = 'page_view' AND page_path = '/services/complete-website-launch' THEN session_id END) AS service_views,
+      COUNT(DISTINCT CASE WHEN event_type = 'page_view' AND page_path IN ('/services/complete-website-launch', '/services/d2c-commerce-launch', '/services/b2b-lead-generation-websites') THEN session_id END) AS service_views,
       COUNT(DISTINCT CASE WHEN event_type = 'page_view' AND page_path LIKE '/work/%' THEN session_id END) AS proof_views,
       COUNT(DISTINCT CASE WHEN event_type = 'proof_click' THEN session_id END) AS proof_clicks,
       COUNT(DISTINCT CASE WHEN event_type = 'enquiry_click' THEN session_id END) AS enquiry_clicks,
@@ -126,7 +126,7 @@ export default async function LeadsPage() {
         AND source NOT LIKE 'internal_%'`).first<MarketingSummary>(),
     db.prepare(`SELECT source, medium, campaign,
       COUNT(DISTINCT CASE WHEN event_type = 'page_view' THEN session_id END) AS visits,
-      COUNT(DISTINCT CASE WHEN event_type = 'page_view' AND page_path = '/services/complete-website-launch' THEN session_id END) AS service_views,
+      COUNT(DISTINCT CASE WHEN event_type = 'page_view' AND page_path IN ('/services/complete-website-launch', '/services/d2c-commerce-launch', '/services/b2b-lead-generation-websites') THEN session_id END) AS service_views,
       COUNT(DISTINCT CASE WHEN event_type = 'page_view' AND page_path LIKE '/work/%' THEN session_id END) AS proof_views,
       COUNT(DISTINCT CASE WHEN event_type = 'proof_click' THEN session_id END) AS proof_clicks,
       COUNT(DISTINCT CASE WHEN event_type = 'enquiry_click' THEN session_id END) AS enquiry_clicks,

@@ -288,6 +288,7 @@ export default function Home() {
           <div className="launch-system-actions">
             <a href="/services/complete-website-launch#scope" className="launch-primary-link">See the full scope boundary <span>↗</span></a>
             <a href="/services/d2c-commerce-launch" className="launch-specialist-link">D2C or ecommerce? <span>See the dedicated system →</span></a>
+            <a href="/services/b2b-lead-generation-websites" className="launch-specialist-link">B2B or manufacturing? <span>See the qualified-enquiry system →</span></a>
           </div>
         </aside>
         <a href="/services/complete-website-launch" className="service-detail-link">See the complete engagement, proof and FAQs <span>↗</span></a>

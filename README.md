@@ -2,7 +2,7 @@
 
 Complete, market-ready websites directed from strategy and original design through responsive development, integrations, QA and launch.
 
-[View the studio](https://www.thespstudios.com/) · [Inspect selected work](https://www.thespstudios.com/work) · [See the complete website engagement](https://www.thespstudios.com/services/complete-website-launch) · [Review the D2C commerce-launch system](https://www.thespstudios.com/services/d2c-commerce-launch) · [Build a scope preview](https://www.thespstudios.com/services/complete-website-launch#planner) · [Start a project brief](https://www.thespstudios.com/services/complete-website-launch#brief)
+[View the studio](https://www.thespstudios.com/) · [Inspect selected work](https://www.thespstudios.com/work) · [See the complete website engagement](https://www.thespstudios.com/services/complete-website-launch) · [Review the D2C commerce-launch system](https://www.thespstudios.com/services/d2c-commerce-launch) · [Review the B2B qualified-enquiry system](https://www.thespstudios.com/services/b2b-lead-generation-websites) · [Build a scope preview](https://www.thespstudios.com/services/complete-website-launch#planner) · [Start a project brief](https://www.thespstudios.com/services/complete-website-launch#brief)
 
 ![Sohan Vyaparee independent website studio](./public/og.png)
 
@@ -66,6 +66,7 @@ The project is a responsive Next.js and TypeScript website with:
 - A conversion-focused public portfolio
 - A dedicated truth-labelled work index connecting the homepage to all detailed case studies
 - A focused complete-website service and qualification journey
+- Dedicated D2C commerce and B2B qualified-enquiry service journeys
 - An accessible scope planner that recommends a credible starting engagement without pretending to issue an instant quotation
 - A structured, database-backed project brief
 - A non-destructive enquiry recovery state that preserves the buyer's answers and exposes the verified Upwork project if the private inbox cannot save the submission

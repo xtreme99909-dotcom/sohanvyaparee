@@ -298,6 +298,7 @@ export default function CompleteWebsiteLaunchPage() {
         </div>
         <p className="scope-note">The $1,500 starting point is deliberately narrow and normally moves in five to seven working days when the inputs are ready. A complete business website starts at $3,000 and is typically seven to fifteen working days. A connected international launch system begins at $6,500 and usually runs four to eight weeks when the work includes deeper strategy, five to eight launch-critical pages, original direction, implementation, an agreed integration and launch QA. Complex products, marketplaces, migrations and multi-integration work may run six to twelve weeks or longer and remain custom-scoped.</p>
         <a href="/services/d2c-commerce-launch" className="service-detail-link">Launching a consumer brand or storefront? <span>See the D2C commerce system →</span></a>
+        <a href="/services/b2b-lead-generation-websites" className="service-detail-link">Need a B2B website that qualifies enquiries? <span>See the lead-generation system →</span></a>
         <a href="#planner" className="service-detail-link">Not sure where the project starts? <span>Build a scope preview ↓</span></a>
       </section>
 

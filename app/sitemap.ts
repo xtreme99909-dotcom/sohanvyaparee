@@ -6,6 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: baseUrl, changeFrequency: 'monthly', priority: 1 },
     { url: `${baseUrl}/services/complete-website-launch`, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${baseUrl}/services/d2c-commerce-launch`, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${baseUrl}/services/b2b-lead-generation-websites`, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${baseUrl}/partners`, changeFrequency: 'monthly', priority: 0.65 },
     { url: `${baseUrl}/work`, changeFrequency: 'monthly', priority: 0.85 },
     { url: `${baseUrl}/work/bongfoods`, changeFrequency: 'monthly', priority: 0.8 },

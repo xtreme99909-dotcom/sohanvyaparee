@@ -2,6 +2,7 @@ export const marketingPagePaths = [
   '/',
   '/services/complete-website-launch',
   '/services/d2c-commerce-launch',
+  '/services/b2b-lead-generation-websites',
   '/partners',
   '/work',
   '/work/bongfoods',
