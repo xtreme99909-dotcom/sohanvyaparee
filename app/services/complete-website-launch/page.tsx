@@ -65,6 +65,29 @@ const phases = [
   { number: '04', title: 'Launch', copy: 'Cross-device QA, performance pass, metadata, deployment and practical handover.', output: 'Live customer-ready website' },
 ];
 
+const internationalWorkingModel = [
+  {
+    label: 'Scope & currency',
+    title: 'One written commercial decision.',
+    copy: 'The proposal names the deliverables, timing, dependencies and one agreed billing currency before production begins. Exchange-rate ambiguity is not introduced halfway through the project.',
+  },
+  {
+    label: 'Collaboration',
+    title: 'Async by default. Live when useful.',
+    copy: 'A shared decision trail, focused feedback windows and milestone reviews keep the work moving across time zones. Calls are used for decisions that genuinely benefit from them—not as a substitute for progress.',
+  },
+  {
+    label: 'Milestones',
+    title: '50 / 30 / 20 protects both sides.',
+    copy: 'The usual structure is 50% to reserve the project, 30% at the agreed design or build approval point and 20% before production launch or final handover. The exact gates are written into the scope.',
+  },
+  {
+    label: 'Payment boundary',
+    title: 'Private, verified and tied to the agreement.',
+    copy: 'Payment instructions follow an accepted proposal and agreement; there is no public arbitrary-amount checkout. Funds count only after the approved payment provider confirms them. Upwork projects remain inside Upwork escrow.',
+  },
+];
+
 const engagements = [
   { name: 'Launch Essentials', price: '$499', schemaPrice: '499', pages: '1–3 purposeful pages', fit: 'Narrow offer or small-business launch', timing: '7–10 working days' },
   { name: 'Business Launch', price: '$999', schemaPrice: '999', pages: 'Up to 5 custom pages', fit: 'Complete public business website', timing: '2–3 weeks' },
@@ -88,6 +111,10 @@ const faqs = [
   {
     question: 'Can you connect forms, booking, payments, WhatsApp or a CRM?',
     answer: 'Yes, when the integration is part of the agreed scope. I map the customer-facing journey first, then connect the practical system behind it. Complex or multiple integrations are quoted after the workflow is understood.',
+  },
+  {
+    question: 'Can you work with a business outside India?',
+    answer: 'Yes. International engagements use one written scope, one agreed billing currency, clear approval gates and milestone-based payments. Collaboration is designed to work asynchronously across time zones, with live sessions only where they help a real decision. Payment instructions are shared privately after the proposal and agreement are accepted; I never ask a client to send card credentials, a PIN or an OTP directly.',
   },
   {
     question: 'How do revisions work?',
@@ -261,6 +288,28 @@ export default function CompleteWebsiteLaunchPage() {
         <a href="#planner" className="service-detail-link">Not sure where the project starts? <span>Build a scope preview ↓</span></a>
       </section>
 
+      <section className="international-working-model" aria-labelledby="international-working-model-title">
+        <div className="section-shell">
+          <div className="international-working-heading">
+            <div>
+              <p className="section-index light">Working worldwide</p>
+              <h2 id="international-working-model-title">Distance should not make the project vague.</h2>
+            </div>
+            <p>For an international client, the commercial and decision process should be as considered as the website. Nothing is charged from a public pricing card, and no project starts from a loose chat promise.</p>
+          </div>
+          <div className="international-working-grid">
+            {internationalWorkingModel.map((item, index) => (
+              <article key={item.label}>
+                <div><span>{String(index + 1).padStart(2, '0')}</span><small>{item.label}</small></div>
+                <h3>{item.title}</h3>
+                <p>{item.copy}</p>
+              </article>
+            ))}
+          </div>
+          <p className="international-working-note">Based outside India? Include your country, target market and preferred working time zone in the project goal below. The final proposal will name the currency, milestone gates and payment route before you commit.</p>
+        </div>
+      </section>
+
       <ScopePlanner />
 
       <section className="service-fit section-shell">
@@ -293,7 +342,7 @@ export default function CompleteWebsiteLaunchPage() {
           <div>
             <p className="section-index light">07 · Start with the real project</p>
             <h2>Tell me what the website must make possible.</h2>
-            <p className="contact-intro">Send the business, current situation, timing and working budget. I’ll review the goal and tell you honestly whether the fit and starting scope make sense.</p>
+            <p className="contact-intro">Send the business, current situation, timing and working budget. International clients can add their country, target market and preferred time zone. I’ll review the goal and tell you honestly whether the fit and starting scope make sense.</p>
             <div className="contact-signal"><i /><span><strong>Private studio inbox</strong>One brief · no mailing list · normally answered within two working days</span></div>
           </div>
           <ProjectBrief />
