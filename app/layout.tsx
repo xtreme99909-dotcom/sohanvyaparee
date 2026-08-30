@@ -3,8 +3,8 @@ import { Geist, Cormorant_Garamond } from 'next/font/google';
 import './globals.css';
 import { MarketingTracker } from './marketing-tracker';
 import { MotionSystem } from './motion-system';
+import { publicSiteUrl as siteUrl } from './site';
 
-const siteUrl = 'https://sohan-website-studio.vercel.app';
 const personalLinkedInUrl = 'https://www.linkedin.com/in/sohan-vyaparee-397a29352/';
 const githubProfileUrl = 'https://github.com/xtreme99909-dotcom';
 

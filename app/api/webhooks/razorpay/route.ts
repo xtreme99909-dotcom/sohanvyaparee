@@ -48,6 +48,7 @@ function amountLabel(amount: number, currency: string) {
 export async function POST(request: Request) {
   const body = await request.text();
   const signature = request.headers.get('x-razorpay-signature') || '';
+  const providerEventId = clean(request.headers.get('x-razorpay-event-id'), 160) || null;
   if (!(await validSignature(body, signature))) {
     return NextResponse.json({ error: 'Invalid webhook signature.' }, { status: 400 });
   }
@@ -57,17 +58,35 @@ export async function POST(request: Request) {
     const eventType = clean(event.event, 80);
     const paymentLink = nestedEntity(event.payload, 'payment_link');
     const payment = nestedEntity(event.payload, 'payment');
+    const refund = nestedEntity(event.payload, 'refund');
     const providerLinkId = clean(paymentLink.id, 80);
     const db = await ensureLeadsSchema();
 
     const inserted = await db.prepare(`INSERT OR IGNORE INTO payment_webhook_events
-      (signature, created_at, event_type, provider_link_id) VALUES (?, ?, ?, ?)`).bind(
+      (signature, event_id, created_at, event_type, provider_link_id) VALUES (?, ?, ?, ?, ?)`).bind(
       signature,
+      providerEventId,
       new Date().toISOString(),
       eventType || 'unknown',
       providerLinkId || null,
     ).run();
     if (!inserted.meta.changes) return NextResponse.json({ received: true, duplicate: true });
+
+    if (eventType === 'refund.processed') {
+      const refundPaymentId = clean(refund.payment_id, 80) || clean(payment.id, 80);
+      const refundId = clean(refund.id, 80) || null;
+      const refundAmount = Number(refund.amount || 0);
+      if (!refundPaymentId || !Number.isFinite(refundAmount) || refundAmount <= 0) {
+        return NextResponse.json({ received: true, ignored: true });
+      }
+      const now = new Date().toISOString();
+      await db.prepare(`UPDATE payment_links SET
+        refunded_amount = MIN(amount, refunded_amount + ?),
+        refund_status = CASE WHEN refunded_amount + ? >= amount THEN 'full' ELSE 'partial' END,
+        refund_reference = COALESCE(?, refund_reference), last_provider_event_at = ?, updated_at = ?
+        WHERE provider_payment_id = ?`).bind(refundAmount, refundAmount, refundId, now, now, refundPaymentId).run();
+      return NextResponse.json({ received: true, refundRecorded: true });
+    }
 
     if (!providerLinkId || !['payment_link.paid', 'payment_link.partially_paid', 'payment_link.cancelled', 'payment_link.expired'].includes(eventType)) {
       return NextResponse.json({ received: true, ignored: true });
@@ -83,22 +102,33 @@ export async function POST(request: Request) {
     const amountPaid = Number(paymentLink.amount_paid || payment.amount || 0);
     const providerPaymentId = clean(payment.id, 80) || null;
     const now = new Date().toISOString();
+    const previous = await db.prepare('SELECT status FROM payment_links WHERE provider_link_id = ?')
+      .bind(providerLinkId)
+      .first<{ status: string }>();
 
     await db.prepare(`UPDATE payment_links SET
-      status = ?, amount_paid = ?, provider_payment_id = COALESCE(?, provider_payment_id),
+      status = CASE
+        WHEN status = 'paid' THEN status
+        WHEN ? = 'paid' THEN 'paid'
+        WHEN status = 'partially_paid' AND ? IN ('cancelled', 'expired') THEN status
+        ELSE ? END,
+      amount_paid = MAX(amount_paid, ?), provider_payment_id = COALESCE(?, provider_payment_id),
       paid_at = CASE WHEN ? = 'paid' THEN COALESCE(paid_at, ?) ELSE paid_at END,
-      updated_at = ?
+      last_provider_event_at = ?, updated_at = ?
       WHERE provider_link_id = ?`).bind(
+      status,
+      status,
       status,
       Number.isFinite(amountPaid) ? amountPaid : 0,
       providerPaymentId,
       status,
       now,
       now,
+      now,
       providerLinkId,
     ).run();
 
-    if (status !== 'paid') return NextResponse.json({ received: true });
+    if (status !== 'paid' || previous?.status === 'paid') return NextResponse.json({ received: true });
 
     const record = await db.prepare(`SELECT reference_id, amount, amount_paid, currency, description,
       customer_name, customer_email FROM payment_links WHERE provider_link_id = ?`).bind(providerLinkId).first<{

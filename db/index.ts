@@ -68,8 +68,20 @@ export async function ensureLeadsSchema() {
       status TEXT NOT NULL DEFAULT 'created' CHECK (status IN ('created', 'partially_paid', 'paid', 'cancelled', 'expired')),
       provider_payment_id TEXT,
       paid_at TEXT,
+      expires_at TEXT,
       customer_name TEXT,
       customer_email TEXT,
+      agreement_reference TEXT NOT NULL DEFAULT '',
+      scope_version TEXT NOT NULL DEFAULT '',
+      delivery_window TEXT NOT NULL DEFAULT '',
+      policy_version TEXT NOT NULL DEFAULT '30 August 2026',
+      agreement_confirmed_at TEXT,
+      client_policy_accepted_at TEXT,
+      client_policy_version TEXT,
+      last_provider_event_at TEXT,
+      refunded_amount INTEGER NOT NULL DEFAULT 0,
+      refund_status TEXT NOT NULL DEFAULT 'none',
+      refund_reference TEXT,
       notification_status TEXT NOT NULL DEFAULT 'pending',
       notification_detail TEXT NOT NULL DEFAULT '',
       FOREIGN KEY (lead_id) REFERENCES leads(id)
@@ -80,6 +92,7 @@ export async function ensureLeadsSchema() {
       ON payment_links(status, updated_at)`),
     db.prepare(`CREATE TABLE IF NOT EXISTS payment_webhook_events (
       signature TEXT PRIMARY KEY NOT NULL,
+      event_id TEXT,
       created_at TEXT NOT NULL,
       event_type TEXT NOT NULL,
       provider_link_id TEXT
@@ -99,6 +112,33 @@ export async function ensureLeadsSchema() {
     leadMigrations.push(db.prepare('ALTER TABLE leads ADD COLUMN updated_at TEXT'));
   }
   if (leadMigrations.length > 0) await db.batch(leadMigrations);
+
+  const paymentColumns = await db.prepare('PRAGMA table_info(payment_links)').all<{ name: string }>();
+  const existingPaymentColumns = new Set(paymentColumns.results.map((column) => column.name));
+  const paymentMigrations: ReturnType<typeof db.prepare>[] = [];
+  const addPaymentColumn = (name: string, statement: string) => {
+    if (!existingPaymentColumns.has(name)) paymentMigrations.push(db.prepare(statement));
+  };
+  addPaymentColumn('expires_at', 'ALTER TABLE payment_links ADD COLUMN expires_at TEXT');
+  addPaymentColumn('agreement_reference', "ALTER TABLE payment_links ADD COLUMN agreement_reference TEXT NOT NULL DEFAULT ''");
+  addPaymentColumn('scope_version', "ALTER TABLE payment_links ADD COLUMN scope_version TEXT NOT NULL DEFAULT ''");
+  addPaymentColumn('delivery_window', "ALTER TABLE payment_links ADD COLUMN delivery_window TEXT NOT NULL DEFAULT ''");
+  addPaymentColumn('policy_version', "ALTER TABLE payment_links ADD COLUMN policy_version TEXT NOT NULL DEFAULT '30 August 2026'");
+  addPaymentColumn('agreement_confirmed_at', 'ALTER TABLE payment_links ADD COLUMN agreement_confirmed_at TEXT');
+  addPaymentColumn('client_policy_accepted_at', 'ALTER TABLE payment_links ADD COLUMN client_policy_accepted_at TEXT');
+  addPaymentColumn('client_policy_version', 'ALTER TABLE payment_links ADD COLUMN client_policy_version TEXT');
+  addPaymentColumn('last_provider_event_at', 'ALTER TABLE payment_links ADD COLUMN last_provider_event_at TEXT');
+  addPaymentColumn('refunded_amount', 'ALTER TABLE payment_links ADD COLUMN refunded_amount INTEGER NOT NULL DEFAULT 0');
+  addPaymentColumn('refund_status', "ALTER TABLE payment_links ADD COLUMN refund_status TEXT NOT NULL DEFAULT 'none'");
+  addPaymentColumn('refund_reference', 'ALTER TABLE payment_links ADD COLUMN refund_reference TEXT');
+  if (paymentMigrations.length > 0) await db.batch(paymentMigrations);
+
+  const webhookColumns = await db.prepare('PRAGMA table_info(payment_webhook_events)').all<{ name: string }>();
+  if (!webhookColumns.results.some((column) => column.name === 'event_id')) {
+    await db.prepare('ALTER TABLE payment_webhook_events ADD COLUMN event_id TEXT').run();
+  }
+  await db.prepare('CREATE UNIQUE INDEX IF NOT EXISTS idx_payment_webhook_events_event_id ON payment_webhook_events(event_id)').run();
+  await db.prepare('CREATE INDEX IF NOT EXISTS idx_payment_webhook_events_created_at ON payment_webhook_events(created_at)').run();
   await db.prepare(`CREATE INDEX IF NOT EXISTS idx_leads_status_next_action_created_at
     ON leads(status, next_action_at, created_at)`).run();
   await db.prepare('PRAGMA optimize').run();

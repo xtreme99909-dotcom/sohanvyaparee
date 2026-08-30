@@ -1,6 +1,5 @@
 import type { MetadataRoute } from 'next';
-
-const baseUrl = 'https://sohan-website-studio.vercel.app';
+import { publicSiteUrl as baseUrl } from './site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -13,5 +12,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/work/studio-system`, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${baseUrl}/work/private-market-concept`, changeFrequency: 'monthly', priority: 0.75 },
     { url: `${baseUrl}/privacy`, changeFrequency: 'yearly', priority: 0.2 },
+    { url: `${baseUrl}/trust`, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/terms`, changeFrequency: 'yearly', priority: 0.25 },
+    { url: `${baseUrl}/refund-cancellation`, changeFrequency: 'yearly', priority: 0.25 },
+    { url: `${baseUrl}/delivery-fulfilment`, changeFrequency: 'yearly', priority: 0.25 },
   ];
 }

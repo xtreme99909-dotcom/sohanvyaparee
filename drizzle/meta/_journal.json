@@ -22,6 +22,13 @@
       "when": 1788006069718,
       "tag": "0002_cuddly_omega_flight",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1788085471273,
+      "tag": "0003_nasty_golden_guardian",
+      "breakpoints": true
     }
   ]
 }

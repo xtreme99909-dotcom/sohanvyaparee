@@ -1,6 +1,7 @@
 import { env } from 'cloudflare:workers';
 import { NextRequest, NextResponse } from 'next/server';
 import { getChatGPTUser, isStudioOwner } from '@/app/chatgpt-auth';
+import { paymentPolicyVersion } from '@/app/payments/policy';
 import { ensureLeadsSchema } from '@/db';
 
 const supportedCurrencies = new Set(['INR', 'USD', 'EUR', 'GBP', 'AED']);
@@ -30,10 +31,17 @@ export async function POST(request: NextRequest) {
     const leadId = clean(input.leadId, 36);
     const currency = clean(input.currency, 3).toUpperCase();
     const description = clean(input.description, 180);
+    const agreementReference = clean(input.agreementReference, 120);
+    const scopeVersion = clean(input.scopeVersion, 120);
+    const deliveryWindow = clean(input.deliveryWindow, 160);
+    const agreementConfirmed = input.agreementConfirmed === true;
     const amount = Number(input.amount);
 
     if (!/^[0-9a-f-]{36}$/i.test(leadId) || !supportedCurrencies.has(currency) || !Number.isInteger(amount) || amount < 5_000 || amount > 50_000_000 || description.length < 8) {
       return NextResponse.json({ error: 'Use a valid lead, amount, currency and milestone.' }, { status: 400 });
+    }
+    if (!agreementConfirmed || agreementReference.length < 5 || scopeVersion.length < 3 || deliveryWindow.length < 8) {
+      return NextResponse.json({ error: 'Record the accepted agreement, scope version and delivery window before issuing payment.' }, { status: 400 });
     }
 
     const db = await ensureLeadsSchema();
@@ -47,6 +55,8 @@ export async function POST(request: NextRequest) {
 
     const id = crypto.randomUUID();
     const referenceId = `SV-${id.replaceAll('-', '').slice(0, 20).toUpperCase()}`;
+    const expiresAtSeconds = Math.floor(Date.now() / 1000) + (14 * 24 * 60 * 60);
+    const expiresAt = new Date(expiresAtSeconds * 1000).toISOString();
     const credentials = btoa(`${env.RAZORPAY_KEY_ID}:${env.RAZORPAY_KEY_SECRET}`);
     const providerResponse = await fetch('https://api.razorpay.com/v1/payment_links', {
       method: 'POST',
@@ -63,9 +73,15 @@ export async function POST(request: NextRequest) {
         customer: { name: lead.name, email: lead.email },
         notify: { email: true, sms: false },
         reminder_enable: true,
+        expire_by: expiresAtSeconds,
         callback_url: `${request.nextUrl.origin}/payments/complete?reference=${encodeURIComponent(referenceId)}`,
         callback_method: 'get',
-        notes: { lead_id: lead.id, company: lead.company.slice(0, 120) },
+        notes: {
+          lead_id: lead.id,
+          company: lead.company.slice(0, 120),
+          agreement_reference: agreementReference,
+          scope_version: scopeVersion,
+        },
       }),
     });
 
@@ -79,8 +95,9 @@ export async function POST(request: NextRequest) {
     const now = new Date().toISOString();
     await db.prepare(`INSERT INTO payment_links (
       id, created_at, updated_at, lead_id, provider_link_id, reference_id, short_url,
-      description, amount, currency, customer_name, customer_email
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).bind(
+      description, amount, currency, customer_name, customer_email, expires_at,
+      agreement_reference, scope_version, delivery_window, policy_version, agreement_confirmed_at
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).bind(
       id,
       now,
       now,
@@ -93,9 +110,16 @@ export async function POST(request: NextRequest) {
       currency,
       lead.name,
       lead.email,
+      expiresAt,
+      agreementReference,
+      scopeVersion,
+      deliveryWindow,
+      paymentPolicyVersion,
+      now,
     ).run();
 
-    return NextResponse.json({ ok: true, url: shortUrl, reference: referenceId });
+    const reviewUrl = new URL(`/pay/${encodeURIComponent(referenceId)}`, request.nextUrl.origin).toString();
+    return NextResponse.json({ ok: true, url: reviewUrl, reference: referenceId });
   } catch {
     return NextResponse.json({ error: 'The secure payment link could not be created.' }, { status: 500 });
   }

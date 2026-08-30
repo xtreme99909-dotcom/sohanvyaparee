@@ -2,8 +2,8 @@
 import type { Metadata } from 'next';
 import { ProjectBrief } from '../../project-brief';
 import { ScopePlanner } from '../../scope-planner';
+import { publicSiteUrl as siteUrl } from '../../site';
 
-const siteUrl = 'https://sohan-website-studio.vercel.app';
 
 export const metadata: Metadata = {
   title: 'Complete Website Design & Development for Founders | Sohan Vyaparee',
@@ -311,6 +311,7 @@ export default function CompleteWebsiteLaunchPage() {
             ))}
           </div>
           <p className="international-working-note">Based outside India? Include your country, target market and preferred working time zone in the project goal below. The final proposal will name the currency, milestone gates and payment route before you commit.</p>
+          <a href="/trust" className="service-detail-link" style={{ color: '#fff', borderColor: 'rgba(255,255,255,.5)' }}>How payment, delivery and refunds are documented <span style={{ color: '#d8ff63' }}>Open the trust centre →</span></a>
         </div>
       </section>
 
@@ -355,7 +356,7 @@ export default function CompleteWebsiteLaunchPage() {
 
       <footer>
         <div className="footer-main"><a href="/" className="wordmark light-mark"><span>SV</span><strong>Sohan Vyaparee</strong></a><p>Complete websites from direction to launch.</p><a href="#top">Back to top ↑</a></div>
-        <div className="footer-small"><span>Service · Complete website launch</span><span>© 2026 Sohan Vyaparee</span></div>
+        <div className="footer-small"><span>Service · Complete website launch</span><span><a href="/trust">Trust & payments</a> · <a href="/terms">Terms</a> · © 2026 Sohan Vyaparee</span></div>
       </footer>
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />

@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Sites/vinext Link prefetch throws at runtime; full-page navigation is intentional here. */
 import type { Metadata } from 'next';
 import { ProjectBrief } from '../../project-brief';
+import { publicSiteUrl as siteUrl } from '../../site';
 
-const siteUrl = 'https://sohan-website-studio.vercel.app';
 const servicePath = '/services/d2c-commerce-launch';
 
 export const metadata: Metadata = {

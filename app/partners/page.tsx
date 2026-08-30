@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import { PartnerBrief } from './partner-brief';
 import { PartnerFit } from './partner-fit';
+import { publicSiteUrl as siteUrl } from '../site';
 
 /* Vinext currently hydrates this route reliably with native internal anchors. */
 /* eslint-disable @next/next/no-html-link-for-pages */
 
-const siteUrl = 'https://sohan-website-studio.vercel.app';
 
 export const metadata: Metadata = {
   title: 'Website Delivery Partner for Creative and Growth Specialists — Sohan Vyaparee',

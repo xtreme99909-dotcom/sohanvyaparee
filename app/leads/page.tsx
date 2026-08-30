@@ -44,6 +44,12 @@ type PaymentRecord = {
   currency: string;
   status: string;
   notification_status: string;
+  agreement_reference: string;
+  scope_version: string;
+  delivery_window: string;
+  client_policy_accepted_at: string | null;
+  refunded_amount: number;
+  refund_status: string;
   customer_name: string | null;
   customer_email: string | null;
   company: string;
@@ -122,7 +128,9 @@ export default async function LeadsPage() {
     db.prepare(`SELECT payment_links.id, payment_links.created_at, payment_links.reference_id,
       payment_links.description, payment_links.amount, payment_links.amount_paid, payment_links.currency,
       payment_links.status, payment_links.notification_status, payment_links.customer_name,
-      payment_links.customer_email, leads.company
+      payment_links.customer_email, payment_links.agreement_reference, payment_links.scope_version,
+      payment_links.delivery_window, payment_links.client_policy_accepted_at,
+      payment_links.refunded_amount, payment_links.refund_status, leads.company
       FROM payment_links JOIN leads ON leads.id = payment_links.lead_id
       ORDER BY payment_links.created_at DESC LIMIT 100`).all<PaymentRecord>(),
   ]);
@@ -197,15 +205,16 @@ export default async function LeadsPage() {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full min-w-[900px] border-collapse text-left text-xs">
-              <thead><tr className="border-b border-black/10 text-[10px] uppercase tracking-[.12em] text-black/45"><th className="p-4 font-semibold">Client</th><th className="p-4 font-semibold">Milestone</th><th className="p-4 font-semibold">Amount</th><th className="p-4 font-semibold">Status</th><th className="p-4 font-semibold">Alert</th><th className="p-4 font-semibold">Reference</th></tr></thead>
+              <thead><tr className="border-b border-black/10 text-[10px] uppercase tracking-[.12em] text-black/45"><th className="p-4 font-semibold">Client</th><th className="p-4 font-semibold">Milestone</th><th className="p-4 font-semibold">Amount</th><th className="p-4 font-semibold">Agreement proof</th><th className="p-4 font-semibold">Status</th><th className="p-4 font-semibold">Alert</th><th className="p-4 font-semibold">Reference</th></tr></thead>
               <tbody>{paymentResult.results.map((payment) => (
                 <tr key={payment.id} className="border-b border-black/10 last:border-0">
                   <td className="p-4"><strong className="block text-sm">{payment.customer_name || payment.company}</strong><span className="mt-1 block text-black/45">{payment.customer_email || payment.company}</span></td>
                   <td className="max-w-sm p-4 text-black/60">{payment.description}</td>
-                  <td className="p-4 font-serif text-2xl">{formatMoney(payment.amount_paid || payment.amount, payment.currency)}</td>
+                  <td className="p-4"><span className="font-serif text-2xl">{formatMoney(payment.amount_paid || payment.amount, payment.currency)}</span>{payment.refunded_amount ? <span className="mt-1 block text-[10px] text-black/45">Refunded {formatMoney(payment.refunded_amount, payment.currency)} · {payment.refund_status}</span> : null}</td>
+                  <td className="p-4"><strong className="block text-[11px]">{payment.agreement_reference || 'Legacy request'}</strong><span className="mt-1 block text-[10px] text-black/45">{payment.scope_version || 'No scope version'} · {payment.client_policy_accepted_at ? 'policies acknowledged' : 'awaiting acknowledgement'}</span></td>
                   <td className="p-4"><span className={`rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-[.1em] ${payment.status === 'paid' ? 'bg-[#d8ff63]' : 'border border-black/15'}`}>{payment.status.replaceAll('_', ' ')}</span></td>
                   <td className="p-4 text-black/55">{payment.notification_status.replaceAll('_', ' ')}</td>
-                  <td className="p-4 font-mono text-[11px] text-black/55">{payment.reference_id}</td>
+                  <td className="p-4 font-mono text-[11px] text-black/55"><a className="border-b border-black/20" href={`/pay/${payment.reference_id}`} target="_blank" rel="noreferrer">{payment.reference_id} ↗</a></td>
                 </tr>
               ))}</tbody>
             </table>

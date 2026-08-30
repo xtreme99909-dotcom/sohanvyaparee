@@ -36,6 +36,10 @@ function PaymentLinkPanel({ lead, status }: { lead: LeadRecord; status: LeadStat
   const [amount, setAmount] = useState('');
   const [currency, setCurrency] = useState('USD');
   const [description, setDescription] = useState('50% project reservation deposit');
+  const [agreementReference, setAgreementReference] = useState('');
+  const [scopeVersion, setScopeVersion] = useState('');
+  const [deliveryWindow, setDeliveryWindow] = useState('');
+  const [agreementConfirmed, setAgreementConfirmed] = useState(false);
   const [state, setState] = useState<'idle' | 'creating' | 'ready' | 'error'>('idle');
   const [message, setMessage] = useState('');
   const [paymentUrl, setPaymentUrl] = useState('');
@@ -59,6 +63,10 @@ function PaymentLinkPanel({ lead, status }: { lead: LeadRecord; status: LeadStat
           amount: Math.round(wholeAmount * 100),
           currency,
           description,
+          agreementReference,
+          scopeVersion,
+          deliveryWindow,
+          agreementConfirmed,
         }),
       });
       const result = await response.json() as { error?: string; url?: string; reference?: string };
@@ -89,13 +97,18 @@ function PaymentLinkPanel({ lead, status }: { lead: LeadRecord; status: LeadStat
         <div>
           <p className="text-[10px] font-bold uppercase tracking-[.14em] text-white/45">Provider-verified milestone payment</p>
           <h3 className="mt-3 font-serif text-3xl leading-none">Issue one secure client link.</h3>
-          <p className="mt-4 max-w-md text-xs leading-6 text-white/60">Only after the proposal and agreement are accepted. The amount is created server-side and payment counts only after the signed provider webhook is recorded.</p>
+          <p className="mt-4 max-w-md text-xs leading-6 text-white/60">Only after the proposal and agreement are accepted. The client first sees a private review page on this domain; checkout opens only after they acknowledge the published policies.</p>
+          <a className="mt-4 inline-block border-b border-[#d8ff63]/50 pb-1 text-[10px] font-bold uppercase tracking-[.1em] text-[#d8ff63]" href="/trust" target="_blank">Review the client trust flow ↗</a>
         </div>
-        <form onSubmit={createPaymentLink} className="grid gap-3 sm:grid-cols-[.65fr_.45fr_1.2fr_auto] sm:items-end">
+        <form onSubmit={createPaymentLink} className="grid gap-3 sm:grid-cols-2 xl:grid-cols-6 xl:items-end">
           <label className="grid gap-2 text-[10px] font-bold uppercase tracking-[.12em] text-white/55">Amount<input className="min-h-11 border border-white/20 bg-white/10 px-3 text-sm font-medium normal-case tracking-normal text-white" inputMode="decimal" min="50" step="0.01" value={amount} onChange={(event) => { setAmount(event.target.value); setState('idle'); }} placeholder="1250" disabled={!qualified} /></label>
           <label className="grid gap-2 text-[10px] font-bold uppercase tracking-[.12em] text-white/55">Currency<select className="min-h-11 border border-white/20 bg-[#17201c] px-3 text-sm font-medium normal-case tracking-normal text-white" value={currency} onChange={(event) => { setCurrency(event.target.value); setState('idle'); }} disabled={!qualified}>{['USD', 'EUR', 'GBP', 'AED', 'INR'].map((value) => <option key={value}>{value}</option>)}</select></label>
-          <label className="grid gap-2 text-[10px] font-bold uppercase tracking-[.12em] text-white/55">Milestone<input className="min-h-11 border border-white/20 bg-white/10 px-3 text-sm font-medium normal-case tracking-normal text-white" maxLength={180} value={description} onChange={(event) => { setDescription(event.target.value); setState('idle'); }} disabled={!qualified} /></label>
-          <button className="min-h-11 rounded-full bg-[#d8ff63] px-5 text-xs font-bold uppercase tracking-[.08em] text-[#17201c] disabled:cursor-not-allowed disabled:opacity-40" type="submit" disabled={!qualified || state === 'creating'}>{state === 'creating' ? 'Creating…' : 'Create link'}</button>
+          <label className="grid gap-2 text-[10px] font-bold uppercase tracking-[.12em] text-white/55 sm:col-span-2 xl:col-span-2">Milestone<input className="min-h-11 border border-white/20 bg-white/10 px-3 text-sm font-medium normal-case tracking-normal text-white" maxLength={180} value={description} onChange={(event) => { setDescription(event.target.value); setState('idle'); }} disabled={!qualified} /></label>
+          <label className="grid gap-2 text-[10px] font-bold uppercase tracking-[.12em] text-white/55">Agreement reference<input className="min-h-11 border border-white/20 bg-white/10 px-3 text-sm font-medium normal-case tracking-normal text-white" maxLength={120} value={agreementReference} onChange={(event) => { setAgreementReference(event.target.value); setState('idle'); }} placeholder="SOW-2026-001" disabled={!qualified} /></label>
+          <label className="grid gap-2 text-[10px] font-bold uppercase tracking-[.12em] text-white/55">Scope version<input className="min-h-11 border border-white/20 bg-white/10 px-3 text-sm font-medium normal-case tracking-normal text-white" maxLength={120} value={scopeVersion} onChange={(event) => { setScopeVersion(event.target.value); setState('idle'); }} placeholder="v1 · 30 Aug 2026" disabled={!qualified} /></label>
+          <label className="grid gap-2 text-[10px] font-bold uppercase tracking-[.12em] text-white/55 sm:col-span-2 xl:col-span-4">Delivery window<input className="min-h-11 border border-white/20 bg-white/10 px-3 text-sm font-medium normal-case tracking-normal text-white" maxLength={160} value={deliveryWindow} onChange={(event) => { setDeliveryWindow(event.target.value); setState('idle'); }} placeholder="Direction review within 5 working days of kickoff" disabled={!qualified} /></label>
+          <label className="flex min-h-11 cursor-pointer items-center gap-3 border border-white/20 bg-white/5 px-3 text-[10px] leading-5 text-white/65 sm:col-span-2 xl:col-span-2"><input className="size-4 accent-[#d8ff63]" type="checkbox" checked={agreementConfirmed} onChange={(event) => { setAgreementConfirmed(event.target.checked); setState('idle'); }} disabled={!qualified} />I have the client&apos;s accepted agreement and matching scope.</label>
+          <button className="min-h-11 rounded-full bg-[#d8ff63] px-5 text-xs font-bold uppercase tracking-[.08em] text-[#17201c] disabled:cursor-not-allowed disabled:opacity-40 sm:col-span-2 xl:col-span-6" type="submit" disabled={!qualified || !agreementConfirmed || state === 'creating'}>{state === 'creating' ? 'Creating…' : 'Create private review + payment link'}</button>
         </form>
       </div>
       {!qualified ? <p className="mt-4 text-xs text-white/50">Mark and save this enquiry as Qualified before issuing a payment request.</p> : null}
@@ -103,7 +116,7 @@ function PaymentLinkPanel({ lead, status }: { lead: LeadRecord; status: LeadStat
       {state === 'ready' ? (
         <div className="mt-5 flex flex-col gap-3 border border-white/15 bg-white/5 p-4 sm:flex-row sm:items-center sm:justify-between">
           <div><span className="text-[10px] uppercase tracking-[.12em] text-white/45">Reference</span><strong className="ml-3 text-xs">{reference}</strong></div>
-          <div className="flex flex-wrap gap-2"><button type="button" onClick={copyPaymentLink} className="rounded-full border border-white/20 px-4 py-2 text-[10px] font-bold uppercase tracking-[.08em]">Copy link</button><a className="rounded-full bg-white px-4 py-2 text-[10px] font-bold uppercase tracking-[.08em] text-[#17201c]" href={paymentUrl} target="_blank" rel="noreferrer">Open secure checkout ↗</a></div>
+          <div className="flex flex-wrap gap-2"><button type="button" onClick={copyPaymentLink} className="rounded-full border border-white/20 px-4 py-2 text-[10px] font-bold uppercase tracking-[.08em]">Copy client link</button><a className="rounded-full bg-white px-4 py-2 text-[10px] font-bold uppercase tracking-[.08em] text-[#17201c]" href={paymentUrl} target="_blank" rel="noreferrer">Review as client ↗</a></div>
         </div>
       ) : null}
       {message && state !== 'error' ? <p className="mt-3 text-xs text-white/55" aria-live="polite">{message}</p> : null}
