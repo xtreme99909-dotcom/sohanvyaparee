@@ -6,6 +6,8 @@ import { MotionSystem } from './motion-system';
 import { publicSiteUrl as siteUrl, studioBrand } from './site';
 
 const personalLinkedInUrl = 'https://www.linkedin.com/in/sohan-vyaparee-397a29352/';
+const studioLinkedInUrl = 'https://www.linkedin.com/company/sp-studios7/';
+const studioInstagramUrl = 'https://www.instagram.com/sohanwebstudio/';
 const githubProfileUrl = 'https://github.com/xtreme99909-dotcom';
 
 const geistSans = Geist({
@@ -85,6 +87,8 @@ const professionalServiceSchema = {
     sameAs: [personalLinkedInUrl, githubProfileUrl],
   },
   sameAs: [
+    studioLinkedInUrl,
+    studioInstagramUrl,
     personalLinkedInUrl,
     'https://www.linkedin.com/services/page/a8036034688b927420/',
     'https://www.upwork.com/freelancers/~01b29ff9dfbe850b7b',

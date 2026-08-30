@@ -320,7 +320,7 @@ export default function Home() {
         <p className="section-index">06 · The person directing it</p>
         <div className="about-grid">
           <figure className="founder-portrait">
-            <Image src="/founder-sohan.jpg" width={1200} height={1187} sizes="(max-width: 1080px) 91vw, 36vw" alt="Sohan Vyaparee, founder and website creative director" />
+            <Image src="/founder-working-professional.jpg" width={941} height={1672} sizes="(max-width: 1080px) 91vw, 36vw" alt="Sohan Vyaparee, founder and website creative director, working on a laptop" />
             <figcaption><span>Founder · Director · Builder</span><strong>Sohan Vyaparee</strong></figcaption>
           </figure>
           <div>
@@ -328,7 +328,7 @@ export default function Home() {
             <p>I’m Sohan Vyaparee, founder and creative director of SP Studios—and the founder behind BongFoods. I help businesses turn an idea, offer or outdated presence into one clear, customer-ready website.</p>
             <p>My background in CGI, animation, advertising and art direction gives the work a strong visual point of view. Building and operating my own food business keeps that creativity grounded in practical questions: Will people understand it? Trust it? Act on it?</p>
             <p>I use an AI-assisted workflow to research, prototype and build faster, but every important decision—strategy, hierarchy, taste and final quality—stays personally directed.</p>
-            <div className="about-links"><a href="https://www.linkedin.com/services/page/a8036034688b927420/" target="_blank" rel="noreferrer">LinkedIn services ↗</a><a href="https://www.upwork.com/freelancers/~01b29ff9dfbe850b7b" target="_blank" rel="noreferrer">Upwork ↗</a><a href="https://github.com/xtreme99909-dotcom/sohanvyaparee" target="_blank" rel="noreferrer">GitHub source ↗</a><a href="/trust">Trust & payments ↗</a><a href="/partners">For collaborators ↗</a></div>
+            <div className="about-links"><a href="https://www.linkedin.com/company/sp-studios7/" target="_blank" rel="noreferrer">SP Studios on LinkedIn ↗</a><a href="https://www.instagram.com/sohanwebstudio/" target="_blank" rel="noreferrer">Instagram ↗</a><a href="https://www.linkedin.com/services/page/a8036034688b927420/" target="_blank" rel="noreferrer">LinkedIn services ↗</a><a href="https://www.upwork.com/freelancers/~01b29ff9dfbe850b7b" target="_blank" rel="noreferrer">Upwork ↗</a><a href="https://github.com/xtreme99909-dotcom/sohanvyaparee" target="_blank" rel="noreferrer">GitHub source ↗</a><a href="/trust">Trust & payments ↗</a><a href="/partners">For collaborators ↗</a></div>
           </div>
         </div>
       </section>
