@@ -34,6 +34,25 @@ type LeadChannel = {
 
 type Channel = EventChannel & { leads: number };
 
+type PaymentRecord = {
+  id: string;
+  created_at: string;
+  reference_id: string;
+  description: string;
+  amount: number;
+  amount_paid: number;
+  currency: string;
+  status: string;
+  notification_status: string;
+  customer_name: string | null;
+  customer_email: string | null;
+  company: string;
+};
+
+function formatMoney(amount: number, currency: string) {
+  return new Intl.NumberFormat('en', { style: 'currency', currency }).format(amount / 100);
+}
+
 function channelKey(source: string, medium: string, campaign: string | null) {
   return `${source}\u0000${medium}\u0000${campaign || ''}`;
 }
@@ -67,7 +86,7 @@ export default async function LeadsPage() {
 
   const { ensureLeadsSchema } = await import('@/db');
   const db = await ensureLeadsSchema();
-  const [result, marketing, eventChannelResult, leadChannelResult, leadSummary] = await Promise.all([
+  const [result, marketing, eventChannelResult, leadChannelResult, leadSummary, paymentResult] = await Promise.all([
     db.prepare(`SELECT id, created_at, name, email, company, project_type, budget,
       timing, goal, source, status, owner_notes, next_action_at, updated_at, utm_source
       FROM leads ORDER BY created_at DESC LIMIT 200`).all<LeadRecord>(),
@@ -100,6 +119,12 @@ export default async function LeadsPage() {
       GROUP BY source, medium, campaign`).all<LeadChannel>(),
     db.prepare(`SELECT COUNT(*) AS total FROM leads
       WHERE created_at >= strftime('%Y-%m-%dT%H:%M:%fZ', 'now', '-30 days')`).first<{ total: number }>(),
+    db.prepare(`SELECT payment_links.id, payment_links.created_at, payment_links.reference_id,
+      payment_links.description, payment_links.amount, payment_links.amount_paid, payment_links.currency,
+      payment_links.status, payment_links.notification_status, payment_links.customer_name,
+      payment_links.customer_email, leads.company
+      FROM payment_links JOIN leads ON leads.id = payment_links.lead_id
+      ORDER BY payment_links.created_at DESC LIMIT 100`).all<PaymentRecord>(),
   ]);
   const leads = result.results;
   const channelMap = new Map<string, Channel>();
@@ -158,6 +183,29 @@ export default async function LeadsPage() {
                   <td className="p-4"><strong className="block text-sm">{channel.source}</strong><span className="mt-1 block text-black/45">{channel.medium}</span></td>
                   <td className="max-w-xs p-4 text-black/60">{channel.campaign || '—'}</td>
                   <td className="p-4 font-serif text-2xl">{channel.visits}</td><td className="p-4 font-serif text-2xl">{channel.service_views}</td><td className="p-4 font-serif text-2xl">{channel.proof_views}</td><td className="p-4 font-serif text-2xl">{channel.enquiry_clicks}</td><td className="p-4 font-serif text-2xl">{channel.brief_starts}</td><td className="p-4 font-serif text-2xl">{channel.leads}</td>
+                </tr>
+              ))}</tbody>
+            </table>
+          </div>
+        )}
+      </section>
+
+      <section className="mx-auto mt-8 max-w-[1500px] border border-black/15 bg-white">
+        <div className="flex flex-col justify-between gap-3 border-b border-black/15 p-6 sm:flex-row sm:items-end"><div><p className="text-xs font-bold uppercase tracking-[.14em] text-black/50">Milestone payments</p><h2 className="mt-3 font-serif text-4xl">Issued, verified, notified.</h2></div><p className="max-w-lg text-xs leading-6 text-black/50">A checkout return is never treated as payment. Only a signed provider webhook changes a milestone to paid.</p></div>
+        {paymentResult.results.length === 0 ? (
+          <p className="p-8 text-sm leading-7 text-black/60">No payment links have been issued. Qualify a real enquiry, agree the scope and contract, then create its milestone link from that lead card.</p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[900px] border-collapse text-left text-xs">
+              <thead><tr className="border-b border-black/10 text-[10px] uppercase tracking-[.12em] text-black/45"><th className="p-4 font-semibold">Client</th><th className="p-4 font-semibold">Milestone</th><th className="p-4 font-semibold">Amount</th><th className="p-4 font-semibold">Status</th><th className="p-4 font-semibold">Alert</th><th className="p-4 font-semibold">Reference</th></tr></thead>
+              <tbody>{paymentResult.results.map((payment) => (
+                <tr key={payment.id} className="border-b border-black/10 last:border-0">
+                  <td className="p-4"><strong className="block text-sm">{payment.customer_name || payment.company}</strong><span className="mt-1 block text-black/45">{payment.customer_email || payment.company}</span></td>
+                  <td className="max-w-sm p-4 text-black/60">{payment.description}</td>
+                  <td className="p-4 font-serif text-2xl">{formatMoney(payment.amount_paid || payment.amount, payment.currency)}</td>
+                  <td className="p-4"><span className={`rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-[.1em] ${payment.status === 'paid' ? 'bg-[#d8ff63]' : 'border border-black/15'}`}>{payment.status.replaceAll('_', ' ')}</span></td>
+                  <td className="p-4 text-black/55">{payment.notification_status.replaceAll('_', ' ')}</td>
+                  <td className="p-4 font-mono text-[11px] text-black/55">{payment.reference_id}</td>
                 </tr>
               ))}</tbody>
             </table>

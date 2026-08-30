@@ -52,6 +52,38 @@ export async function ensureLeadsSchema() {
     )`),
     db.prepare(`CREATE UNIQUE INDEX IF NOT EXISTS idx_marketing_events_unique_session_event_path
       ON marketing_events(session_id, event_type, page_path)`),
+    db.prepare(`CREATE TABLE IF NOT EXISTS payment_links (
+      id TEXT PRIMARY KEY NOT NULL,
+      created_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL,
+      lead_id TEXT NOT NULL,
+      provider TEXT NOT NULL DEFAULT 'razorpay',
+      provider_link_id TEXT NOT NULL UNIQUE,
+      reference_id TEXT NOT NULL UNIQUE,
+      short_url TEXT NOT NULL,
+      description TEXT NOT NULL,
+      amount INTEGER NOT NULL,
+      amount_paid INTEGER NOT NULL DEFAULT 0,
+      currency TEXT NOT NULL,
+      status TEXT NOT NULL DEFAULT 'created' CHECK (status IN ('created', 'partially_paid', 'paid', 'cancelled', 'expired')),
+      provider_payment_id TEXT,
+      paid_at TEXT,
+      customer_name TEXT,
+      customer_email TEXT,
+      notification_status TEXT NOT NULL DEFAULT 'pending',
+      notification_detail TEXT NOT NULL DEFAULT '',
+      FOREIGN KEY (lead_id) REFERENCES leads(id)
+    )`),
+    db.prepare(`CREATE INDEX IF NOT EXISTS idx_payment_links_lead_created_at
+      ON payment_links(lead_id, created_at)`),
+    db.prepare(`CREATE INDEX IF NOT EXISTS idx_payment_links_status_updated_at
+      ON payment_links(status, updated_at)`),
+    db.prepare(`CREATE TABLE IF NOT EXISTS payment_webhook_events (
+      signature TEXT PRIMARY KEY NOT NULL,
+      created_at TEXT NOT NULL,
+      event_type TEXT NOT NULL,
+      provider_link_id TEXT
+    )`),
   ]);
 
   const leadColumns = await db.prepare('PRAGMA table_info(leads)').all<{ name: string }>();

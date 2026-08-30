@@ -71,9 +71,17 @@ The project is a responsive Next.js and TypeScript website with:
 - A non-destructive enquiry recovery state that preserves the buyer's answers and exposes the verified Upwork project if the private inbox cannot save the submission
 - Campaign-source attribution
 - A protected studio-owner lead desk with persistent stage, next-action date, private notes and a tailored qualification-response draft
+- Owner-issued Razorpay milestone links for qualified clients, with a provider-signed webhook ledger and duplicate-event protection
+- Optional owner alerts through Resend email and a pre-approved WhatsApp Business template after a verified paid event
 - SEO metadata, sitemap, social preview and privacy information
 
 The repository contains no production passwords, private enquiries or deployment secrets.
+
+## Payment activation boundary
+
+The payment code is intentionally safe while unconfigured: a client cannot enter an arbitrary amount, and no public payment button is exposed. The studio owner must first qualify the enquiry and accept a written scope and agreement, then issue a unique milestone link from the protected lead desk.
+
+Production activation requires Sohan's own Razorpay KYC and international-payment approval, server-only `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET` and `RAZORPAY_WEBHOOK_SECRET` values, plus a Razorpay webhook pointing to `/api/webhooks/razorpay`. Email and WhatsApp alerts are optional and require the server-only values listed in `.env.example`; WhatsApp uses a Meta-approved Business template. No card, bank, UPI PIN or OTP data is handled or stored by this repository.
 
 ## Discuss a complete website
 

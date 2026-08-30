@@ -32,6 +32,85 @@ function asLeadStatus(value: string): LeadStatus {
   return statusOptions.some((option) => option.value === value) ? value as LeadStatus : 'new';
 }
 
+function PaymentLinkPanel({ lead, status }: { lead: LeadRecord; status: LeadStatus }) {
+  const [amount, setAmount] = useState('');
+  const [currency, setCurrency] = useState('USD');
+  const [description, setDescription] = useState('50% project reservation deposit');
+  const [state, setState] = useState<'idle' | 'creating' | 'ready' | 'error'>('idle');
+  const [message, setMessage] = useState('');
+  const [paymentUrl, setPaymentUrl] = useState('');
+  const [reference, setReference] = useState('');
+
+  async function createPaymentLink(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setState('creating');
+    setMessage('');
+    setPaymentUrl('');
+    setReference('');
+
+    try {
+      const wholeAmount = Number(amount);
+      if (!Number.isFinite(wholeAmount) || wholeAmount < 50) throw new Error('Enter at least 50 in the selected currency.');
+      const response = await fetch('/api/payment-links', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          leadId: lead.id,
+          amount: Math.round(wholeAmount * 100),
+          currency,
+          description,
+        }),
+      });
+      const result = await response.json() as { error?: string; url?: string; reference?: string };
+      if (!response.ok || !result.url || !result.reference) throw new Error(result.error || 'Payment link creation failed.');
+      setPaymentUrl(result.url);
+      setReference(result.reference);
+      setState('ready');
+    } catch (error) {
+      setState('error');
+      setMessage(error instanceof Error ? error.message : 'Payment link creation failed.');
+    }
+  }
+
+  async function copyPaymentLink() {
+    try {
+      await navigator.clipboard.writeText(paymentUrl);
+      setMessage('Secure link copied. Share it only after the scope and agreement are accepted.');
+    } catch {
+      setMessage('Copy unavailable. Open the link and copy it from the address bar.');
+    }
+  }
+
+  const qualified = status === 'qualified';
+
+  return (
+    <section className="border-t border-black/10 bg-[#17201c] p-6 text-white">
+      <div className="grid gap-6 lg:grid-cols-[.7fr_1.3fr]">
+        <div>
+          <p className="text-[10px] font-bold uppercase tracking-[.14em] text-white/45">Provider-verified milestone payment</p>
+          <h3 className="mt-3 font-serif text-3xl leading-none">Issue one secure client link.</h3>
+          <p className="mt-4 max-w-md text-xs leading-6 text-white/60">Only after the proposal and agreement are accepted. The amount is created server-side and payment counts only after the signed provider webhook is recorded.</p>
+        </div>
+        <form onSubmit={createPaymentLink} className="grid gap-3 sm:grid-cols-[.65fr_.45fr_1.2fr_auto] sm:items-end">
+          <label className="grid gap-2 text-[10px] font-bold uppercase tracking-[.12em] text-white/55">Amount<input className="min-h-11 border border-white/20 bg-white/10 px-3 text-sm font-medium normal-case tracking-normal text-white" inputMode="decimal" min="50" step="0.01" value={amount} onChange={(event) => { setAmount(event.target.value); setState('idle'); }} placeholder="1250" disabled={!qualified} /></label>
+          <label className="grid gap-2 text-[10px] font-bold uppercase tracking-[.12em] text-white/55">Currency<select className="min-h-11 border border-white/20 bg-[#17201c] px-3 text-sm font-medium normal-case tracking-normal text-white" value={currency} onChange={(event) => { setCurrency(event.target.value); setState('idle'); }} disabled={!qualified}>{['USD', 'EUR', 'GBP', 'AED', 'INR'].map((value) => <option key={value}>{value}</option>)}</select></label>
+          <label className="grid gap-2 text-[10px] font-bold uppercase tracking-[.12em] text-white/55">Milestone<input className="min-h-11 border border-white/20 bg-white/10 px-3 text-sm font-medium normal-case tracking-normal text-white" maxLength={180} value={description} onChange={(event) => { setDescription(event.target.value); setState('idle'); }} disabled={!qualified} /></label>
+          <button className="min-h-11 rounded-full bg-[#d8ff63] px-5 text-xs font-bold uppercase tracking-[.08em] text-[#17201c] disabled:cursor-not-allowed disabled:opacity-40" type="submit" disabled={!qualified || state === 'creating'}>{state === 'creating' ? 'Creating…' : 'Create link'}</button>
+        </form>
+      </div>
+      {!qualified ? <p className="mt-4 text-xs text-white/50">Mark and save this enquiry as Qualified before issuing a payment request.</p> : null}
+      {state === 'error' ? <p className="mt-4 text-xs text-[#ffb7ad]" role="alert">{message}</p> : null}
+      {state === 'ready' ? (
+        <div className="mt-5 flex flex-col gap-3 border border-white/15 bg-white/5 p-4 sm:flex-row sm:items-center sm:justify-between">
+          <div><span className="text-[10px] uppercase tracking-[.12em] text-white/45">Reference</span><strong className="ml-3 text-xs">{reference}</strong></div>
+          <div className="flex flex-wrap gap-2"><button type="button" onClick={copyPaymentLink} className="rounded-full border border-white/20 px-4 py-2 text-[10px] font-bold uppercase tracking-[.08em]">Copy link</button><a className="rounded-full bg-white px-4 py-2 text-[10px] font-bold uppercase tracking-[.08em] text-[#17201c]" href={paymentUrl} target="_blank" rel="noreferrer">Open secure checkout ↗</a></div>
+        </div>
+      ) : null}
+      {message && state !== 'error' ? <p className="mt-3 text-xs text-white/55" aria-live="polite">{message}</p> : null}
+    </section>
+  );
+}
+
 function LeadCard({ lead, onSaved }: { lead: LeadRecord; onSaved: (lead: LeadRecord) => void }) {
   const [status, setStatus] = useState<LeadStatus>(asLeadStatus(lead.status));
   const [ownerNotes, setOwnerNotes] = useState(lead.owner_notes || '');
@@ -96,6 +175,7 @@ function LeadCard({ lead, onSaved }: { lead: LeadRecord; onSaved: (lead: LeadRec
           <p className="text-[10px] leading-5 text-black/45">Opening the draft does not send it. Review every line, then record the actual next action above.</p>
         </div>
       </div>
+      <PaymentLinkPanel lead={lead} status={status} />
     </article>
   );
 }
