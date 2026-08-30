@@ -7,7 +7,7 @@ import { publicSiteUrl as siteUrl, studioBrand } from './site';
 
 const personalLinkedInUrl = 'https://www.linkedin.com/in/sohan-vyaparee-397a29352/';
 const studioLinkedInUrl = 'https://www.linkedin.com/company/sp-studios7/';
-const studioInstagramUrl = 'https://www.instagram.com/sohanwebstudio/';
+const studioInstagramUrl = 'https://www.instagram.com/spstudios7/';
 const githubProfileUrl = 'https://github.com/xtreme99909-dotcom';
 
 const geistSans = Geist({
