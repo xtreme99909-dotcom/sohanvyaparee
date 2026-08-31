@@ -201,16 +201,16 @@ export default function D2CCommerceLaunchPage() {
 
       <section id="proof" className="d2c-proof section-shell">
         <div className="service-section-heading dark-heading">
-          <div><p className="section-index">03 · Relevant proof</p><h2>A real commerce system I built and operate.</h2></div>
-          <p>BongFoods is founder-built proof, not a borrowed client credit. I directed the product experience and implemented the path from discovery to confirmed order for my own operating food business.</p>
+          <div><p className="section-index">03 · Relevant proof</p><h2>An operating-business context you can inspect.</h2></div>
+          <p>BongFoods is founder-built proof, not a borrowed client credit. I directed the presented product journey from discovery through delivery eligibility and a payment path for my own operating food business.</p>
         </div>
         <div className="d2c-proof-card">
-          <div className="d2c-proof-mark"><span>B</span><small>Live founder-built product</small></div>
+          <div className="d2c-proof-mark"><span>B</span><small>Live founder-built work</small></div>
           <div>
             <p className="eyebrow"><span /> BongFoods · restaurant commerce</p>
-            <h3>Craving, phone verification, cart, address, delivery area and payment—one mobile journey.</h3>
-            <p>The case shows product direction, UX/UI, responsive implementation and connected ordering logic. It does not claim invented client revenue or third-party conversion results.</p>
-            <a href="/work/bongfoods">View the live-product case study →</a>
+            <h3>Craving, phone verification, cart, address, delivery area and payment path—one presented mobile journey.</h3>
+            <p>The case shows product direction, UX/UI, responsive implementation and ordering-path thinking. It does not claim successful orders, captured payments, client revenue or third-party conversion results.</p>
+            <a href="/work/bongfoods">View the founder-built case study →</a>
           </div>
         </div>
       </section>

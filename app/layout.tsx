@@ -77,9 +77,10 @@ const professionalServiceSchema = {
     '@type': 'OfferCatalog',
     name: 'Complete website engagements',
     itemListElement: [
-      { '@type': 'Offer', name: 'Focused Website', price: '1500', priceCurrency: 'USD', url: `${siteUrl}/services/complete-website-launch#scope` },
+      { '@type': 'Offer', name: 'Focused Launch', price: '1500', priceCurrency: 'USD', url: `${siteUrl}/services/complete-website-launch#scope` },
       { '@type': 'Offer', name: 'Complete Business Website', price: '3000', priceCurrency: 'USD', url: `${siteUrl}/services/complete-website-launch#scope` },
-      { '@type': 'Offer', name: 'International or Complex Website', price: '6500', priceCurrency: 'USD', url: `${siteUrl}/services/complete-website-launch#scope` },
+      { '@type': 'Offer', name: 'Signature Experience + Integration', price: '5000', priceCurrency: 'USD', url: `${siteUrl}/services/complete-website-launch#scope` },
+      { '@type': 'Offer', name: 'International Launch System', price: '6500', priceCurrency: 'USD', url: `${siteUrl}/services/complete-website-launch#scope` },
     ],
   },
   founder: {

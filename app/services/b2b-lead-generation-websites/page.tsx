@@ -206,7 +206,7 @@ export default function B2BLeadGenerationWebsitesPage() {
           <p>This is self-initiated operating proof—not an invented client-growth claim. The system connects a clear offer, truth-labelled proof, scope guidance, structured qualification, attribution and private owner triage.</p>
         </div>
         <div className="d2c-proof-card b2b-proof-card">
-          <div className="d2c-proof-mark b2b-proof-mark"><span>SP</span><small>Live self-initiated system</small></div>
+          <div className="d2c-proof-mark b2b-proof-mark"><span>SP</span><small>Self-initiated business system</small></div>
           <div>
             <p className="eyebrow"><span /> SP Studios · acquisition and qualification</p>
             <h3>From a business need to a useful brief—without pretending every visitor is a lead.</h3>

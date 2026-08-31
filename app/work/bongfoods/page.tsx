@@ -3,18 +3,18 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'BongFoods Case Study — SP Studios',
-  description: 'A founder-built restaurant commerce experience shaped from customer journey and visual direction through ordering, payments and launch.',
+  description: 'Live founder-built work presenting a restaurant journey from discovery through delivery eligibility and a payment path.',
   alternates: { canonical: '/work/bongfoods' },
   openGraph: {
-    title: 'BongFoods — From food discovery to a real order',
-    description: 'A live, founder-built restaurant commerce case study by Sohan Vyaparee.',
+    title: 'BongFoods — From discovery to a structured ordering path',
+    description: 'Live founder-built work presenting a restaurant commerce journey by Sohan Vyaparee.',
     type: 'article',
     images: [{ url: '/bongfoods-case-og.png', width: 1280, height: 633, alt: 'BongFoods restaurant commerce case study by Sohan Vyaparee' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'BongFoods — From food discovery to a real order',
-    description: 'A live, founder-built restaurant commerce case study by Sohan Vyaparee.',
+    title: 'BongFoods — From discovery to a structured ordering path',
+    description: 'Live founder-built work presenting a restaurant commerce journey by Sohan Vyaparee.',
     images: ['/bongfoods-case-og.png'],
   },
 };
@@ -46,7 +46,7 @@ const journey = [
   {
     number: '05',
     title: 'Confirm',
-    copy: 'Carry cart value, payment and confirmation through one connected experience.',
+    copy: 'Present cart value and the next step into payment through one understandable experience.',
   },
 ];
 
@@ -57,7 +57,7 @@ const responsibilities = [
   'Responsive front-end implementation',
   'Phone verification and customer state',
   'Cart, address and delivery-area logic',
-  'Payment-path integration and launch',
+  'Payment-path direction and launch preparation',
   'Ongoing founder-led product decisions',
 ];
 
@@ -78,9 +78,9 @@ export default function BongFoodsCaseStudy() {
 
       <section className="case-hero section-shell">
         <div className="case-hero-copy">
-          <p className="eyebrow"><span /> Case study · Live founder-built product</p>
-          <h1 className="case-title">From craving <span>to confirmed order.</span></h1>
-          <p className="case-lead">BongFoods is my own cloud-kitchen venture—and the clearest proof that I think beyond the landing page. I shaped the customer journey, visual experience and working commerce flow as one product.</p>
+          <p className="eyebrow"><span /> Case study · Live founder-built work</p>
+          <h1 className="case-title">From discovery <span>to a structured ordering path.</span></h1>
+          <p className="case-lead">BongFoods is my own cloud-kitchen venture—and an operating-business context that shows how I think beyond the landing page. I shaped the presented customer journey and visual experience as one product.</p>
           <div className="hero-actions">
             <a href="https://www.bongfoods.com/" target="_blank" rel="noreferrer" className="primary-action">Experience the live site <span>↗</span></a>
             <a href="#journey" className="text-action">See the product journey <span>↓</span></a>
@@ -96,7 +96,7 @@ export default function BongFoodsCaseStudy() {
             <div><dt>Focus</dt><dd>Mobile ordering journey</dd></div>
             <div><dt>Market</dt><dd>Nagpur, India</dd></div>
           </dl>
-          <p>No borrowed agency credit. No speculative client claim. A real product built for my own operating business.</p>
+          <p>No borrowed agency credit. No speculative client claim. A public product for my own operating-business context.</p>
         </aside>
       </section>
 
@@ -106,7 +106,7 @@ export default function BongFoodsCaseStudy() {
           <h2>A food website has one job: make the next decision feel effortless.</h2>
           <div>
             <p>The customer may arrive hungry, distracted and on a small screen. The experience has to establish appetite and trust quickly, then keep the practical ordering steps understandable.</p>
-            <p>This meant treating imagery, menu structure, verification, location eligibility, cart state and payment as one continuous journey—not separate website features.</p>
+            <p>This meant presenting imagery, menu structure, verification, location eligibility, cart state and a payment path as one continuous journey—not separate website features.</p>
           </div>
         </div>
       </section>
@@ -172,12 +172,12 @@ export default function BongFoodsCaseStudy() {
         <div className="proof-card">
           <p className="section-index light">05 · What this proves</p>
           <h2>I understand the screen—and the business operating behind it.</h2>
-          <p>BongFoods is not presented as a client transformation or a performance case study. It is evidence of end-to-end product thinking: turning a real offer into a coherent, working customer journey and carrying it through launch.</p>
+          <p>BongFoods is not presented as a client transformation or a performance case study. It is evidence of end-to-end product thinking: turning a real offer into a coherent, presented customer journey for an operating-business context.</p>
           <a href="https://www.bongfoods.com/" target="_blank" rel="noreferrer">Open the live BongFoods experience ↗</a>
         </div>
         <div className="proof-note">
           <span>Truth label</span>
-          <strong>Live founder-built product</strong>
+          <strong>Live founder-built work</strong>
           <p>Built and directed by Sohan Vyaparee for his own cloud-kitchen venture.</p>
         </div>
       </section>

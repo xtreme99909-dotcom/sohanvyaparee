@@ -60,7 +60,7 @@ const process = [
 const services = [
   {
     label: 'A clear 1–3 page website',
-    title: 'Focused Website',
+    title: 'Focused Launch',
     price: '$1,500+',
     copy: 'A polished, original website for a new offer or small business that needs to look credible and start generating enquiries.',
     scope: ['Direction call and page plan', '1–3 responsive pages', 'Original visual direction', 'Contact or enquiry flow', 'Deployment and launch support'],
@@ -76,7 +76,7 @@ const services = [
   },
   {
     label: '6–8 pages plus one connection',
-    title: 'Website + Integration',
+    title: 'Signature Experience + Integration',
     price: '$5,000+',
     copy: 'A more distinctive website for an established brand, product or service that needs deeper storytelling and a connected business workflow.',
     scope: ['Positioning and creative direction', '6–8 custom pages', 'Advanced responsive interactions', 'One agreed CRM, booking or API integration', 'Performance, QA and launch support'],
@@ -122,7 +122,7 @@ export default function Home() {
             <a href="/services/complete-website-launch#scope" className="primary-action">See website options <span>↗</span></a>
             <a href="/work" className="text-action" data-marketing-event="proof_click">See the work <span>↗</span></a>
           </div>
-          <p className="fit-note">Focused websites from $1,500 · complete business websites from $3,000 · one private brief · no account required.</p>
+          <p className="fit-note">Focused Launch from $1,500 · Complete Business Website from $3,000 · one private brief · no account required.</p>
         </div>
 
         <DirectionBoard />
@@ -150,7 +150,7 @@ export default function Home() {
             <p>With SP Studios, one person stays responsible from the first business question to the final mobile check. AI helps me work faster; the important decisions and final quality stay human.</p>
             <div className="founder-note">
               <span>Founder perspective</span>
-              <strong>I also built the ordering experience for my own food business, so I care what happens after a customer clicks—not only how the page looks.</strong>
+              <strong>I also directed the ordering experience for my own food business, so I care what happens after a customer clicks—not only how the page looks.</strong>
             </div>
           </div>
         </div>
@@ -168,7 +168,7 @@ export default function Home() {
         <div className="work-grid section-shell">
           <article className="project-card food-card">
             <div className="project-meta">
-              <span>Live founder-built product</span>
+              <span>Live founder-built work</span>
               <span>01 / 03</span>
             </div>
             <div className="food-visual" role="img" aria-label="BongFoods ordering experience preview">
@@ -187,9 +187,9 @@ export default function Home() {
               </div>
             </div>
             <div className="project-copy">
-              <div><p>BongFoods · Restaurant commerce</p><h3>From food discovery to a real order.</h3></div>
+              <div><p>BongFoods · Restaurant commerce</p><h3>From discovery to a structured ordering path.</h3></div>
               <div>
-                <p>A mobile-first experience for my own cloud kitchen, including visual menu, phone verification, cart, address capture, delivery-area logic and payments.</p>
+                <p>A mobile-first experience for my own cloud kitchen, presenting a visual menu, phone verification, cart, address capture, delivery-area logic and payment path.</p>
                 <div className="project-links">
                   <a href="/work/bongfoods">View case study →</a>
                   <a href="/services/d2c-commerce-launch">D2C launch service →</a>
@@ -201,7 +201,7 @@ export default function Home() {
 
           <article className="project-card market-card">
             <div className="project-meta">
-              <span>Speculative product concept</span>
+              <span>Speculative concept</span>
               <span>02 / 03</span>
             </div>
             <div className="market-visual" role="img" aria-label="Private real-estate platform concept preview">
@@ -226,7 +226,7 @@ export default function Home() {
 
           <article className="project-card studio-card">
             <div className="project-meta">
-              <span>Live self-initiated business system</span>
+              <span>Self-initiated business system</span>
               <span>03 / 03</span>
             </div>
             <div className="studio-visual" role="img" aria-label="Studio acquisition system connecting positioning, proof and project qualification">
@@ -301,7 +301,7 @@ export default function Home() {
         <aside className="launch-system-callout" aria-labelledby="launch-system-title">
           <div>
             <p>For a larger or international project</p>
-            <h3 id="launch-system-title">International or Complex Website</h3>
+            <h3 id="launch-system-title">International Launch System</h3>
           </div>
           <div>
             <strong>$6,500+ <small>USD · custom scope</small></strong>

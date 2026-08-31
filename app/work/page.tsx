@@ -5,7 +5,7 @@ import { FounderAvatar } from '../founder-avatar';
 
 export const metadata: Metadata = {
   title: 'Selected Work & Website Case Studies — SP Studios',
-  description: 'Inspect live founder-built work, an operating acquisition system and a speculative product concept—with clear evidence, responsibilities and truth labels.',
+  description: 'Inspect live founder-built work, a self-initiated business system and a speculative concept—with clear evidence, responsibilities and truth labels.',
   alternates: { canonical: '/work' },
   openGraph: {
     title: 'Proof you can inspect. Boundaries you can trust.',
@@ -36,23 +36,23 @@ const projects = [
     number: '01',
     name: 'BongFoods',
     category: 'Restaurant commerce',
-    label: 'Live founder-built product',
+    label: 'Live founder-built work',
     tone: 'food',
-    headline: 'From craving to a confirmed order.',
-    summary: 'A mobile-first commerce experience for my own operating cloud kitchen, connecting menu discovery, phone verification, cart, address capture, delivery-area logic, payments and launch.',
-    proves: ['Business and customer-journey definition', 'Responsive product UX and implementation', 'Verification, order and payment-path thinking'],
+    headline: 'From discovery to a structured ordering path.',
+    summary: 'A mobile-first commerce experience for my own operating cloud kitchen, presenting menu discovery, phone verification, cart, address capture, delivery-area logic and a payment path.',
+    proves: ['Business and customer-journey definition', 'Responsive product UX direction', 'Verification, delivery and payment-path thinking'],
     boundary: 'My own operating business—not a client transformation or a claim of revenue uplift.',
     caseHref: '/work/bongfoods',
     liveHref: 'https://www.bongfoods.com/',
     liveLabel: 'Open live product ↗',
-    signal: 'Live commerce',
-    signalDetail: 'Discovery → order → payment',
+    signal: 'Public product',
+    signalDetail: 'Discovery → delivery eligibility → payment path',
   },
   {
     number: '02',
     name: 'Studio system',
     category: 'Acquisition and qualification',
-    label: 'Live self-initiated system',
+    label: 'Self-initiated business system',
     tone: 'studio',
     headline: 'From broad capability to a clear buying journey.',
     summary: 'An operating studio website connecting positioning, truth-labelled proof, scope guidance, a structured project brief, attribution and persistent owner triage.',
@@ -68,12 +68,12 @@ const projects = [
     number: '03',
     name: 'Private market',
     category: 'PropTech product concept',
-    label: 'Independent speculative study',
+    label: 'Speculative concept',
     tone: 'market',
     headline: 'Designing trust before disclosure.',
     summary: 'A product study for a verified private real-estate network, exploring anonymized opportunities, access requests, NDA gating, matching and Deal Room workflows.',
     proves: ['Category and competitor-pattern research', 'Permission and progressive-disclosure UX', 'Complex dashboard and workflow direction'],
-    boundary: 'Not commissioned and not live. It demonstrates product thinking, interface direction and prototype depth.',
+    boundary: 'Not commissioned and not live. It demonstrates product thinking, interface direction and interface-study depth.',
     caseHref: '/work/private-market-concept',
     liveHref: '/services/complete-website-launch#brief',
     liveLabel: 'Discuss a relevant project ↗',
@@ -113,9 +113,9 @@ export default function WorkIndex() {
           <div className="work-ledger-heading"><span>How the work is labelled</span><b>Current</b></div>
           <div className="work-ledger-count"><strong>03</strong><span>substantive studies<br />available to inspect</span></div>
           <dl>
-            <div><dt>01</dt><dd><strong>Live founder-built product</strong><span>Real commerce and operating decisions</span></dd><b>Live</b></div>
-            <div><dt>02</dt><dd><strong>Live self-initiated system</strong><span>Real positioning and qualification path</span></dd><b>Live</b></div>
-            <div><dt>03</dt><dd><strong>Speculative product concept</strong><span>Deep workflow and interface exploration</span></dd><b>Concept</b></div>
+            <div><dt>01</dt><dd><strong>Live founder-built work</strong><span>Real commerce and operating decisions</span></dd><b>Live</b></div>
+            <div><dt>02</dt><dd><strong>Self-initiated business system</strong><span>Real positioning and qualification path</span></dd><b>Live</b></div>
+            <div><dt>03</dt><dd><strong>Speculative concept</strong><span>Deep workflow and interface exploration</span></dd><b>Concept</b></div>
           </dl>
           <p><strong>Zero borrowed agency credits.</strong> No invented client outcomes, traffic claims or guaranteed results.</p>
         </aside>
@@ -164,11 +164,11 @@ export default function WorkIndex() {
         <div className="work-evidence-intro">
           <p className="section-index">03 · How to read the evidence</p>
           <h2>Choose the proof closest to your risk.</h2>
-          <p>A restaurant owner may care most about the live transaction path. A founder launching a service needs the studio’s positioning and qualification system. A platform team may care about the private-market workflow depth.</p>
+          <p>A restaurant owner may care most about the real operating-business context. A founder launching a service needs the studio’s positioning and qualification system. A platform team may care about the private-market workflow depth.</p>
         </div>
         <div className="work-evidence-table" role="table" aria-label="Comparison of portfolio evidence">
           <div className="work-evidence-row work-evidence-head" role="row"><span role="columnheader">Study</span><span role="columnheader">Strongest evidence</span><span role="columnheader">Commercial relevance</span></div>
-          <div className="work-evidence-row" role="row"><strong role="cell">BongFoods</strong><span role="cell">A functioning customer journey with real operating constraints</span><span role="cell">D2C, commerce, hospitality and transaction-led launches</span></div>
+          <div className="work-evidence-row" role="row"><strong role="cell">BongFoods</strong><span role="cell">A presented customer journey with real operating constraints</span><span role="cell">D2C, commerce, hospitality and ordering journeys</span></div>
           <div className="work-evidence-row" role="row"><strong role="cell">Studio system</strong><span role="cell">A complete offer-to-brief path with owner-side operations</span><span role="cell">Founder-led services, B2B offers and serious redesigns</span></div>
           <div className="work-evidence-row" role="row"><strong role="cell">Private market</strong><span role="cell">Complex permissions, disclosure and collaboration workflow</span><span role="cell">Platforms, portals, memberships and high-trust products</span></div>
         </div>

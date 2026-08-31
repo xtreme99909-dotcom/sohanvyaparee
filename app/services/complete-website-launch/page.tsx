@@ -90,10 +90,10 @@ const internationalWorkingModel = [
 ];
 
 const engagements = [
-  { name: 'Focused Website', price: '$1,500+', schemaPrice: '1500', pages: '1–3 purposeful pages', fit: 'Narrow offer or focused first launch', timing: '5–7 working days' },
+  { name: 'Focused Launch', price: '$1,500+', schemaPrice: '1500', pages: '1–3 purposeful pages', fit: 'Narrow offer or focused first launch', timing: '5–7 working days' },
   { name: 'Complete Business Website', price: '$3,000+', schemaPrice: '3000', pages: 'Up to 5 custom pages', fit: 'Complete public business website', timing: '7–15 working days' },
-  { name: 'Website + Integration', price: '$5,000+', schemaPrice: '5000', pages: '6–8 custom pages', fit: 'Deeper story plus one agreed integration', timing: '3–6 weeks' },
-  { name: 'International or Complex Website', price: '$6,500+', schemaPrice: '6500', pages: '5–8 launch-critical pages', fit: 'D2C, SaaS, hospitality or high-trust launch', timing: '4–8 weeks' },
+  { name: 'Signature Experience + Integration', price: '$5,000+', schemaPrice: '5000', pages: '6–8 custom pages', fit: 'Deeper story plus one agreed integration', timing: '3–6 weeks' },
+  { name: 'International Launch System', price: '$6,500+', schemaPrice: '6500', pages: '5–8 launch-critical pages', fit: 'D2C, SaaS, hospitality or high-trust launch', timing: '4–8 weeks' },
 ];
 
 const faqs = [
@@ -270,15 +270,15 @@ export default function CompleteWebsiteLaunchPage() {
         </div>
         <div className="service-proof-grid">
           <article className="proof-food">
-            <div className="proof-visual"><span>B</span><i>Live product</i></div>
-            <div><small>Founder-built restaurant commerce</small><h3>BongFoods — from craving to confirmed order.</h3><p>Product direction, UX/UI, responsive implementation, phone verification, cart, address, delivery-area logic, payments and launch for my own operating food business.</p><a href="/work/bongfoods" data-marketing-event="proof_click">View the live-product case study →</a></div>
+            <div className="proof-visual"><span>B</span><i>Live founder-built work</i></div>
+            <div><small>Founder-built restaurant commerce</small><h3>BongFoods — from discovery to a structured ordering path.</h3><p>Product direction, UX/UI, responsive implementation, phone verification, cart, address, delivery-area logic and a presented payment path for my own operating food business.</p><a href="/work/bongfoods" data-marketing-event="proof_click">View the founder-built case study →</a></div>
           </article>
           <article className="proof-market">
             <div className="proof-visual"><span>P</span><i>Speculative concept</i></div>
             <div><small>Independent product exploration</small><h3>Private market — designing trust through controlled access.</h3><p>A truth-labelled concept for verified members, anonymized opportunities, access requests, NDA gates, matching and a private deal room.</p><a href="/work/private-market-concept" data-marketing-event="proof_click">View the speculative case study →</a></div>
           </article>
           <article className="proof-studio">
-            <div className="proof-visual"><span>SP</span><i>Live self-initiated system</i></div>
+            <div className="proof-visual"><span>SP</span><i>Self-initiated business system</i></div>
             <div><small>Operating acquisition and qualification system</small><h3>Studio system — connecting the public story to a useful project brief.</h3><p>Positioning, truth-labelled proof, scope guidance, project qualification, source attribution and persistent owner triage shaped as one live business journey. This proves the connected system without claiming client results or guaranteed leads.</p><a href="/work/studio-system" data-marketing-event="proof_click">View the live-system case study →</a></div>
           </article>
         </div>

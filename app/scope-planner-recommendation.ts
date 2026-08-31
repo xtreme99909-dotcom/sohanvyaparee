@@ -17,8 +17,8 @@ export type CompleteScopePlannerAnswers = Required<ScopePlannerAnswers>;
 export function getScopeRecommendation(answers: CompleteScopePlannerAnswers) {
   if (answers.customerAction === 'workflow' || answers.integration === 'several') {
     return {
-      name: 'Custom Website System',
-      budget: '$12,000+',
+      name: 'International Launch System',
+      budget: '$6,500+',
       project: 'A product or platform experience',
       reason: 'A product workflow or several connected systems needs launch discovery before the customer journey, technical boundary, timing and investment can be fixed responsibly.',
       includes: 'Launch discovery · journey mapping · original interface direction · technical scope · milestone plan',
@@ -27,8 +27,8 @@ export function getScopeRecommendation(answers: CompleteScopePlannerAnswers) {
 
   if (answers.customerAction === 'transaction' || answers.integration === 'one' || answers.pageRange === '6–8' || answers.launchState === 'connected') {
     return {
-      name: 'Website + Integration',
-      budget: '$6,000–$12,000',
+      name: 'Signature Experience + Integration',
+      budget: '$5,000+',
       project: answers.customerAction === 'transaction'
         ? 'A commerce or ordering experience'
         : 'A business website with one integration',
@@ -48,8 +48,8 @@ export function getScopeRecommendation(answers: CompleteScopePlannerAnswers) {
   }
 
   return {
-    name: 'Focused Website',
-    budget: '$1,500–$3,000',
+    name: 'Focused Launch',
+    budget: '$1,500+',
     project: 'A new website from scratch',
     reason: 'The project has one focused goal, a compact page surface and no significant integration, so a deliberately narrow launch is the credible place to begin.',
     includes: '1–3 purposeful pages · focused direction · responsive build · launch',

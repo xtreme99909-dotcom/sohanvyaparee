@@ -138,9 +138,9 @@ export default function PartnersPage() {
       <section className="partner-proof section-shell">
         <div><p className="section-index">05 · Evidence before promises</p><h2>Review what is live, what is self-initiated and what is conceptual.</h2></div>
         <div className="partner-proof-links">
-          <a href="/work/bongfoods"><span>Live founder-built product</span><strong>BongFoods commerce journey</strong><i>View case study ↗</i></a>
-          <a href="/work/studio-system"><span>Live self-initiated system</span><strong>Studio acquisition journey</strong><i>View case study ↗</i></a>
-          <a href="/work/private-market-concept"><span>Speculative product concept</span><strong>Private-market platform</strong><i>View concept study ↗</i></a>
+          <a href="/work/bongfoods"><span>Live founder-built work</span><strong>BongFoods commerce journey</strong><i>View case study ↗</i></a>
+          <a href="/work/studio-system"><span>Self-initiated business system</span><strong>Studio acquisition journey</strong><i>View case study ↗</i></a>
+          <a href="/work/private-market-concept"><span>Speculative concept</span><strong>Private-market platform</strong><i>View concept study ↗</i></a>
         </div>
       </section>
 

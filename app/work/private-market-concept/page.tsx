@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/work/private-market-concept' },
   openGraph: {
     title: 'Designing trust before disclosure',
-    description: 'An independent speculative product concept for a verified private real-estate network.',
+    description: 'An independent speculative concept for a verified private real-estate network.',
     type: 'article',
     url: '/work/private-market-concept',
     images: [{ url: '/private-market-case-og.png', width: 1200, height: 630, alt: 'Private-market product concept by SP Studios' }],
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Designing trust before disclosure',
-    description: 'An independent speculative product concept for a verified private real-estate network.',
+    description: 'An independent speculative concept for a verified private real-estate network.',
     images: ['/private-market-case-og.png'],
   },
 };
@@ -39,7 +39,7 @@ const responsibilities = [
   'Access-request and NDA-gating flow',
   'Member dashboard information architecture',
   'Deal Room document and message workflow',
-  'Responsive visual system and prototype direction',
+  'Responsive visual system and interface-study direction',
 ];
 
 export default function PrivateMarketConceptCaseStudy() {
@@ -73,9 +73,9 @@ export default function PrivateMarketConceptCaseStudy() {
           <div className="case-monogram">P</div>
           <dl>
             <div><dt>Category</dt><dd>Private real-estate network</dd></div>
-            <div><dt>Type</dt><dd>Independent speculative study</dd></div>
+            <div><dt>Type</dt><dd>Speculative concept</dd></div>
             <div><dt>Focus</dt><dd>Trust · access · workflow</dd></div>
-            <div><dt>Role</dt><dd>Strategy · UX/UI · prototype</dd></div>
+            <div><dt>Role</dt><dd>Strategy · UX/UI · interface study</dd></div>
           </dl>
           <p>Not commissioned by a client and not presented as a live platform. The work demonstrates product thinking and interface direction.</p>
         </aside>
@@ -186,7 +186,7 @@ export default function PrivateMarketConceptCaseStudy() {
         </div>
         <div className="proof-note">
           <span>Truth label</span>
-          <strong>Independent speculative concept</strong>
+          <strong>Speculative concept</strong>
           <p>Created to demonstrate category research, product thinking and original interface direction. Not a client engagement.</p>
         </div>
       </section>

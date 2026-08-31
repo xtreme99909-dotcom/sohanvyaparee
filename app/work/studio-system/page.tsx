@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'SP Studios Acquisition System Case Study',
-  description: 'A live, self-initiated website system connecting positioning, honest proof, scope guidance, project qualification and a private owner inbox.',
+  description: 'A self-initiated business system connecting positioning, honest proof, scope guidance, project qualification and a private owner inbox.',
   alternates: { canonical: '/work/studio-system' },
   openGraph: {
     title: 'From broad capability to a clear buying journey',
@@ -79,7 +79,7 @@ export default function StudioSystemCaseStudy() {
 
       <section className="case-hero section-shell">
         <div className="case-hero-copy">
-          <p className="eyebrow"><span /> Case study · Live self-initiated system</p>
+          <p className="eyebrow"><span /> Case study · Self-initiated business system</p>
           <h1 className="case-title">From broad capability <span>to a clear buying journey.</span></h1>
           <p className="case-lead">The studio needed to sell more than attractive pages or isolated coding. I shaped one operating website that explains the complete engagement, proves the thinking honestly and helps a serious buyer reach a useful project brief.</p>
           <div className="hero-actions">
@@ -93,7 +93,7 @@ export default function StudioSystemCaseStudy() {
           <div className="case-monogram">SV</div>
           <dl>
             <div><dt>Business</dt><dd>Independent website studio</dd></div>
-            <div><dt>Type</dt><dd>Self-initiated operating system</dd></div>
+            <div><dt>Type</dt><dd>Self-initiated business system</dd></div>
             <div><dt>Focus</dt><dd>Positioning · proof · qualification</dd></div>
             <div><dt>Role</dt><dd>Strategy · direction · design · build</dd></div>
           </dl>
@@ -206,7 +206,7 @@ export default function StudioSystemCaseStudy() {
         </div>
         <div className="proof-note">
           <span>Truth label</span>
-          <strong>Live self-initiated operating system</strong>
+          <strong>Self-initiated business system</strong>
           <p>Created and operated by Sohan Vyaparee for SP Studios. Not a client engagement or performance case study.</p>
         </div>
       </section>
