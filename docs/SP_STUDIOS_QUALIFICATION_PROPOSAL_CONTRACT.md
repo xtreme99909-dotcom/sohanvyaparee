@@ -1,9 +1,9 @@
 # SP Studios qualification and one-scope proposal contract
 
-Status: bounded headquarters artifact; no runtime code changed
+Status: executable pure-policy handoff; no database, UI, sender, payment, or deployment change
 Lane: qualification, proposal/SOW consistency, approvals, and upstream duplicate suppression
 Authority: `docs/SP_STUDIOS_HQ_CONTEXT.md` at `e544fad195c0dd5335a7dffc641227de3fd71a30`
-Repository branch reviewed: `rebrand/sp-studios-domain-preview` through `72f2c9e40152425e563f5aba9042792809491a98`
+Repository branch reconciled through `add62e25ad6ef5592c7a35690e39e0840ec97416`
 
 ## 1. Ownership and non-goals
 
@@ -28,8 +28,8 @@ No prospect contact, proposal issue, payment action, deployment, account change,
 | Lead create route | blob `b1cc8c9c318171a8c1b1f3a8b4e2d4df9fd9b4f0` | Validation, consent, origin/body controls, storage, rate control |
 | Owner lead update route | blob `e34ebbec4768383d384b813fbbdb73d1feac8037` | Owner-only status, notes, next-action updates |
 | Database schema | blob `72530cd31a5d1b1fa4fbe7d09d0ab8a19213f638` | Existing lead, marketing-event and payment tables |
-| Scope planner | blob `3a56d9dc0b78021310ea9a632a7e21de5544cc2e` | Existing recommendation signals |
-| Scope planner check | blob `66f8a67079ec342a574a030023e15b62020bc650` | Six existing passing recommendation cases |
+| Scope planner | blob `611a3903e6b0b170b0119db59f7f2f776b7a1728` | HQ-aligned recommendation signals |
+| Scope planner check | blob `89abaf3931439a6a870df7a34cc009dbb44d16c0` | Six HQ-aligned recommendation cases |
 | Contact sender gate | blob `dde21a1a99d7fde063650f975f5f6a9ad23e9ee8` | Sender activation and controlled-contact lane |
 
 The current lead statuses—`new`, `contacted`, `qualified`, and `closed`—remain untouched until a reviewed migration exists. Qualification route and proposal readiness belong in companion records and must not be overloaded into `leads.status`.
@@ -49,7 +49,7 @@ Headquarters defines starting contexts, not automatic quotations:
 
 Investment fit is evaluated against the correctly recommended context. One buyer receives one fixed amount, one currency, and one realistic delivery window only after qualification. An agreed Indian direct-client scope may use INR. The system must never use a remembered exchange rate.
 
-The existing planner returns `Website + Integration · $6,000–$12,000`, while headquarters names `Signature Experience + Integration · USD 5,000` as a starting context. Until headquarters records whether that stricter planner range is intentional, integration-led automatic proposal generation must stop at `owner_context_decision_required`.
+The reviewed planner now maps focused work to `Focused Launch · $1,500+`, one integration to `Signature Experience + Integration · $5,000+`, and workflow/several integrations to `International Launch System · $6,500+`. These are HQ starting contexts, never automatic quotations; every proposal still requires one fixed owner-approved amount.
 
 ## 4. Companion schemas
 
@@ -260,7 +260,6 @@ Proposal drafting is blocked unless:
 
 - lead is qualified and scopeable;
 - one current owner-approved ScopeSnapshot exists;
-- the engagement-context mismatch in section 3 is resolved for integration-led work;
 - one fixed amount, currency, and delivery window exist;
 - dependencies and exclusions are explicit;
 - custom products, commerce, portals, several integrations, or large content systems complete discovery;
@@ -310,43 +309,29 @@ Before returning `eligible_for_sender_gate`, require initial-send proof for a fo
 
 A reply changes every pending eligibility record for that thread to `cancelled` in the same transaction. This file does not define sender cadence or send mail.
 
-## 12. Required implementation tests
+## 12. Executable policy checks
 
-1. strong complete-site lead qualifies;
-2. focused-launch investment at USD 1,500 is not rejected by a universal floor;
-3. unknown investment selects `ask_investment` when earlier gates are known;
-4. contradiction outranks missing gates;
-5. stop overrides high score;
-6. newer close overrides stale approval;
-7. strong owned website plus no trigger is no-fit;
-8. missing authority prevents scopeability;
-9. selector returns one question;
-10. two unresolved critical attempts create hold;
-11. one scope passes preflight;
-12. multiple price packages fail;
-13. unresolved HQ/planner mismatch blocks integration proposal;
-14. matching proposal/SOW hash passes;
-15. amount mismatch blocks;
-16. currency mismatch blocks;
-17. milestone percentages total 100;
-18. milestone amounts equal total;
-19. reply cancels eligibility;
-20. duplicate sequence is rejected;
-21. cross-channel follow-up is blocked;
-22. approval hash mismatch is blocked;
-23. idempotency key is stable;
-24. proposal approval cannot reach payment-link creation.
+Run `node scripts/check-qualification-policy.mjs`. Its 28 assertions cover:
+
+- the four exact HQ contexts and the rule that none is an automatic quotation;
+- gate scoring, one automatic next question, and contradiction priority;
+- focused-launch acceptance at USD 1,500 and rejection below the selected HQ context;
+- stop, duplicate conflict, integrity/no-gap no-fit, unresolved-gate, qualified, scopeable, and hold routes;
+- one fixed USD or agreed INR scope, three milestones, exact totals, approval presence, hash binding, and expiry;
+- proposal/SOW identity, commercial, deliverable, and milestone equality; and
+- proposal-issue approval invalidation after content changes.
+
+Run `node scripts/check-scope-planner-recommendation.mjs` for the six planner mappings. The check now expects the HQ-aligned names and starting contexts.
 
 ## 13. Safe implementation order
 
-1. Pure policy module and table-driven tests; no database/UI mutation.
-2. Headquarters resolves the offer-context mismatch.
-3. New companion tables through a reviewed Drizzle migration; existing lead/payment tables preserved.
-4. Owner-only qualification and approval views added to existing lead inbox.
-5. Proposal/SOW draft persistence.
-6. Transactional eligibility handoff to contact-sender lane.
-7. Lint, build, existing scope-planner check, and new contract tests.
-8. Preview/evidence packet; no deployment.
+1. **Completed:** pure policy module and table-driven checks; no database/UI mutation.
+2. Headquarters reviews policy outputs and decides whether to authorize companion persistence.
+3. If approved, add companion tables through a reviewed Drizzle migration; preserve existing lead/payment tables.
+4. Add owner-only qualification and approval views to the existing lead inbox.
+5. Add proposal/SOW draft persistence.
+6. Hand only transactional eligibility facts to the separately owned contact-sender lane.
+7. Run lint, build, both focused checks, and preview evidence; do not deploy.
 
 ## 14. External dependencies
 
@@ -358,15 +343,10 @@ A reply changes every pending eligibility record for that thread to `cancelled` 
 
 ## 15. Smallest headquarters decision
 
-**HQ-QUAL-01:** Is the planner's `Website + Integration · $6,000–$12,000` range intentionally stricter than the HQ `Signature Experience + Integration · USD 5,000` starting context?
+**HQ-QUAL-02:** Authorize or defer a separate reviewed companion-table migration for qualification snapshots, one scope snapshot, proposal/SOW projections, and content-hash-bound approval records.
 
-Return one:
-
-- `KEEP STRICTER PLANNER RANGE`
-- `ALIGN PLANNER TO HQ CONTEXT`
-
-Until recorded, qualification and scope questions may proceed, but automatic integration-led fixed-proposal generation remains blocked.
+The policy requires no price decision: the four HQ starting contexts are already aligned. Deferring the migration leaves this commit as a deterministic integration handoff with no runtime side effects.
 
 ## 16. Explicit non-actions
 
-No prospect was contacted. No email, follow-up, proposal, form, meeting, payment link, refund, public edit, provider action, DNS action, credential entry, account change, database migration, runtime-code change, deployment, client claim, payment claim, or revenue claim was made.
+No prospect was contacted. No email, follow-up, proposal, form, meeting, payment link, refund, public edit, provider action, DNS action, credential entry, account change, database migration, UI change, deployment, client claim, payment claim, or revenue claim was made. The implementation is a pure side-effect-free policy module and local executable checks only.
