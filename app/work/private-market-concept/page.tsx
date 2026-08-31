@@ -10,13 +10,13 @@ export const metadata: Metadata = {
     description: 'An independent speculative product concept for a verified private real-estate network.',
     type: 'article',
     url: '/work/private-market-concept',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Private-market product concept by SP Studios' }],
+    images: [{ url: '/private-market-case-og.png', width: 1200, height: 630, alt: 'Private-market product concept by SP Studios' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Designing trust before disclosure',
     description: 'An independent speculative product concept for a verified private real-estate network.',
-    images: ['/og.png'],
+    images: ['/private-market-case-og.png'],
   },
 };
 

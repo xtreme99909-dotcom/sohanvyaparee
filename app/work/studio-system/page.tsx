@@ -10,13 +10,13 @@ export const metadata: Metadata = {
     description: 'A live, truth-labelled acquisition-system case study by Sohan Vyaparee.',
     type: 'article',
     url: '/work/studio-system',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'SP Studios acquisition system case study by Sohan Vyaparee' }],
+    images: [{ url: '/studio-system-case-og.png', width: 1200, height: 630, alt: 'SP Studios acquisition system case study by Sohan Vyaparee' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'From broad capability to a clear buying journey',
     description: 'A live, truth-labelled acquisition-system case study by Sohan Vyaparee.',
-    images: ['/og.png'],
+    images: ['/studio-system-case-og.png'],
   },
 };
 

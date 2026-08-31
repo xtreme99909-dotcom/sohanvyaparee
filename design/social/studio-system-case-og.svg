@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">SP Studios acquisition system case study</title>
+  <desc id="desc">From broad capability to a clear buying journey.</desc>
+  <defs>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="19" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0" result="mono"/>
+      <feComponentTransfer in="mono"><feFuncA type="table" tableValues="0 0.035"/></feComponentTransfer>
+    </filter>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7f4ec"/>
+      <stop offset="1" stop-color="#e7e4da"/>
+    </linearGradient>
+    <radialGradient id="signal" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#d8ff63" stop-opacity="0.56"/>
+      <stop offset="1" stop-color="#d8ff63" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#paper)"/>
+  <rect width="1200" height="630" fill="#17201c" filter="url(#grain)" opacity="0.5"/>
+  <rect x="842" width="358" height="630" fill="#252c57"/>
+  <rect x="842" width="358" height="630" fill="#12162f" filter="url(#grain)" opacity="0.44"/>
+
+  <path d="M46 44h44M68 22v44M46 586h44M68 564v44" stroke="#66706b" stroke-width="1"/>
+  <path d="M1110 44h44M1132 22v44M1110 586h44M1132 564v44" stroke="#d8ff63" stroke-opacity="0.7" stroke-width="1"/>
+  <line x1="68" y1="94" x2="68" y2="520" stroke="#7d857f" stroke-width="1"/>
+  <line x1="96" y1="472" x2="804" y2="472" stroke="#aeb3ae" stroke-width="1"/>
+  <rect x="96" y="471" width="224" height="3" fill="#d8ff63"/>
+
+  <text x="96" y="93" fill="#59635e" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="3.4">CASE STUDY · LIVE SELF-INITIATED SYSTEM</text>
+  <text x="96" y="190" fill="#17201c" font-family="Georgia, 'Times New Roman', serif" font-size="74" letter-spacing="-3.4">
+    <tspan x="96" dy="0">From broad capability</tspan>
+    <tspan x="96" dy="82">to a clear buying</tspan>
+    <tspan x="96" dy="82" font-style="italic">journey.</tspan>
+  </text>
+  <text x="96" y="520" fill="#303a35" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="650" letter-spacing="2.1">POSITIONING → PROOF → SCOPE → BRIEF</text>
+  <text x="96" y="568" fill="#69726d" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="600" letter-spacing="1.6">SP STUDIOS · SOHAN VYAPAREE</text>
+
+  <circle cx="1022" cy="164" r="174" fill="url(#signal)"/>
+  <circle cx="1022" cy="164" r="116" fill="none" stroke="#d8ff63" stroke-opacity="0.34"/>
+  <circle cx="1022" cy="164" r="75" fill="none" stroke="#d8ff63" stroke-opacity="0.55"/>
+  <circle cx="1022" cy="164" r="49" fill="#d8ff63"/>
+  <text x="1022" y="177" text-anchor="middle" fill="#252c57" font-family="Georgia, 'Times New Roman', serif" font-size="40" font-weight="700">SP</text>
+
+  <text x="892" y="344" fill="#d8ff63" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" letter-spacing="3">ACQUISITION SYSTEM</text>
+  <text x="892" y="390" fill="#ffffff" font-family="Georgia, 'Times New Roman', serif" font-size="34">One connected</text>
+  <text x="892" y="427" fill="#ffffff" font-family="Georgia, 'Times New Roman', serif" font-size="34" font-style="italic">buying path.</text>
+  <line x1="892" y1="470" x2="1138" y2="470" stroke="#ffffff" stroke-opacity="0.22"/>
+  <g fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="650" letter-spacing="1.5">
+    <text x="910" y="505">01 · UNDERSTAND</text>
+    <text x="910" y="534">02 · VERIFY</text>
+    <text x="910" y="563">03 · QUALIFY</text>
+  </g>
+  <g fill="#d8ff63">
+    <circle cx="894" cy="501" r="4"/><circle cx="894" cy="530" r="4"/><circle cx="894" cy="559" r="4"/>
+  </g>
+</svg>
