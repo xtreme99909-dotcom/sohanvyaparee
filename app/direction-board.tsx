@@ -31,10 +31,19 @@ const stages = [
   },
 ] as const;
 
+const directorPoses = [
+  { id: 'welcome', src: '/founder-character.png' },
+  { id: 'guide', src: '/founder-character-point.png' },
+  { id: 'approve', src: '/founder-character-approve.png' },
+] as const;
+
+type DirectorPose = (typeof directorPoses)[number]['id'];
+
 export function DirectionBoard() {
   const [activeStage, setActiveStage] = useState(0);
   const [paused, setPaused] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(true);
+  const [directorPose, setDirectorPose] = useState<DirectorPose>('welcome');
   const boardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -91,9 +100,32 @@ export function DirectionBoard() {
         <span className="board-director"><FounderAvatar compact /><span><b>Directed by Sohan</b><small>Founder · Creative Director</small></span></span>
       </div>
       <div className="board-stage">
-        <figure className="board-founder-character" aria-hidden="true">
-          <Image src="/founder-character.png" alt="" width={224} height={448} sizes="224px" />
-        </figure>
+        <button
+          type="button"
+          className="board-founder-character"
+          data-pose={directorPose}
+          aria-label="Sohan, founder and creative director. Hover or activate to change his pose."
+          onPointerEnter={() => setDirectorPose('guide')}
+          onPointerLeave={() => setDirectorPose('welcome')}
+          onFocus={() => setDirectorPose('guide')}
+          onBlur={() => setDirectorPose('welcome')}
+          onClick={() => setDirectorPose((current) => current === 'approve' ? 'guide' : 'approve')}
+        >
+          <span className="board-founder-pose-stack" aria-hidden="true">
+            {directorPoses.map((pose) => (
+              <Image
+                key={pose.id}
+                src={pose.src}
+                alt=""
+                width={224}
+                height={448}
+                sizes="(max-width: 760px) 175px, 224px"
+                data-active={directorPose === pose.id ? 'true' : 'false'}
+                draggable={false}
+              />
+            ))}
+          </span>
+        </button>
         <div key={`stage-${activeStage}`} className="board-stage-copy">
           <div className="stage-number">0{activeStage + 1}</div>
           <span className="availability"><i /> Now accepting website projects</span>
