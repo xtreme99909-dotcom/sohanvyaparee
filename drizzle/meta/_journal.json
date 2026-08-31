@@ -29,6 +29,13 @@
       "when": 1788085471273,
       "tag": "0003_nasty_golden_guardian",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1788209348540,
+      "tag": "0004_slow_the_executioner",
+      "breakpoints": true
     }
   ]
 }

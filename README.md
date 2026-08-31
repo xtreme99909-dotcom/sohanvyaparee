@@ -82,7 +82,7 @@ The repository contains no production passwords, private enquiries or deployment
 
 The payment code is intentionally safe while unconfigured: a client cannot enter an arbitrary amount, and no public payment button is exposed. The studio owner must first qualify the enquiry and accept a written scope and agreement, then issue a unique milestone link from the protected lead desk.
 
-Production activation requires Sohan's own Razorpay KYC and international-payment approval, server-only `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET` and `RAZORPAY_WEBHOOK_SECRET` values, plus a Razorpay webhook pointing to `/api/webhooks/razorpay`. Email and WhatsApp alerts are optional and require the server-only values listed in `.env.example`; WhatsApp uses a Meta-approved Business template. No card, bank, UPI PIN or OTP data is handled or stored by this repository.
+Production activation requires Sohan's own Razorpay KYC and international-payment approval, server-only `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`, `RAZORPAY_WEBHOOK_SECRET` and `RAZORPAY_ACCOUNT_ID` values, plus a Razorpay webhook pointing to `/api/webhooks/razorpay`. Email and WhatsApp alerts are optional and require the server-only values listed in `.env.example`; WhatsApp uses a Meta-approved Business template. No card, bank, UPI PIN or OTP data is handled or stored by this repository. Provider notifications and reminders remain disabled so every client must review the branded SP Studios payment record and policies before checkout.
 
 ## Discuss a complete website
 

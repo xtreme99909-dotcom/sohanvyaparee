@@ -64,7 +64,7 @@ export async function ensureLeadsSchema() {
       amount INTEGER NOT NULL,
       amount_paid INTEGER NOT NULL DEFAULT 0,
       currency TEXT NOT NULL,
-      status TEXT NOT NULL DEFAULT 'created' CHECK (status IN ('created', 'partially_paid', 'paid', 'cancelled', 'expired')),
+      status TEXT NOT NULL DEFAULT 'creating' CHECK (status IN ('creating', 'creation_failed', 'created', 'partially_paid', 'paid', 'cancelled', 'expired', 'review_required')),
       provider_payment_id TEXT,
       paid_at TEXT,
       expires_at TEXT,
@@ -93,8 +93,13 @@ export async function ensureLeadsSchema() {
       signature TEXT PRIMARY KEY NOT NULL,
       event_id TEXT,
       created_at TEXT NOT NULL,
+      updated_at TEXT,
       event_type TEXT NOT NULL,
-      provider_link_id TEXT
+      provider_link_id TEXT,
+      processing_status TEXT NOT NULL DEFAULT 'received',
+      attempts INTEGER NOT NULL DEFAULT 0,
+      processed_at TEXT,
+      last_error TEXT NOT NULL DEFAULT ''
     )`),
   ]);
 
@@ -133,9 +138,18 @@ export async function ensureLeadsSchema() {
   if (paymentMigrations.length > 0) await db.batch(paymentMigrations);
 
   const webhookColumns = await db.prepare('PRAGMA table_info(payment_webhook_events)').all<{ name: string }>();
-  if (!webhookColumns.results.some((column) => column.name === 'event_id')) {
-    await db.prepare('ALTER TABLE payment_webhook_events ADD COLUMN event_id TEXT').run();
-  }
+  const existingWebhookColumns = new Set(webhookColumns.results.map((column) => column.name));
+  const webhookMigrations: ReturnType<typeof db.prepare>[] = [];
+  const addWebhookColumn = (name: string, statement: string) => {
+    if (!existingWebhookColumns.has(name)) webhookMigrations.push(db.prepare(statement));
+  };
+  addWebhookColumn('event_id', 'ALTER TABLE payment_webhook_events ADD COLUMN event_id TEXT');
+  addWebhookColumn('updated_at', 'ALTER TABLE payment_webhook_events ADD COLUMN updated_at TEXT');
+  addWebhookColumn('processing_status', "ALTER TABLE payment_webhook_events ADD COLUMN processing_status TEXT NOT NULL DEFAULT 'received'");
+  addWebhookColumn('attempts', 'ALTER TABLE payment_webhook_events ADD COLUMN attempts INTEGER NOT NULL DEFAULT 0');
+  addWebhookColumn('processed_at', 'ALTER TABLE payment_webhook_events ADD COLUMN processed_at TEXT');
+  addWebhookColumn('last_error', "ALTER TABLE payment_webhook_events ADD COLUMN last_error TEXT NOT NULL DEFAULT ''");
+  if (webhookMigrations.length > 0) await db.batch(webhookMigrations);
   await db.prepare('CREATE UNIQUE INDEX IF NOT EXISTS idx_payment_webhook_events_event_id ON payment_webhook_events(event_id)').run();
   await db.prepare('CREATE INDEX IF NOT EXISTS idx_payment_webhook_events_created_at ON payment_webhook_events(created_at)').run();
   await db.prepare(`CREATE INDEX IF NOT EXISTS idx_leads_status_next_action_created_at

@@ -96,8 +96,13 @@ export const paymentWebhookEvents = sqliteTable(
     signature: text('signature').primaryKey(),
     eventId: text('event_id'),
     createdAt: text('created_at').notNull(),
+    updatedAt: text('updated_at'),
     eventType: text('event_type').notNull(),
     providerLinkId: text('provider_link_id'),
+    processingStatus: text('processing_status').notNull().default('received'),
+    attempts: integer('attempts').notNull().default(0),
+    processedAt: text('processed_at'),
+    lastError: text('last_error').notNull().default(''),
   },
   (table) => [
     uniqueIndex('idx_payment_webhook_events_event_id').on(table.eventId),

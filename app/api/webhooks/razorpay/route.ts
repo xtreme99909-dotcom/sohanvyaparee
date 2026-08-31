@@ -45,6 +45,41 @@ function amountLabel(amount: number, currency: string) {
   return new Intl.NumberFormat('en', { style: 'currency', currency }).format(amount / 100);
 }
 
+type PaymentRecord = {
+  status: string;
+  reference_id: string;
+  amount: number;
+  amount_paid: number;
+  currency: string;
+  description: string;
+  customer_name: string | null;
+  customer_email: string | null;
+};
+
+function paidEventMismatches(event: Record<string, unknown>, paymentLink: RazorpayEntity, payment: RazorpayEntity, record: PaymentRecord) {
+  const mismatches: string[] = [];
+  const accountId = clean(event.account_id, 80);
+  const paymentReference = clean(paymentLink.reference_id, 40);
+  const paymentCurrency = clean(payment.currency, 3).toUpperCase() || clean(paymentLink.currency, 3).toUpperCase();
+  const linkAmount = Number(paymentLink.amount);
+  const amountPaid = Number(paymentLink.amount_paid || payment.amount || 0);
+  const paymentAmount = Number(payment.amount);
+  const paymentCaptured = payment.captured === true && clean(payment.status, 20) === 'captured';
+  const paymentId = clean(payment.id, 80);
+
+  if (!env.RAZORPAY_ACCOUNT_ID || accountId !== env.RAZORPAY_ACCOUNT_ID) mismatches.push('provider account');
+  if (paymentReference !== record.reference_id) mismatches.push('reference');
+  if (paymentCurrency !== record.currency) mismatches.push('currency');
+  if (linkAmount !== record.amount || amountPaid !== record.amount || paymentAmount !== record.amount) mismatches.push('amount');
+  if (!paymentCaptured) mismatches.push('capture status');
+  if (!paymentId) mismatches.push('payment id');
+  return mismatches;
+}
+
+function errorDetail(error: unknown) {
+  return (error instanceof Error ? error.message : 'Unknown processing failure').slice(0, 800);
+}
+
 export async function POST(request: Request) {
   const body = await request.text();
   const signature = request.headers.get('x-razorpay-signature') || '';
@@ -53,6 +88,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid webhook signature.' }, { status: 400 });
   }
 
+  let db: Awaited<ReturnType<typeof ensureLeadsSchema>> | null = null;
+  let ledgerSignature = signature;
+  let ledgerProcessing = false;
+
   try {
     const event = JSON.parse(body) as Record<string, unknown>;
     const eventType = clean(event.event, 80);
@@ -60,23 +99,49 @@ export async function POST(request: Request) {
     const payment = nestedEntity(event.payload, 'payment');
     const refund = nestedEntity(event.payload, 'refund');
     const providerLinkId = clean(paymentLink.id, 80);
-    const db = await ensureLeadsSchema();
+    db = await ensureLeadsSchema();
+    const receivedAt = new Date().toISOString();
 
     const inserted = await db.prepare(`INSERT OR IGNORE INTO payment_webhook_events
-      (signature, event_id, created_at, event_type, provider_link_id) VALUES (?, ?, ?, ?, ?)`).bind(
+      (signature, event_id, created_at, updated_at, event_type, provider_link_id,
+      processing_status, attempts, last_error) VALUES (?, ?, ?, ?, ?, ?, 'received', 0, '')`).bind(
       signature,
       providerEventId,
-      new Date().toISOString(),
+      receivedAt,
+      receivedAt,
       eventType || 'unknown',
       providerLinkId || null,
     ).run();
-    if (!inserted.meta.changes) return NextResponse.json({ received: true, duplicate: true });
+    const ledger = providerEventId
+      ? await db.prepare(`SELECT signature, processing_status FROM payment_webhook_events WHERE event_id = ?`).bind(providerEventId).first<{ signature: string; processing_status: string }>()
+      : await db.prepare(`SELECT signature, processing_status FROM payment_webhook_events WHERE signature = ?`).bind(signature).first<{ signature: string; processing_status: string }>();
+    if (!ledger) throw new Error('Webhook ledger could not be reserved.');
+    ledgerSignature = ledger.signature;
+    if (!inserted.meta.changes && ledger.processing_status === 'processed') {
+      return NextResponse.json({ received: true, duplicate: true });
+    }
+
+    await db.prepare(`UPDATE payment_webhook_events SET processing_status = 'processing',
+      attempts = attempts + 1, updated_at = ?, last_error = '' WHERE signature = ?`)
+      .bind(new Date().toISOString(), ledgerSignature)
+      .run();
+    ledgerProcessing = true;
+
+    const markProcessed = async (detail = '') => {
+      const processedAt = new Date().toISOString();
+      await db!.prepare(`UPDATE payment_webhook_events SET processing_status = 'processed',
+        processed_at = ?, updated_at = ?, last_error = ? WHERE signature = ?`)
+        .bind(processedAt, processedAt, detail.slice(0, 800), ledgerSignature)
+        .run();
+      ledgerProcessing = false;
+    };
 
     if (eventType === 'refund.processed') {
       const refundPaymentId = clean(refund.payment_id, 80) || clean(payment.id, 80);
       const refundId = clean(refund.id, 80) || null;
       const refundAmount = Number(refund.amount || 0);
       if (!refundPaymentId || !Number.isFinite(refundAmount) || refundAmount <= 0) {
+        await markProcessed('Ignored malformed refund event.');
         return NextResponse.json({ received: true, ignored: true });
       }
       const now = new Date().toISOString();
@@ -85,11 +150,22 @@ export async function POST(request: Request) {
         refund_status = CASE WHEN refunded_amount + ? >= amount THEN 'full' ELSE 'partial' END,
         refund_reference = COALESCE(?, refund_reference), last_provider_event_at = ?, updated_at = ?
         WHERE provider_payment_id = ?`).bind(refundAmount, refundAmount, refundId, now, now, refundPaymentId).run();
+      await markProcessed();
       return NextResponse.json({ received: true, refundRecorded: true });
     }
 
     if (!providerLinkId || !['payment_link.paid', 'payment_link.partially_paid', 'payment_link.cancelled', 'payment_link.expired'].includes(eventType)) {
+      await markProcessed('Ignored unsupported event type.');
       return NextResponse.json({ received: true, ignored: true });
+    }
+
+    const record = await db.prepare(`SELECT status, reference_id, amount, amount_paid, currency,
+      description, customer_name, customer_email FROM payment_links WHERE provider_link_id = ?`)
+      .bind(providerLinkId)
+      .first<PaymentRecord>();
+    if (!record) {
+      await markProcessed('Untracked provider payment link.');
+      return NextResponse.json({ received: true, untracked: true });
     }
 
     const statusByEvent: Record<string, string> = {
@@ -102,9 +178,23 @@ export async function POST(request: Request) {
     const amountPaid = Number(paymentLink.amount_paid || payment.amount || 0);
     const providerPaymentId = clean(payment.id, 80) || null;
     const now = new Date().toISOString();
-    const previous = await db.prepare('SELECT status FROM payment_links WHERE provider_link_id = ?')
-      .bind(providerLinkId)
-      .first<{ status: string }>();
+
+    const mismatches = status === 'paid'
+      ? paidEventMismatches(event, paymentLink, payment, record)
+      : status === 'partially_paid' ? ['unexpected partial payment'] : [];
+    if (mismatches.length > 0) {
+      const detail = `Payment verification requires review: ${mismatches.join(', ')}.`;
+      await db.prepare(`UPDATE payment_links SET status = 'review_required',
+        notification_status = 'failed', notification_detail = ?, last_provider_event_at = ?, updated_at = ?
+        WHERE provider_link_id = ?`).bind(detail, now, now, providerLinkId).run();
+      await markProcessed(detail);
+      return NextResponse.json({ received: true, reviewRequired: true });
+    }
+
+    if (record.status === 'paid' || record.status === 'review_required') {
+      await markProcessed(`Payment already recorded as ${record.status}.`);
+      return NextResponse.json({ received: true, duplicateState: true });
+    }
 
     await db.prepare(`UPDATE payment_links SET
       status = CASE
@@ -128,34 +218,39 @@ export async function POST(request: Request) {
       providerLinkId,
     ).run();
 
-    if (status !== 'paid' || previous?.status === 'paid') return NextResponse.json({ received: true });
+    if (status !== 'paid') {
+      await markProcessed();
+      return NextResponse.json({ received: true });
+    }
 
-    const record = await db.prepare(`SELECT reference_id, amount, amount_paid, currency, description,
-      customer_name, customer_email FROM payment_links WHERE provider_link_id = ?`).bind(providerLinkId).first<{
-        reference_id: string;
-        amount: number;
-        amount_paid: number;
-        currency: string;
-        description: string;
-        customer_name: string | null;
-        customer_email: string | null;
-      }>();
-    if (!record) return NextResponse.json({ received: true, untracked: true });
+    await markProcessed();
 
     const results = await notifyOwnerOfPayment({
-      amountLabel: amountLabel(record.amount_paid || record.amount, record.currency),
+      amountLabel: amountLabel(record.amount, record.currency),
       clientName: record.customer_name || 'Client',
       clientEmail: record.customer_email || '',
       description: record.description,
       referenceId: record.reference_id,
     });
-    const notificationStatus = results.some((result) => result.state === 'sent') ? 'sent' : 'not_configured';
+    const notificationStatus = results.some((result) => result.state === 'sent')
+      ? 'sent'
+      : results.some((result) => result.state === 'failed') ? 'failed' : 'not_configured';
     const notificationDetail = results.map((result) => `${result.channel}: ${result.detail}`).join(' · ').slice(0, 800);
     await db.prepare(`UPDATE payment_links SET notification_status = ?, notification_detail = ?, updated_at = ?
       WHERE provider_link_id = ?`).bind(notificationStatus, notificationDetail, new Date().toISOString(), providerLinkId).run();
 
     return NextResponse.json({ received: true });
-  } catch {
+  } catch (error) {
+    if (db && ledgerProcessing) {
+      try {
+        await db.prepare(`UPDATE payment_webhook_events SET processing_status = 'failed',
+          updated_at = ?, last_error = ? WHERE signature = ?`)
+          .bind(new Date().toISOString(), errorDetail(error), ledgerSignature)
+          .run();
+      } catch {
+        // Preserve the original provider retry response when the ledger itself is unavailable.
+      }
+    }
     return NextResponse.json({ error: 'Webhook processing failed.' }, { status: 500 });
   }
 }
