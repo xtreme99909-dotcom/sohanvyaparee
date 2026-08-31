@@ -1,7 +1,6 @@
 'use client';
 
-import Image from 'next/image';
-import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FounderAvatar } from './founder-avatar';
 
 const stages = [
@@ -31,19 +30,10 @@ const stages = [
   },
 ] as const;
 
-const directorPoses = [
-  { id: 'welcome', src: '/founder-character.png' },
-  { id: 'guide', src: '/founder-character-point.png' },
-  { id: 'approve', src: '/founder-character-approve.png' },
-] as const;
-
-type DirectorPose = (typeof directorPoses)[number]['id'];
-
 export function DirectionBoard() {
   const [activeStage, setActiveStage] = useState(0);
   const [paused, setPaused] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(true);
-  const [directorPose, setDirectorPose] = useState<DirectorPose>('welcome');
   const boardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -64,22 +54,6 @@ export function DirectionBoard() {
 
   const stage = stages[activeStage];
 
-  function moveDirector(event: ReactPointerEvent<HTMLDivElement>) {
-    const bounds = event.currentTarget.getBoundingClientRect();
-    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
-    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
-    event.currentTarget.style.setProperty('--director-x', `${x * 12}px`);
-    event.currentTarget.style.setProperty('--director-y', `${y * 8}px`);
-    event.currentTarget.style.setProperty('--director-turn', `${x * 2.5}deg`);
-  }
-
-  function resetDirector(event: ReactPointerEvent<HTMLDivElement>) {
-    event.currentTarget.style.setProperty('--director-x', '0px');
-    event.currentTarget.style.setProperty('--director-y', '0px');
-    event.currentTarget.style.setProperty('--director-turn', '0deg');
-    setPaused(false);
-  }
-
   return (
     <div
       ref={boardRef}
@@ -87,9 +61,8 @@ export function DirectionBoard() {
       data-paused={paused ? 'true' : 'false'}
       role="region"
       aria-label="How a complete website moves from plan to launch"
-      onPointerMove={moveDirector}
       onPointerEnter={() => setPaused(true)}
-      onPointerLeave={resetDirector}
+      onPointerLeave={() => setPaused(false)}
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={(event) => {
         if (!boardRef.current?.contains(event.relatedTarget as Node | null)) setPaused(false);
@@ -100,32 +73,6 @@ export function DirectionBoard() {
         <span className="board-director"><FounderAvatar compact /><span><b>Directed by Sohan</b><small>Founder · Creative Director</small></span></span>
       </div>
       <div className="board-stage">
-        <button
-          type="button"
-          className="board-founder-character"
-          data-pose={directorPose}
-          aria-label="Sohan, founder and creative director. Hover or activate to change his pose."
-          onPointerEnter={() => setDirectorPose('guide')}
-          onPointerLeave={() => setDirectorPose('welcome')}
-          onFocus={() => setDirectorPose('guide')}
-          onBlur={() => setDirectorPose('welcome')}
-          onClick={() => setDirectorPose((current) => current === 'approve' ? 'guide' : 'approve')}
-        >
-          <span className="board-founder-pose-stack" aria-hidden="true">
-            {directorPoses.map((pose) => (
-              <Image
-                key={pose.id}
-                src={pose.src}
-                alt=""
-                width={224}
-                height={448}
-                sizes="(max-width: 760px) 175px, 224px"
-                data-active={directorPose === pose.id ? 'true' : 'false'}
-                draggable={false}
-              />
-            ))}
-          </span>
-        </button>
         <div key={`stage-${activeStage}`} className="board-stage-copy">
           <div className="stage-number">0{activeStage + 1}</div>
           <span className="availability"><i /> Now accepting website projects</span>
