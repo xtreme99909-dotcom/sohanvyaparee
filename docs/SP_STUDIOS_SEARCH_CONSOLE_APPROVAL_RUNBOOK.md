@@ -1,299 +1,427 @@
-# SP Studios Search Console approval runbook
+# SP Studios Google presence approval runbook
 
-Last prepared: 1 September 2026
-Owner lane: search discovery and indexing operations
-Authority: [SP_STUDIOS_HQ_CONTEXT.md](./SP_STUDIOS_HQ_CONTEXT.md)
-Working branch: `rebrand/sp-studios-domain-preview`
-Pinned headquarters context reviewed at: `e544fad195c0dd5335a7dffc641227de3fd71a30`
+Last prepared: 31 August 2026 UTC  
+Owner lane: Google Search Console and Google Business Profile presence only  
+Authority: [SP_STUDIOS_HQ_CONTEXT.md](./SP_STUDIOS_HQ_CONTEXT.md)  
+Repository evidence checkpoint: c909a4afcacaa58d06062b679e0a01ea7ca95bb1  
+Pinned headquarters context reviewed at: e544fad195c0dd5335a7dffc641227de3fd71a30
 
 ## Purpose
 
-This is the single approval and evidence-capture runbook for Google Search Console setup, sitemap discovery, canonical verification and priority-page recrawling for SP Studios.
+This is the single approval sequence for:
 
-It does not replace the existing website positioning, service pages, buyer journey, proof labels, analytics, payment safeguards or delivery work. It does not authorize publishing, deployment, DNS changes, public profile edits, outreach, spending or claims of clients, leads or revenue.
+1. Search Console Domain property ownership;
+2. one controlled sitemap submission;
+3. truthful SP Studios entity information in Google Search; and
+4. the separate stop/go gate for any Google Business Profile.
 
-The search objective is narrow:
+It preserves the existing website, proof labels, SEO implementation, payment safeguards and other worker lanes. It authorizes no account, DNS, website, profile or public change.
 
-> Help buyers discover SP Studios as a founder-led studio for complete business websites—from direction and original design through development, integrations and launch—without attracting job, internship, coding-ticket or cheap-template intent.
+## Current determination
 
-## Preserved verified work
+### Search Console
 
-Do not reopen these decisions in this lane:
+Preparation is technically ready, but no ownership or submission action is authorized.
 
-- SP Studios is a founder-led website strategy, design and development studio.
-- The main promise is complete business websites from direction through launch.
-- Public work remains labelled as live founder-built work, a self-initiated business system or a speculative concept.
-- Focused Launch begins at USD 1,500 only for a narrow ready scope.
-- Complete Business Website begins at USD 3,000.
-- Signature Experience + Integration begins at USD 5,000.
-- International Launch System begins at USD 6,500.
-- There are currently zero verified SP Studios clients and zero verified SP Studios client payments in the headquarters evidence boundary.
-- Search impressions, clicks and indexed URLs must never be reported as leads, clients, pipeline revenue or settled money.
+Repository evidence at the checkpoint:
 
-## Current external evidence
+- app/site.ts sets the public fallback origin to https://www.thespstudios.com.
+- app/sitemap.ts generates https://www.thespstudios.com/sitemap.xml with 14 public URLs.
+- app/robots.ts declares that sitemap and disallows /leads, /api/, /pay and /payments.
+- app/layout.tsx declares index/follow, a www canonical base, current website-studio metadata and a Google verification meta token.
+- app/layout.tsx emits a ProfessionalService JSON-LD entity for SP Studios and a Person entity for Sohan Vyaparee.
 
-Observed during a read-only audit on 31 August 2026:
+Important boundary:
 
-1. The live homepage and main service pages were publicly crawlable and returned substantial rendered text.
-2. The homepage search result still displayed an animation-era title even though the live page presented complete business websites.
-3. Exact searches for several service and case-study URLs surfaced the homepage but did not surface the requested deeper page.
-4. The LinkedIn company description still presented SP Studios as an animation/CGI studio.
-5. Current external job/profile results could attract internship and employment intent.
-6. A search result using Sohan Vyaparee's name was localized to Delhi, while the BongFoods case study identifies its own market as Nagpur. Neither fact establishes the studio's headquarters or Google Business Profile eligibility.
+- The existing meta token can support a URL-prefix verification method.
+- It does not verify a Domain property.
+- A Search Console Domain property for thespstudios.com requires an approved DNS verification method.
+- No account state, DNS state or live Search Console verification state was inspected.
 
-Evidence URLs:
+### Sitemap
 
-- <https://www.thespstudios.com/>
-- <https://www.thespstudios.com/services/complete-website-launch>
-- <https://www.thespstudios.com/services/b2b-lead-generation-websites>
-- <https://www.thespstudios.com/services/d2c-commerce-launch>
-- <https://www.thespstudios.com/work>
-- <https://www.linkedin.com/company/sp-studios7>
-- <https://bebee.com/in/companies/sp-studios>
+Source readiness is established; live readiness is not yet established.
 
-The available audit browser could not independently validate the contents of `/robots.txt`, `/sitemap.xml`, canonical elements or JSON-LD. Those items remain verification dependencies, not confirmed defects.
+The generated inventory contains exactly these 14 URL candidates:
 
-## Canonical candidate and priority inventory
+1. https://www.thespstudios.com
+2. https://www.thespstudios.com/services/complete-website-launch
+3. https://www.thespstudios.com/services/d2c-commerce-launch
+4. https://www.thespstudios.com/services/b2b-lead-generation-websites
+5. https://www.thespstudios.com/partners
+6. https://www.thespstudios.com/work
+7. https://www.thespstudios.com/work/bongfoods
+8. https://www.thespstudios.com/work/studio-system
+9. https://www.thespstudios.com/work/private-market-concept
+10. https://www.thespstudios.com/privacy
+11. https://www.thespstudios.com/trust
+12. https://www.thespstudios.com/terms
+13. https://www.thespstudios.com/refund-cancellation
+14. https://www.thespstudios.com/delivery-fulfilment
 
-The observed public pages resolve to the `www` host. Treat `https://www.thespstudios.com/` as the canonical candidate until source inspection and Search Console confirm the declared and Google-selected canonicals.
+No owner, API, lead, payment-review or submission-result route appears in source inventory.
 
-Priority commercial URLs:
+### Truthful studio entity
 
-1. `https://www.thespstudios.com/`
-2. `https://www.thespstudios.com/services/complete-website-launch`
-3. `https://www.thespstudios.com/services/b2b-lead-generation-websites`
-4. `https://www.thespstudios.com/services/d2c-commerce-launch`
-5. `https://www.thespstudios.com/work`
-6. `https://www.thespstudios.com/work/bongfoods`
-7. `https://www.thespstudios.com/work/studio-system`
-8. `https://www.thespstudios.com/work/private-market-concept`
-9. `https://www.thespstudios.com/trust`
-10. `https://www.thespstudios.com/partners`
+The public identity must remain:
 
-A future founder/entity page belongs in this inventory only after another owner publishes it and confirms its canonical URL. This lane must not create a duplicate About or founder page.
+- name: SP Studios;
+- founder: Sohan Vyaparee;
+- positioning: founder-led website strategy, design and development studio;
+- promise: complete business websites from direction and original design through development, integrations and launch;
+- proof boundary: live founder-built work, self-initiated business system or speculative concept;
+- verified SP Studios clients at the headquarters checkpoint: zero;
+- verified SP Studios client payments at the headquarters checkpoint: zero.
 
-## Gate 0 — preflight evidence
+No address, phone, staff size, client result, award, headquarters city or local service territory is established by headquarters evidence.
 
-No Search Console action should be approved until an owner records:
+The current ProfessionalService type is a local-business-oriented schema choice. It must not be treated as evidence of Google Business Profile eligibility or a public storefront. If in-person/local operation remains unverified, the technical entity owner should approve changing the top-level type to Organization and preserving the founder Person node. This runbook does not make that code change.
 
-- `https://www.thespstudios.com/robots.txt`: HTTP status and complete text.
-- `https://www.thespstudios.com/sitemap.xml`: HTTP status and complete canonical URL inventory.
-- Homepage source: title, meta description, robots meta, canonical and JSON-LD.
-- Each priority URL: final URL after redirects, HTTP status, title, one H1, robots meta and canonical.
-- HTTP/non-www/trailing-slash behavior for at least the homepage and one service page.
-- Whether Google Analytics or Google Tag Manager is already present and controlled by the same Google account intended for Search Console.
+## Official Google rules used
+
+- A Domain property is defined without protocol or path and can include all protocol and subdomain variants.  
+  <https://support.google.com/webmasters/answer/10431861>
+
+- Domain properties are verified through DNS. The verification record should remain in DNS after verification to preserve ownership.  
+  <https://support.google.com/webmasters/answer/9008080>
+
+- A sitemap should contain fully qualified canonical URLs. Submission is a discovery hint, not an indexing guarantee. Search Console's Sitemaps report records access and processing errors.  
+  <https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap>
+
+- Organization markup can help Google understand and disambiguate an entity. Properties should be relevant, truthful and represented by visible page content; no property is required merely to fill the schema.  
+  <https://developers.google.com/search/docs/appearance/structured-data/organization>  
+  <https://developers.google.com/search/docs/appearance/structured-data/sd-policies>
+
+- A Google Business Profile requires in-person customer contact during stated hours. Online-only businesses are ineligible.  
+  <https://support.google.com/business/answer/13763036>
+
+## Exact approval sequence
+
+Every numbered gate needs separate recorded approval. Approval of one gate does not imply approval of the next.
+
+### Gate 0 — designate the Google owner
+
+Headquarters decision:
+
+- nominate one SP Studios-controlled Google Account as primary Search Console owner;
+- confirm two-step verification is enabled;
+- decide whether Sohan alone remains owner or whether one named backup owner is needed;
+- never record a password, recovery code or one-time code in the repository.
+
+Evidence to capture:
+
+| Evidence | Required record |
+|---|---|
+| Account custodian | Sohan or approved named custodian |
+| Account identifier | Masked email or internal owner reference |
+| Security | 2-step verification confirmed, with no secret captured |
+| Scope | Search Console Domain property only |
+| UTC approval | Approver and timestamp |
+
+Stop condition: no approved owner account.
+
+### Gate 1 — approve the Domain property
+
+Exact proposed property:
+
+> thespstudios.com
+
+Property type:
+
+> Domain
+
+Coverage:
+
+- http and https;
+- root and www;
+- present and future subdomains under thespstudios.com.
+
+Evidence to capture before creation:
+
+- screenshot or written record showing Domain property type;
+- exact property string thespstudios.com;
+- approved owner account reference;
+- confirmation that no URL path or protocol was entered;
+- UTC approval record.
+
+Do not add the property until headquarters explicitly approves Gate 1.
+
+### Gate 2 — obtain, review and approve the DNS proof
+
+After Gate 1 approval, Search Console will supply the exact verification record or an approved provider flow.
+
+Preferred controlled method:
+
+- record type: TXT;
+- host/name: root value required by the authoritative DNS provider, commonly @ or blank;
+- value: the exact Google-provided google-site-verification string;
+- TTL: provider default unless the DNS owner approves a different value.
+
+Before any DNS change, capture:
+
+- authoritative DNS provider and zone owner;
+- existing TXT records at the root;
+- the proposed new TXT record exactly;
+- a fingerprint of the verification value in the approval log rather than credentials;
+- confirmation that A, AAAA, CNAME, MX, NS, SPF, DKIM and DMARC records will not be edited;
+- rollback instruction: remove only the newly added Google verification TXT if headquarters later revokes it.
+
+Important:
+
+- adding another TXT record must not replace existing TXT records;
+- the Google token is not a password, but it is still a provider-issued ownership proof and should not be pasted into general discussion;
+- no worker may make this DNS change without exact approval.
+
+Small approval statement:
+
+> Approve adding only the Search Console TXT record generated for the Domain property thespstudios.com, with no other DNS edits.
+
+### Gate 3 — verify DNS propagation, then ownership
+
+After the DNS owner confirms the approved record was added:
+
+1. Query authoritative/public DNS for TXT records on thespstudios.com.
+2. Confirm the full Google value is present exactly once.
+3. Record resolver, UTC time, observed TTL and verification-value fingerprint.
+4. In Search Console, click Verify once.
+5. If verification fails, retain the record and wait for propagation; do not repeatedly replace it or delete unrelated TXT records.
+6. On success, leave the verification TXT in place.
+7. Inspect the Search Console owner list and confirm only approved owners/users.
+
+Pass evidence:
+
+| Evidence | Pass condition |
+|---|---|
+| Public DNS lookup | Exact Google TXT visible |
+| Search Console status | Ownership verified |
+| Property | thespstudios.com, type Domain |
+| Owner list | Only approved accounts |
+| Security reports | Initial Manual actions and Security issues states exported or captured |
+| Timestamp | UTC verification time |
+| Retention | DNS verification record retained |
+
+Verification is ownership evidence, not evidence of ranking, indexing, customers or revenue.
+
+### Gate 4 — live sitemap preflight
+
+This gate must pass immediately before submission even though source code is ready.
+
+For https://www.thespstudios.com/robots.txt capture:
+
+- final URL after redirects;
+- HTTP status 200;
+- complete response text;
+- the exact Sitemap line;
+- disallow rules for private/API/payment paths.
+
+For https://www.thespstudios.com/sitemap.xml capture:
+
+- final URL after redirects;
+- HTTP status 200;
+- XML content type or valid XML response;
+- complete URL inventory;
+- URL count;
+- host consistency;
+- absence of private routes.
+
+For every one of the 14 sitemap URLs capture:
+
+- final URL;
+- HTTP status;
+- indexability;
+- declared canonical;
+- whether the URL is meaningfully public and linked.
 
 Pass conditions:
 
-- Priority pages return HTTP 200.
-- Public priority pages are not blocked and do not contain `noindex`.
-- One canonical host is used consistently.
-- Each indexable priority page has an absolute self-canonical.
-- Sitemap URLs are absolute, canonical and indexable.
-- Private owner, submission-result, preview and payment-review routes are absent from the sitemap.
-- Private data is protected by access control, not robots.txt alone.
+- sitemap endpoint returns valid XML;
+- exactly 14 source-expected URLs are present, unless an approved deployment has deliberately changed the inventory;
+- all entries are absolute https://www.thespstudios.com URLs;
+- entries are canonical and return 200;
+- no URL is noindex;
+- /leads, /api, /pay, /payments and other private/result routes are absent;
+- canonical host and sitemap host agree.
 
-If a condition fails, send the exact evidence to the existing technical discovery owner. Do not repair metadata, canonical, routing, schema or payment code from this runbook lane.
+If the count differs, record the exact difference and route it to the technical discovery owner. Do not submit first and investigate later.
 
-## Gate 1 — property approval
+Google ignores sitemap priority and changeFrequency values, so their presence is not a submission blocker.
 
-Requested headquarters approval:
+### Gate 5 — approve and submit the sitemap once
 
-- Property type: **URL-prefix**
-- Exact property: `https://www.thespstudios.com/`
-- Reason: covers the observed canonical candidate without requiring a DNS change.
-- Preferred verification: an existing authorized Google Analytics or Google Tag Manager installation.
-- Fallback verification: an HTML verification tag in a separately approved website deployment.
-- Not approved by this runbook: Domain property, DNS TXT record, new analytics property, tag deployment or access invitation.
+Exact proposed submission:
 
-Evidence to retain:
+> https://www.thespstudios.com/sitemap.xml
 
-- Property type and exact URL.
-- Verification method.
-- Google account or workspace owner, without recording credentials.
-- Verification timestamp in UTC.
-- Screenshot or exported confirmation stored in the headquarters evidence location.
+Only after Gates 1–4 pass:
 
-## Gate 2 — sitemap approval
+1. Select the verified Domain property thespstudios.com.
+2. Open Indexing → Sitemaps.
+3. Enter the full sitemap URL.
+4. Confirm the host is www.thespstudios.com.
+5. Submit once.
+6. Record the immediate UI response without translating Pending into Success.
+7. When processed, capture status, last-read time and discovered URL count.
 
-Only after Gate 0 and Gate 1 pass:
+Pass evidence:
 
-1. Open **Search Console → Sitemaps**.
-2. In **Add a new sitemap**, enter `sitemap.xml`.
-3. Submit once.
-4. Record status, submitted timestamp, last-read timestamp and discovered URL count.
-5. Export or capture any fetch error exactly; do not repeatedly submit an unchanged failing sitemap.
+| Field | Required value |
+|---|---|
+| Property | thespstudios.com |
+| Submitted sitemap | https://www.thespstudios.com/sitemap.xml |
+| Submission count | One |
+| Status | Success |
+| Discovered URLs | Expected 14 or an explained approved count |
+| Last read | Google-reported UTC/date evidence |
+| Errors | None, or exact exported error routed to owner |
 
-Pass condition:
+Do not repeatedly resubmit an unchanged failing sitemap. A successful sitemap status means Google processed the sitemap; it does not mean every page is indexed.
 
-- Status is `Success`.
-- The discovered count is explainable from the canonical inventory.
-- No private, preview, parameter, payment-review or submission-result URL is discovered from the sitemap.
+### Gate 6 — establish the truthful Search entity
 
-## Gate 3 — URL Inspection evidence
+Before asking Google to recrawl the homepage, headquarters approves one entity record:
 
-After an approved production deployment affecting search signals, inspect these first:
+| Field | Approved truthful value |
+|---|---|
+| Public name | SP Studios |
+| Alternate name | SP Studios by Sohan Vyaparee |
+| Canonical URL | https://www.thespstudios.com |
+| Founder | Sohan Vyaparee |
+| Description | Founder-led website strategy, original design, responsive development, integrations and launch |
+| Proof status | No invented client, revenue or outcome claims |
+| Address | Omit unless separately approved for public use |
+| Phone | Omit unless a dedicated public business number is approved |
+| Employee count | Omit |
+| Founding date | Omit until evidenced |
+| Logo | Add only an approved crawlable logo of at least 112×112 |
+| Social sameAs | Only owner-controlled profiles whose current public identity matches SP Studios |
+| Reviews/ratings | Omit while there are no verified clients/reviews |
 
-1. Homepage
-2. Complete Website service
-3. B2B service
-4. D2C service
-5. Work index
-6. Studio System case study
+Current evidence review required before pass:
 
-For each URL:
+1. Decide whether the studio is actually local/in-person.
+2. If NO or UNKNOWN, approve Organization as the top-level schema type rather than ProfessionalService.
+3. Keep Sohan's Person node separate and linked as founder.
+4. Do not add address, telephone, headquarters city or LocalBusiness fields.
+5. Review every sameAs URL. The existing runbook observed the studio LinkedIn page still presenting an animation/CGI identity; either the external-profile owner corrects it or the technical entity owner omits it from sameAs.
+6. Keep self-initiated and speculative work truth labels visible.
+7. Validate that rendered JSON-LD matches visible homepage content.
+8. Use URL Inspection after an approved production deployment to confirm Google's rendered HTML contains the approved entity record.
 
-1. Inspect the indexed URL.
-2. Record whether the URL is on Google.
-3. Record the last crawl and referring discovery source when available.
-4. Record user-declared canonical.
-5. Record Google-selected canonical.
-6. Click **Test Live URL**.
-7. Confirm crawl allowed, indexing allowed and HTTP 200.
-8. Inspect rendered HTML/screenshot for the current H1 and buyer-facing copy.
-9. Record detected structured data and exact errors or warnings.
+Structured data can help disambiguation but does not guarantee a knowledge panel, logo, ranking or other Search appearance.
 
-Pass condition:
+### Gate 7 — Google Business Profile stop/go decision
 
-- Live test succeeds.
-- Declared and selected canonicals match the intended exact URL.
-- Current buyer-facing content is present in Google's render.
-- No animation-era title, Careers navigation or job-focused main content exists in the live render.
+Search Console Domain verification does not make SP Studios eligible for a Business Profile.
 
-## Gate 4 — recrawl approval
+Headquarters must answer:
 
-After Gate 3 passes, request indexing once for:
+> Does SP Studios currently make genuine in-person contact with customers during stated hours, including visiting clients at their premises?
 
-1. Homepage
-2. Complete Website service
-3. B2B service
-4. D2C service
-5. Work index
-6. Studio System case study
+If NO or UNKNOWN:
 
-Rules:
+- do not create or claim a Business Profile;
+- do not add a Maps pin;
+- do not invent service areas;
+- maintain only the Search Console and website entity presence.
 
-- Do not request indexing before the approved change is live.
-- Do not repeatedly resubmit unchanged URLs.
-- Let the sitemap and internal links handle lower-priority pages.
-- Do not use the Google Indexing API for normal service or case-study pages.
-- Do not use the Removals tool to repair a stale title or snippet.
-- A successful request means Google accepted a crawl request, not that the page is indexed or ranked.
+If YES, capture before any profile action:
 
-Record each request timestamp and later indexed status.
+- exact in-person service offered;
+- normal customer-facing hours;
+- private real operating base;
+- evidence tying SP Studios to that base;
+- cities/postcodes genuinely reachable, generally within two hours;
+- exact public name SP Studios;
+- proposed primary category Website designer, subject to live availability;
+- public website;
+- dedicated public business phone decision, if any;
+- confirmation that the address will be hidden;
+- one-profile-only confirmation;
+- verification evidence plan.
 
-## Gate 5 — query-quality baseline
+Then seek a separate exact approval to create one hidden-address service-area profile. Do not submit verification under this runbook.
 
-In **Performance → Search results**, retain separate filters.
+## Post-verification Search Console evidence
 
-Brand regex:
+After Domain ownership and sitemap success, collect a baseline without changing anything:
 
-`(?i)(sp studios|thespstudios|sohan vyaparee)`
+- Page indexing summary;
+- HTTPS report;
+- Manual actions;
+- Security issues;
+- sitemap status and discovered count;
+- URL Inspection for homepage, complete website service and work index;
+- user-declared and Google-selected canonicals;
+- detected rendered structured data;
+- branded query baseline when data becomes available.
 
-Wrong-intent regex:
+Report separately:
 
-`(?i)(job|jobs|career|careers|intern|internship|hiring|salary|course|cheap|free|template|source code|hourly|coding task)`
-
-Buyer-intent regex:
-
-`(?i)(business website|complete website|website design|website redesign|b2b website|manufacturing website|d2c website|ecommerce website|website studio)`
-
-Review dimensions:
-
-- Query
-- Page
-- Country
-- Device
-- Search appearance
-- Date comparison
-
-Report search-layer measurements separately:
-
-- discovered canonical URLs;
-- indexed priority URLs;
+- verified property;
+- submitted/processed sitemap;
+- discovered URLs;
+- indexed URLs;
 - impressions;
 - clicks;
 - click-through rate;
-- average position;
-- buyer-intent query count;
-- wrong-intent query count; and
-- branded result freshness.
+- average position.
 
-The authoritative owner desk remains the source for brief starts, stored enquiries, qualified leads, scopeable opportunities, proposals, agreements, captured milestones and settled money.
+Never translate those metrics into leads, clients, proposals, captured milestones or settled money.
 
-## Thirty-day operating sequence
+## Evidence record
 
-### Days 1–3
+| Gate | UTC date | Approver/operator | Exact action or observation | Evidence location | Result | Next owner |
+|---|---|---|---|---|---|---|
+| 0 | | | | | | |
+| 1 | | | | | | |
+| 2 | | | | | | |
+| 3 | | | | | | |
+| 4 | | | | | | |
+| 5 | | | | | | |
+| 6 | | | | | | |
+| 7 | | | | | | |
 
-- Complete Gate 0.
-- Resolve the canonical host from source and redirect evidence.
-- Identify the non-DNS verification method.
-- Capture the pre-action search-result screenshot and exact stale title.
-
-### Days 4–7
-
-- Headquarters decides whether to approve Gate 1.
-- If approved, create and verify only the exact URL-prefix property.
-- Export the initial Page indexing, Manual actions and Security issues states.
-- Submit the sitemap only after its direct preflight passes.
-
-### Days 8–14
-
-- Run URL Inspection.
-- Route technical failures to the existing implementation owner.
-- After an approved production fix, request priority recrawls once.
-- Do not publish generic SEO articles during this gate.
-
-### Days 15–21
-
-- Recheck indexed status and titles.
-- Record buyer-, brand- and wrong-intent queries.
-- Prepare one content decision only if query evidence identifies a real buyer question not already answered by a service page.
-
-### Days 22–30
-
-- Compare indexed coverage and query quality with the baseline.
-- Decide between one B2B buyer guide, one D2C launch guide or no new content.
-- Do not create location pages until headquarters confirms the studio's truthful operating base and local-search eligibility.
-- Do not create international city pages without verified demand or proof.
-
-## Evidence record template
-
-| UTC date | URL/report | Indexed status | Live test | Declared canonical | Selected canonical | Search title | Exact issue/action | Owner |
-|---|---|---|---|---|---|---|---|---|
-| | | | | | | | | |
+Do not store credentials, recovery codes, DNS-provider sessions, private addresses or private phone numbers in this record.
 
 ## Unresolved external dependencies
 
-1. Search Console property ownership and approved Google account.
-2. Existing Google Analytics/Tag Manager presence and access.
-3. Direct HTTP/source evidence for robots, sitemap, canonical and JSON-LD.
-4. Approved production deployment if a verification tag or technical correction is needed.
-5. Google's recrawl and canonical selection timing.
-6. Current authoritative owner-desk acquisition numbers.
-7. Headquarters confirmation of the studio's actual operating base and whether it meets clients in person.
-8. Ownership/control of LinkedIn, BeBee, OLX and other external profiles; this runbook does not edit them.
+1. Approved SP Studios-controlled Google Account and custodian.
+2. Headquarters approval for Domain rather than URL-prefix property.
+3. Authoritative DNS provider ownership and exact change operator.
+4. Google-generated DNS verification value.
+5. Public DNS propagation.
+6. Live robots.txt and sitemap.xml response capture.
+7. Search Console verification and sitemap processing results.
+8. Technical entity owner's decision on Organization versus ProfessionalService.
+9. Owner review of every sameAs target.
+10. Approved crawlable studio logo, if one is to be declared.
+11. Headquarters answer on genuine in-person customer contact.
+12. Fresh approval before any Search Console, DNS or Business Profile action.
 
 ## Explicit non-actions
 
 This artifact did not:
 
-- create or verify a Search Console property;
-- submit a sitemap or URL;
-- request indexing;
-- use the Indexing API;
+- access or modify a Google Account;
+- add or verify a Search Console property;
+- generate or publish a DNS record;
 - modify DNS;
-- edit metadata, canonicals, schema, robots or sitemap code;
-- publish or deploy the website;
-- edit an external profile;
+- submit a sitemap;
+- inspect private Search Console data;
+- request indexing;
+- edit or deploy website code;
+- change structured data;
+- create, claim or edit a Business Profile;
+- submit Business Profile verification;
+- add a Maps pin;
+- expose a private address, phone or credential;
+- request a review;
 - send outreach;
-- create a Google Business Profile;
-- activate payments or providers;
-- spend money; or
-- report a search visit, click or enquiry as a client or revenue.
+- spend money;
+- claim ranking, clients or revenue.
 
 ## Smallest headquarters decision
 
-Approve or decline this exact first external action:
+Approve or decline this exact first external sequence:
 
-> Create the URL-prefix Search Console property `https://www.thespstudios.com/` using an existing authorized Google Analytics/Tag Manager verification method, with no DNS change and no sitemap or URL submission until Gate 0 evidence passes.
+> Use one SP Studios-controlled Google Account to create the Search Console Domain property thespstudios.com, then pause and return the exact Google-generated DNS verification record for separate DNS-change approval. Do not change DNS, verify ownership or submit the sitemap under that first approval.
