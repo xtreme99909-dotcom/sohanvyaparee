@@ -180,8 +180,7 @@ export function ProjectBrief() {
       {status === 'error' ? (
         <div className="form-error form-error-recovery" role="alert">
           <strong>The enquiry could not be saved.</strong>
-          <span>Your answers are still here. Try the send button once more or email the same brief directly.</span>
-          <a href="mailto:contact@thespstudios.com?subject=Website%20project%20enquiry">Email the studio instead ↗</a>
+          <span>Your answers are still here. Wait a moment, then use “Send my project brief” once more.</span>
         </div>
       ) : null}
     </form>

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { ensureLeadsSchema } from '@/db';
+import { notifyOwnerOfLead } from '@/app/leads/notifications';
 
 type LeadInput = Record<string, unknown>;
 
@@ -77,7 +78,25 @@ export async function POST(request: NextRequest) {
       )
       .run();
 
-    return NextResponse.json({ ok: true, reference: id.slice(0, 8).toUpperCase() });
+    const reference = id.slice(0, 8).toUpperCase();
+    try {
+      const notification = await notifyOwnerOfLead({
+        referenceId: reference,
+        name,
+        company,
+        projectType,
+        budget,
+        timing,
+        studioInboxUrl: `${requestOrigin}/leads`,
+      });
+      if (notification.state === 'failed') {
+        console.error('Lead stored, but owner notification failed.', { reference, detail: notification.detail });
+      }
+    } catch {
+      console.error('Lead stored, but owner notification could not be attempted.', { reference });
+    }
+
+    return NextResponse.json({ ok: true, reference });
   } catch {
     return NextResponse.json({ error: 'The enquiry could not be saved.' }, { status: 500 });
   }

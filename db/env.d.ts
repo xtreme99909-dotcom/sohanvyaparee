@@ -6,6 +6,7 @@ declare namespace Cloudflare {
     RAZORPAY_KEY_SECRET?: string;
     RAZORPAY_WEBHOOK_SECRET?: string;
     RESEND_API_KEY?: string;
+    LEAD_NOTIFICATION_EMAIL?: string;
     PAYMENT_NOTIFICATION_EMAIL?: string;
     RESEND_FROM?: string;
     WHATSAPP_ACCESS_TOKEN?: string;
