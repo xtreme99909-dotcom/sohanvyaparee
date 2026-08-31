@@ -36,6 +36,13 @@
       "when": 1788209348540,
       "tag": "0004_slow_the_executioner",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1788214486825,
+      "tag": "0005_brainy_magma",
+      "breakpoints": true
     }
   ]
 }

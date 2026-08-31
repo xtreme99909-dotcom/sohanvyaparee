@@ -102,6 +102,8 @@ export const paymentWebhookEvents = sqliteTable(
     processingStatus: text('processing_status').notNull().default('received'),
     attempts: integer('attempts').notNull().default(0),
     processedAt: text('processed_at'),
+    processingToken: text('processing_token'),
+    leaseExpiresAt: text('lease_expires_at'),
     lastError: text('last_error').notNull().default(''),
   },
   (table) => [

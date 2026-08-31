@@ -1,9 +1,12 @@
 import { env } from 'cloudflare:workers';
 import { NextResponse } from 'next/server';
 import { notifyOwnerOfPayment } from '@/app/payments/notifications';
+import { providerCurrencyMismatches } from '@/app/payments/provider-verification';
 import { ensureLeadsSchema } from '@/db';
 
 type RazorpayEntity = Record<string, unknown>;
+
+const webhookProcessingLeaseMs = 2 * 60 * 1000;
 
 function clean(value: unknown, maxLength: number) {
   return typeof value === 'string' ? value.trim().slice(0, maxLength) : '';
@@ -60,7 +63,6 @@ function paidEventMismatches(event: Record<string, unknown>, paymentLink: Razorp
   const mismatches: string[] = [];
   const accountId = clean(event.account_id, 80);
   const paymentReference = clean(paymentLink.reference_id, 40);
-  const paymentCurrency = clean(payment.currency, 3).toUpperCase() || clean(paymentLink.currency, 3).toUpperCase();
   const linkAmount = Number(paymentLink.amount);
   const amountPaid = Number(paymentLink.amount_paid || payment.amount || 0);
   const paymentAmount = Number(payment.amount);
@@ -69,7 +71,7 @@ function paidEventMismatches(event: Record<string, unknown>, paymentLink: Razorp
 
   if (!env.RAZORPAY_ACCOUNT_ID || accountId !== env.RAZORPAY_ACCOUNT_ID) mismatches.push('provider account');
   if (paymentReference !== record.reference_id) mismatches.push('reference');
-  if (paymentCurrency !== record.currency) mismatches.push('currency');
+  mismatches.push(...providerCurrencyMismatches(record.currency, payment.currency, paymentLink.currency));
   if (linkAmount !== record.amount || amountPaid !== record.amount || paymentAmount !== record.amount) mismatches.push('amount');
   if (!paymentCaptured) mismatches.push('capture status');
   if (!paymentId) mismatches.push('payment id');
@@ -90,6 +92,7 @@ export async function POST(request: Request) {
 
   let db: Awaited<ReturnType<typeof ensureLeadsSchema>> | null = null;
   let ledgerSignature = signature;
+  let ledgerClaimToken = '';
   let ledgerProcessing = false;
 
   try {
@@ -121,18 +124,39 @@ export async function POST(request: Request) {
       return NextResponse.json({ received: true, duplicate: true });
     }
 
-    await db.prepare(`UPDATE payment_webhook_events SET processing_status = 'processing',
-      attempts = attempts + 1, updated_at = ?, last_error = '' WHERE signature = ?`)
-      .bind(new Date().toISOString(), ledgerSignature)
+    ledgerClaimToken = crypto.randomUUID();
+    const claimedAt = new Date().toISOString();
+    const leaseExpiresAt = new Date(Date.now() + webhookProcessingLeaseMs).toISOString();
+    const claim = await db.prepare(`UPDATE payment_webhook_events SET processing_status = 'processing',
+      attempts = attempts + 1, updated_at = ?, processing_token = ?, lease_expires_at = ?, last_error = ''
+      WHERE signature = ? AND (
+        processing_status IN ('received', 'failed') OR
+        (processing_status = 'processing' AND (lease_expires_at IS NULL OR lease_expires_at <= ?))
+      )`)
+      .bind(claimedAt, ledgerClaimToken, leaseExpiresAt, ledgerSignature, claimedAt)
       .run();
+    if (!Number(claim.meta.changes)) {
+      const current = await db.prepare(`SELECT processing_status FROM payment_webhook_events WHERE signature = ?`)
+        .bind(ledgerSignature)
+        .first<{ processing_status: string }>();
+      if (current?.processing_status === 'processed') {
+        return NextResponse.json({ received: true, duplicate: true });
+      }
+      return NextResponse.json({ error: 'Webhook event is already being processed.' }, {
+        status: 503,
+        headers: { 'retry-after': '5' },
+      });
+    }
     ledgerProcessing = true;
 
     const markProcessed = async (detail = '') => {
       const processedAt = new Date().toISOString();
-      await db!.prepare(`UPDATE payment_webhook_events SET processing_status = 'processed',
-        processed_at = ?, updated_at = ?, last_error = ? WHERE signature = ?`)
-        .bind(processedAt, processedAt, detail.slice(0, 800), ledgerSignature)
+      const processed = await db!.prepare(`UPDATE payment_webhook_events SET processing_status = 'processed',
+        processed_at = ?, updated_at = ?, processing_token = NULL, lease_expires_at = NULL, last_error = ?
+        WHERE signature = ? AND processing_status = 'processing' AND processing_token = ?`)
+        .bind(processedAt, processedAt, detail.slice(0, 800), ledgerSignature, ledgerClaimToken)
         .run();
+      if (!Number(processed.meta.changes)) throw new Error('Webhook processing lease was lost.');
       ledgerProcessing = false;
     };
 
@@ -149,7 +173,10 @@ export async function POST(request: Request) {
         refunded_amount = MIN(amount, refunded_amount + ?),
         refund_status = CASE WHEN refunded_amount + ? >= amount THEN 'full' ELSE 'partial' END,
         refund_reference = COALESCE(?, refund_reference), last_provider_event_at = ?, updated_at = ?
-        WHERE provider_payment_id = ?`).bind(refundAmount, refundAmount, refundId, now, now, refundPaymentId).run();
+        WHERE provider_payment_id = ? AND EXISTS (
+          SELECT 1 FROM payment_webhook_events
+          WHERE signature = ? AND processing_status = 'processing' AND processing_token = ?
+        )`).bind(refundAmount, refundAmount, refundId, now, now, refundPaymentId, ledgerSignature, ledgerClaimToken).run();
       await markProcessed();
       return NextResponse.json({ received: true, refundRecorded: true });
     }
@@ -186,7 +213,10 @@ export async function POST(request: Request) {
       const detail = `Payment verification requires review: ${mismatches.join(', ')}.`;
       await db.prepare(`UPDATE payment_links SET status = 'review_required',
         notification_status = 'failed', notification_detail = ?, last_provider_event_at = ?, updated_at = ?
-        WHERE provider_link_id = ?`).bind(detail, now, now, providerLinkId).run();
+        WHERE provider_link_id = ? AND EXISTS (
+          SELECT 1 FROM payment_webhook_events
+          WHERE signature = ? AND processing_status = 'processing' AND processing_token = ?
+        )`).bind(detail, now, now, providerLinkId, ledgerSignature, ledgerClaimToken).run();
       await markProcessed(detail);
       return NextResponse.json({ received: true, reviewRequired: true });
     }
@@ -205,7 +235,10 @@ export async function POST(request: Request) {
       amount_paid = MAX(amount_paid, ?), provider_payment_id = COALESCE(?, provider_payment_id),
       paid_at = CASE WHEN ? = 'paid' THEN COALESCE(paid_at, ?) ELSE paid_at END,
       last_provider_event_at = ?, updated_at = ?
-      WHERE provider_link_id = ?`).bind(
+      WHERE provider_link_id = ? AND EXISTS (
+        SELECT 1 FROM payment_webhook_events
+        WHERE signature = ? AND processing_status = 'processing' AND processing_token = ?
+      )`).bind(
       status,
       status,
       status,
@@ -216,6 +249,8 @@ export async function POST(request: Request) {
       now,
       now,
       providerLinkId,
+      ledgerSignature,
+      ledgerClaimToken,
     ).run();
 
     if (status !== 'paid') {
@@ -244,8 +279,9 @@ export async function POST(request: Request) {
     if (db && ledgerProcessing) {
       try {
         await db.prepare(`UPDATE payment_webhook_events SET processing_status = 'failed',
-          updated_at = ?, last_error = ? WHERE signature = ?`)
-          .bind(new Date().toISOString(), errorDetail(error), ledgerSignature)
+          updated_at = ?, processing_token = NULL, lease_expires_at = NULL, last_error = ?
+          WHERE signature = ? AND processing_status = 'processing' AND processing_token = ?`)
+          .bind(new Date().toISOString(), errorDetail(error), ledgerSignature, ledgerClaimToken)
           .run();
       } catch {
         // Preserve the original provider retry response when the ledger itself is unavailable.

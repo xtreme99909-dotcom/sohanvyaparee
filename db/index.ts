@@ -99,6 +99,8 @@ export async function ensureLeadsSchema() {
       processing_status TEXT NOT NULL DEFAULT 'received',
       attempts INTEGER NOT NULL DEFAULT 0,
       processed_at TEXT,
+      processing_token TEXT,
+      lease_expires_at TEXT,
       last_error TEXT NOT NULL DEFAULT ''
     )`),
   ]);
@@ -148,6 +150,8 @@ export async function ensureLeadsSchema() {
   addWebhookColumn('processing_status', "ALTER TABLE payment_webhook_events ADD COLUMN processing_status TEXT NOT NULL DEFAULT 'received'");
   addWebhookColumn('attempts', 'ALTER TABLE payment_webhook_events ADD COLUMN attempts INTEGER NOT NULL DEFAULT 0');
   addWebhookColumn('processed_at', 'ALTER TABLE payment_webhook_events ADD COLUMN processed_at TEXT');
+  addWebhookColumn('processing_token', 'ALTER TABLE payment_webhook_events ADD COLUMN processing_token TEXT');
+  addWebhookColumn('lease_expires_at', 'ALTER TABLE payment_webhook_events ADD COLUMN lease_expires_at TEXT');
   addWebhookColumn('last_error', "ALTER TABLE payment_webhook_events ADD COLUMN last_error TEXT NOT NULL DEFAULT ''");
   if (webhookMigrations.length > 0) await db.batch(webhookMigrations);
   await db.prepare('CREATE UNIQUE INDEX IF NOT EXISTS idx_payment_webhook_events_event_id ON payment_webhook_events(event_id)').run();

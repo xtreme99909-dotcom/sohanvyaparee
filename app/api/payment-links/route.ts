@@ -13,6 +13,14 @@ function clean(value: unknown, maxLength: number) {
 
 type ProviderPaymentLink = Record<string, unknown>;
 
+type ProviderLinkLookup =
+  | { state: 'found'; link: ProviderPaymentLink }
+  | { state: 'not_found' }
+  | { state: 'ambiguous' }
+  | { state: 'unavailable' };
+
+const paymentLinkLeaseMs = 2 * 60 * 1000;
+
 function basicAuthorization() {
   return `Basic ${btoa(`${env.RAZORPAY_KEY_ID}:${env.RAZORPAY_KEY_SECRET}`)}`;
 }
@@ -23,22 +31,28 @@ async function stableRequestId(parts: Record<string, string | number>) {
   return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
 }
 
-function providerLinkFromList(payload: unknown, referenceId: string) {
-  if (!payload || typeof payload !== 'object') return null;
+function providerLinkFromList(payload: unknown, referenceId: string): ProviderLinkLookup {
+  if (!payload || typeof payload !== 'object') return { state: 'unavailable' };
   const links = (payload as Record<string, unknown>).payment_links;
-  if (!Array.isArray(links)) return null;
+  if (!Array.isArray(links)) return { state: 'unavailable' };
   const matches = links.filter((link): link is ProviderPaymentLink => Boolean(
     link && typeof link === 'object' && clean((link as ProviderPaymentLink).reference_id, 40) === referenceId,
   ));
-  return matches.length === 1 ? matches[0] : null;
+  if (matches.length === 0) return { state: 'not_found' };
+  if (matches.length > 1) return { state: 'ambiguous' };
+  return { state: 'found', link: matches[0] };
 }
 
-async function findProviderLink(referenceId: string) {
-  const response = await fetch(`https://api.razorpay.com/v1/payment_links?reference_id=${encodeURIComponent(referenceId)}`, {
-    headers: { authorization: basicAuthorization(), 'content-type': 'application/json' },
-  });
-  if (!response.ok) return null;
-  return providerLinkFromList(await response.json(), referenceId);
+async function findProviderLink(referenceId: string): Promise<ProviderLinkLookup> {
+  try {
+    const response = await fetch(`https://api.razorpay.com/v1/payment_links?reference_id=${encodeURIComponent(referenceId)}`, {
+      headers: { authorization: basicAuthorization(), 'content-type': 'application/json' },
+    });
+    if (!response.ok) return { state: 'unavailable' };
+    return providerLinkFromList(await response.json(), referenceId);
+  } catch {
+    return { state: 'unavailable' };
+  }
 }
 
 async function cancelProviderLink(providerLinkId: string) {
@@ -115,6 +129,8 @@ export async function POST(request: NextRequest) {
       policyVersion: paymentPolicyVersion,
     });
     const referenceId = createPaymentReference(id);
+    const claimToken = crypto.randomUUID();
+    const pendingProviderLinkId = `pending:${claimToken}`;
     const expiresAtSeconds = Math.floor(Date.now() / 1000) + (14 * 24 * 60 * 60);
     const expiresAt = new Date(expiresAtSeconds * 1000).toISOString();
     const now = new Date().toISOString();
@@ -127,7 +143,7 @@ export async function POST(request: NextRequest) {
       now,
       now,
       lead.id,
-      `pending:${id}`,
+      pendingProviderLinkId,
       referenceId,
       '',
       description,
@@ -144,16 +160,52 @@ export async function POST(request: NextRequest) {
     ).run();
 
     const reviewUrl = new URL(`/pay/${encodeURIComponent(referenceId)}`, request.nextUrl.origin).toString();
-    const existing = await db.prepare(`SELECT provider_link_id, short_url, status FROM payment_links WHERE id = ?`)
+    const existing = await db.prepare(`SELECT provider_link_id, short_url, status, updated_at FROM payment_links WHERE id = ?`)
       .bind(id)
-      .first<{ provider_link_id: string; short_url: string; status: string }>();
+      .first<{ provider_link_id: string; short_url: string; status: string; updated_at: string }>();
     if (!existing) throw new Error('The payment request could not be reserved.');
     if (!existing.provider_link_id.startsWith('pending:') && existing.short_url.startsWith('https://')) {
       return NextResponse.json({ ok: true, url: reviewUrl, reference: referenceId, reused: true });
     }
 
-    let providerData = await findProviderLink(referenceId);
-    if (!providerData) {
+    let ownsCreationLease = existing.provider_link_id === pendingProviderLinkId;
+    if (!ownsCreationLease) {
+      const claimedAt = new Date().toISOString();
+      const staleBefore = new Date(Date.now() - paymentLinkLeaseMs).toISOString();
+      const claim = await db.prepare(`UPDATE payment_links SET provider_link_id = ?, status = 'creating', updated_at = ?
+        WHERE id = ? AND provider_link_id LIKE 'pending:%' AND
+        (status = 'creation_failed' OR (status = 'creating' AND updated_at <= ?))`)
+        .bind(pendingProviderLinkId, claimedAt, id, staleBefore)
+        .run();
+      ownsCreationLease = Number(claim.meta.changes) > 0;
+    }
+    if (!ownsCreationLease) {
+      return NextResponse.json({ error: 'This payment request is already being created. Retry shortly.' }, {
+        status: 409,
+        headers: { 'retry-after': '5' },
+      });
+    }
+
+    const lookup = await findProviderLink(referenceId);
+    if (lookup.state === 'unavailable') {
+      await db.prepare(`UPDATE payment_links SET status = 'creation_failed', updated_at = ?
+        WHERE id = ? AND provider_link_id = ? AND status = 'creating'`)
+        .bind(new Date().toISOString(), id, pendingProviderLinkId)
+        .run();
+      return NextResponse.json({ error: 'Razorpay could not safely reconcile this payment request. Retry shortly.' }, { status: 502 });
+    }
+    if (lookup.state === 'ambiguous') {
+      await db.prepare(`UPDATE payment_links SET status = 'review_required', notification_status = 'failed',
+        notification_detail = 'More than one provider link matched the reserved reference.', updated_at = ?
+        WHERE id = ? AND provider_link_id = ? AND status = 'creating'`)
+        .bind(new Date().toISOString(), id, pendingProviderLinkId)
+        .run();
+      return NextResponse.json({ error: 'The provider returned an ambiguous payment reference. Manual review is required.' }, { status: 409 });
+    }
+
+    let providerData: ProviderPaymentLink;
+    let createdProviderLink = false;
+    if (lookup.state === 'not_found') {
       const providerResponse = await fetch('https://api.razorpay.com/v1/payment_links', {
         method: 'POST',
         headers: { authorization: basicAuthorization(), 'content-type': 'application/json' },
@@ -180,9 +232,15 @@ export async function POST(request: NextRequest) {
       });
       providerData = await providerResponse.json() as ProviderPaymentLink;
       if (!providerResponse.ok) {
-        await db.prepare(`UPDATE payment_links SET status = 'creation_failed', updated_at = ? WHERE id = ?`).bind(new Date().toISOString(), id).run();
+        await db.prepare(`UPDATE payment_links SET status = 'creation_failed', updated_at = ?
+          WHERE id = ? AND provider_link_id = ? AND status = 'creating'`)
+          .bind(new Date().toISOString(), id, pendingProviderLinkId)
+          .run();
         return NextResponse.json({ error: 'Razorpay could not create this payment link.' }, { status: 502 });
       }
+      createdProviderLink = true;
+    } else {
+      providerData = lookup.link;
     }
 
     const providerLinkId = clean(providerData.id, 80);
@@ -190,17 +248,26 @@ export async function POST(request: NextRequest) {
     if (!validProviderLink(providerData, { amount, currency, referenceId })) {
       await cancelProviderLink(providerLinkId);
       await db.prepare(`UPDATE payment_links SET status = 'review_required', notification_status = 'failed',
-        notification_detail = 'Provider link did not match the reserved request.', updated_at = ? WHERE id = ?`)
-        .bind(new Date().toISOString(), id)
+        notification_detail = 'Provider link did not match the reserved request.', updated_at = ?
+        WHERE id = ? AND provider_link_id = ? AND status = 'creating'`)
+        .bind(new Date().toISOString(), id, pendingProviderLinkId)
         .run();
       return NextResponse.json({ error: 'The provider response did not match this milestone. No link was issued.' }, { status: 502 });
     }
 
     try {
-      await db.prepare(`UPDATE payment_links SET provider_link_id = ?, short_url = ?, status = 'created',
-        expires_at = ?, updated_at = ? WHERE id = ?`).bind(providerLinkId, shortUrl, expiresAt, new Date().toISOString(), id).run();
+      const persisted = await db.prepare(`UPDATE payment_links SET provider_link_id = ?, short_url = ?, status = 'created',
+        expires_at = ?, updated_at = ? WHERE id = ? AND provider_link_id = ? AND status = 'creating'`)
+        .bind(providerLinkId, shortUrl, expiresAt, new Date().toISOString(), id, pendingProviderLinkId)
+        .run();
+      if (!Number(persisted.meta.changes)) {
+        return NextResponse.json({ error: 'Payment-link ownership changed during creation. Retry shortly.' }, {
+          status: 409,
+          headers: { 'retry-after': '5' },
+        });
+      }
     } catch (error) {
-      await cancelProviderLink(providerLinkId);
+      if (createdProviderLink) await cancelProviderLink(providerLinkId);
       throw error;
     }
 
