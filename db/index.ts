@@ -34,7 +34,7 @@ export async function ensureLeadsSchema() {
     db.prepare(`CREATE TABLE IF NOT EXISTS marketing_events (
       id TEXT PRIMARY KEY NOT NULL,
       created_at TEXT NOT NULL,
-      event_type TEXT NOT NULL CHECK (event_type IN ('page_view', 'enquiry_click', 'brief_start')),
+      event_type TEXT NOT NULL,
       page_path TEXT NOT NULL,
       source TEXT NOT NULL DEFAULT 'direct',
       medium TEXT NOT NULL DEFAULT 'none',
@@ -104,6 +104,42 @@ export async function ensureLeadsSchema() {
       last_error TEXT NOT NULL DEFAULT ''
     )`),
   ]);
+
+  // Older databases constrained marketing events to the original three event types.
+  // The API allowlist is the source of truth, so rebuild that legacy table without
+  // the stale CHECK constraint before accepting newer funnel diagnostics.
+  const marketingTable = await db.prepare(
+    "SELECT sql FROM sqlite_master WHERE type = 'table' AND name = 'marketing_events'",
+  ).first<{ sql: string }>();
+  if (marketingTable?.sql?.includes('CHECK (event_type IN')) {
+    await db.batch([
+      db.prepare('DROP TABLE IF EXISTS marketing_events_unconstrained'),
+      db.prepare(`CREATE TABLE marketing_events_unconstrained (
+        id TEXT PRIMARY KEY NOT NULL,
+        created_at TEXT NOT NULL,
+        event_type TEXT NOT NULL,
+        page_path TEXT NOT NULL,
+        source TEXT NOT NULL DEFAULT 'direct',
+        medium TEXT NOT NULL DEFAULT 'none',
+        campaign TEXT,
+        referrer_host TEXT,
+        session_id TEXT NOT NULL
+      )`),
+      db.prepare(`INSERT OR IGNORE INTO marketing_events_unconstrained (
+        id, created_at, event_type, page_path, source, medium, campaign, referrer_host, session_id
+      )
+      SELECT id, created_at, event_type, page_path, source, medium, campaign, referrer_host, session_id
+      FROM marketing_events`),
+      db.prepare('DROP TABLE marketing_events'),
+      db.prepare('ALTER TABLE marketing_events_unconstrained RENAME TO marketing_events'),
+      db.prepare(`CREATE INDEX IF NOT EXISTS idx_marketing_events_created_at
+        ON marketing_events(created_at)`),
+      db.prepare(`CREATE INDEX IF NOT EXISTS idx_marketing_events_session_type_path
+        ON marketing_events(session_id, event_type, page_path)`),
+      db.prepare(`CREATE UNIQUE INDEX IF NOT EXISTS idx_marketing_events_unique_session_event_path
+        ON marketing_events(session_id, event_type, page_path)`),
+    ]);
+  }
 
   const leadColumns = await db.prepare('PRAGMA table_info(leads)').all<{ name: string }>();
   const existingColumns = new Set(leadColumns.results.map((column) => column.name));
