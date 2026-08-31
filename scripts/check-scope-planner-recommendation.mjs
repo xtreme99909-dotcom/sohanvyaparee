@@ -5,7 +5,7 @@ const cases = [
   {
     label: 'focused website',
     answers: { launchState: 'new', customerAction: 'trust', pageRange: '1–3', integration: 'none', contentState: 'ready' },
-    expected: { name: 'Focused Website', budget: '$1,500–$3,000', project: 'A new website from scratch' },
+    expected: { name: 'Focused Launch', budget: '$1,500+', project: 'A new website from scratch' },
   },
   {
     label: 'complete business website',
@@ -20,7 +20,7 @@ const cases = [
   {
     label: 'business website with one integration',
     answers: { launchState: 'new', customerAction: 'enquiry', pageRange: '4–5', integration: 'one', contentState: 'needs-shaping' },
-    expected: { name: 'Website + Integration', budget: '$6,000–$12,000', project: 'A business website with one integration' },
+    expected: { name: 'Signature Experience + Integration', budget: '$5,000+', project: 'A business website with one integration' },
   },
   {
     label: 'commerce or ordering experience',
@@ -30,7 +30,7 @@ const cases = [
   {
     label: 'custom product or platform',
     answers: { launchState: 'connected', customerAction: 'workflow', pageRange: 'needs-mapping', integration: 'several', contentState: 'needs-shaping' },
-    expected: { name: 'Custom Website System', budget: '$12,000+', project: 'A product or platform experience' },
+    expected: { name: 'International Launch System', budget: '$6,500+', project: 'A product or platform experience' },
   },
 ];
 
