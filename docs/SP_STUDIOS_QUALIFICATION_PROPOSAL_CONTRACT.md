@@ -1,8 +1,8 @@
 # SP Studios qualification and one-scope proposal contract
 
-Status: bounded headquarters artifact; no runtime code changed  
-Lane: qualification, proposal/SOW consistency, approvals, and upstream duplicate suppression  
-Authority: `docs/SP_STUDIOS_HQ_CONTEXT.md` at `e544fad195c0dd5335a7dffc641227de3fd71a30`  
+Status: bounded headquarters artifact; no runtime code changed
+Lane: qualification, proposal/SOW consistency, approvals, and upstream duplicate suppression
+Authority: `docs/SP_STUDIOS_HQ_CONTEXT.md` at `e544fad195c0dd5335a7dffc641227de3fd71a30`
 Repository branch reviewed: `rebrand/sp-studios-domain-preview` through `72f2c9e40152425e563f5aba9042792809491a98`
 
 ## 1. Ownership and non-goals

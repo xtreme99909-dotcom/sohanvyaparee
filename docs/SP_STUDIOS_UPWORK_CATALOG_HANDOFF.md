@@ -1,10 +1,10 @@
 # SP Studios Upwork Catalog and Profile Handoff
 
-Status: approval-ready; no Upwork action performed  
-Owner lane: Upwork Project Catalog and freelancer-profile offer  
-Authority: [SP_STUDIOS_HQ_CONTEXT.md](./SP_STUDIOS_HQ_CONTEXT.md)  
-Pinned context read at: `e544fad195c0dd5335a7dffc641227de3fd71a30`  
-Latest branch reviewed before creation: `8ab2538294c76a925efcf5e4eb8fd6c4e440e024`  
+Status: approval-ready; no Upwork action performed
+Owner lane: Upwork Project Catalog and freelancer-profile offer
+Authority: [SP_STUDIOS_HQ_CONTEXT.md](./SP_STUDIOS_HQ_CONTEXT.md)
+Pinned context read at: `e544fad195c0dd5335a7dffc641227de3fd71a30`
+Latest branch reviewed before creation: `8ab2538294c76a925efcf5e4eb8fd6c4e440e024`
 Prepared: 31 August 2026 UTC
 
 ## Purpose and evidence
@@ -49,26 +49,26 @@ Do not call an automatically purchasable Catalog price “starting at.”
 >
 > A typical engagement can include:
 >
-> • Business goal, customer action, sitemap and page structure  
-> • Message hierarchy and proof structure  
-> • Original visual direction and responsive UI  
-> • Next.js and TypeScript development  
-> • Enquiry flows, analytics and agreed integrations  
+> • Business goal, customer action, sitemap and page structure
+> • Message hierarchy and proof structure
+> • Original visual direction and responsive UI
+> • Next.js and TypeScript development
+> • Enquiry flows, analytics and agreed integrations
 > • Device QA, deployment and launch handover
 >
 > Starting contexts after qualification:
 >
-> • Focused Launch — from USD 1,500  
-> • Complete Business Website — from USD 3,000  
-> • Signature Experience + Integration — from USD 5,000  
+> • Focused Launch — from USD 1,500
+> • Complete Business Website — from USD 3,000
+> • Signature Experience + Integration — from USD 5,000
 > • International Launch System — from USD 6,500
 >
 > One buyer receives one recommended scope, fixed amount, currency and realistic delivery window after need, decision authority, outcome, scope, readiness, timing and investment fit are clear.
 >
 > Public work is labelled honestly:
 >
-> • BongFoods — live founder-built work  
-> • SP Studios website and lead system — self-initiated business system  
+> • BongFoods — live founder-built work
+> • SP Studios website and lead system — self-initiated business system
 > • Private real-estate platform — speculative concept, not client work
 >
 > AI-assisted tools may support research, exploration, development and testing. Business direction, design judgement and final quality remain personally directed.
