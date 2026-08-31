@@ -1,0 +1,203 @@
+{
+  "schemaVersion": 1,
+  "artifact": "SP Studios portfolio proof manifest",
+  "status": "headquarters review",
+  "authority": {
+    "headquartersContext": {
+      "path": "docs/SP_STUDIOS_HQ_CONTEXT.md",
+      "commit": "e544fad195c0dd5335a7dffc641227de3fd71a30"
+    },
+    "detailedAudit": {
+      "path": "docs/PORTFOLIO_PROOF_SYSTEM.md",
+      "commit": "2414a32c249cc52c3f418430c90dc203dbeffe47"
+    },
+    "auditedCodeCheckpoint": "bb0b1265e732ed53fb813d268c0e7b73b8af3996",
+    "preparedAtUtc": "2026-09-01"
+  },
+  "releaseBoundary": {
+    "publicSite": "https://thespstudios.com",
+    "observedCurrentLiveUrl": "https://thespstudios.com",
+    "latestObservedSavedVersion": 30,
+    "latestObservedSavedVersionSourceCommit": "938df43523136df38e44638bd552d2c6baf78239",
+    "exactDeployedCommit": null,
+    "rule": "Do not describe branch-head-only behavior as live until the exact deployed source commit is recorded."
+  },
+  "evidenceStatuses": {
+    "verified": "Direct runtime, source, dated artifact or reproducible check supports the narrow claim.",
+    "supported": "First-party artifacts support the claim, but the complete real-world path was not reproduced.",
+    "stated": "The case study states the claim; adequate implementation or runtime evidence is not attached.",
+    "missing": "No adequate evidence is attached; do not publish as fact.",
+    "notApplicable": "The claim is outside this project type and the reason must be stated."
+  },
+  "cases": [
+    {
+      "id": "bongfoods",
+      "name": "BongFoods",
+      "canonicalClassification": "live founder-built work",
+      "state": "public external product; dated flow verification unresolved",
+      "evidenceCeiling": "supported",
+      "evidenceFields": {
+        "businessProblem": "supported",
+        "sohanDirection": "stated",
+        "designedBuiltScope": "stated",
+        "interactionsIntegrations": "stated",
+        "decisions": "missing",
+        "outcomeEvidence": "missing beyond the public existence claim",
+        "honestLimitations": "partial"
+      },
+      "permittedClaims": [
+        "BongFoods is Sohan's own operating-business context.",
+        "The presented journey connects food discovery, verification, delivery eligibility and a payment path.",
+        "It is not a paid client engagement or an established performance case study."
+      ],
+      "blockedClaims": [
+        "successful orders or captured payments",
+        "conversion, revenue, sales or customer growth",
+        "sole unaided engineering",
+        "production integrations verified by this audit",
+        "built entirely from scratch"
+      ],
+      "nextEvidence": [
+        "dated mobile flow capture stopping before any real charge",
+        "redacted verification, delivery-area and payment-path test evidence",
+        "production provenance or inspectable implementation inventory",
+        "contribution matrix for Sohan, AI tools, platforms, providers and collaborators",
+        "three decision records with alternatives and trade-offs"
+      ],
+      "sources": [
+        "app/work/page.tsx",
+        "app/work/bongfoods/page.tsx"
+      ]
+    },
+    {
+      "id": "studio-system",
+      "name": "Studio system",
+      "canonicalClassification": "self-initiated business system",
+      "state": "public",
+      "evidenceCeiling": "verified for public existence and source behavior; no commercial outcome verified",
+      "evidenceFields": {
+        "businessProblem": "supported",
+        "sohanDirection": "supported",
+        "designedBuiltScope": "verified in source",
+        "interactionsIntegrations": "verified in source and partly unresolved in runtime",
+        "decisions": "partial",
+        "outcomeEvidence": "verified at existence level only",
+        "honestLimitations": "strong but incomplete"
+      },
+      "permittedClaims": [
+        "A public SP Studios site exists at thespstudios.com.",
+        "Source implements a proof navigator, scope planner, structured brief, first-party attribution, D1 lead persistence and an owner-only lead desk.",
+        "The planner can carry structured choices into the brief.",
+        "The lead workflow can store and update stage, private notes and next action in source."
+      ],
+      "blockedClaims": [
+        "verified client acquisition or revenue impact",
+        "guaranteed leads",
+        "configured owner email alerts without runtime configuration evidence",
+        "branch-head payment hardening is live",
+        "historical visit or brief figures are current"
+      ],
+      "nextEvidence": [
+        "exact deployed version and commit mapping",
+        "dated public offer-to-brief reproduction",
+        "owner desk capture using fake or fully redacted data",
+        "runtime configuration record for optional providers",
+        "closed measurement window separating visits, stored enquiries, qualified leads, proposals, captured milestones and settled money"
+      ],
+      "sources": [
+        "app/work/studio-system/page.tsx",
+        "app/work/work-proof-navigator.tsx",
+        "app/scope-planner.tsx",
+        "app/project-brief.tsx",
+        "app/api/leads/route.ts",
+        "app/leads/page.tsx",
+        "app/leads/lead-inbox.tsx",
+        "app/marketing-tracker.tsx",
+        "db/schema.ts"
+      ]
+    },
+    {
+      "id": "private-market",
+      "name": "Private market",
+      "canonicalClassification": "speculative concept",
+      "state": "rendered interface study",
+      "evidenceCeiling": "supported as an artifact",
+      "evidenceFields": {
+        "businessProblem": "supported as a hypothesis",
+        "sohanDirection": "supported by the artifact",
+        "designedBuiltScope": "verified as rendered case-study UI",
+        "interactionsIntegrations": "conceptual",
+        "decisions": "partial",
+        "outcomeEvidence": "not applicable",
+        "honestLimitations": "strong"
+      },
+      "permittedClaims": [
+        "The artifact explores progressive disclosure, qualification, access requests and controlled collaboration.",
+        "It demonstrates product framing, information architecture and interface direction.",
+        "It is independent and uncommissioned."
+      ],
+      "blockedClaims": [
+        "live product or working integrations",
+        "client approval or paid relationship",
+        "real members, matches, documents, participants or transactions",
+        "user-tested prototype",
+        "completed competitor research without a dated source log",
+        "product-market fit or engineering completion"
+      ],
+      "nextEvidence": [
+        "dated research source log",
+        "three decision records with alternatives and trade-offs",
+        "explicit illustrative-data labels",
+        "navigable prototype before using the word prototype",
+        "user-test evidence before making usability claims"
+      ],
+      "sources": [
+        "app/work/page.tsx",
+        "app/work/private-market-concept/page.tsx"
+      ]
+    }
+  ],
+  "preservedVerifiedWork": [
+    "Current public offer and founder identity",
+    "Truth-labelled three-case portfolio structure",
+    "Studio proof navigator and scope-to-brief source flow",
+    "Owner-only lead workflow and evidence-stage separation",
+    "Payment-safety boundary from headquarters context"
+  ],
+  "unresolvedExternalDependencies": [
+    {
+      "dependency": "BongFoods runtime and contribution evidence",
+      "owner": "Sohan",
+      "constraint": "Requires a dated founder-run capture and redacted artifacts; no purchase or real payment should be made."
+    },
+    {
+      "dependency": "Exact production source mapping for SP Studios",
+      "owner": "Sites deployment record",
+      "constraint": "Saved-version metadata alone does not prove which commit is currently deployed."
+    },
+    {
+      "dependency": "Studio provider configuration and commercial outcomes",
+      "owner": "Sohan and approved provider/runtime records",
+      "constraint": "Source presence is not proof of live configuration, clients, captured milestones or settled money."
+    },
+    {
+      "dependency": "Private-market research and validation",
+      "owner": "Sohan",
+      "constraint": "No client, users, proprietary data, working integrations or usability evidence currently exists."
+    }
+  ],
+  "headquartersDecisionRequired": {
+    "id": "portfolio-lead-case",
+    "question": "Until the BongFoods proof pack reaches verified status, should the Studio system become the first case shown on the work page?",
+    "recommendedAnswer": "Yes. It is the strongest currently inspectable proof and keeps BongFoods visible without asking its unsupported transaction claims to carry the portfolio.",
+    "effectIfApproved": "A later, separately approved public edit may reorder the existing cards. No case, route or verified implementation needs to be removed.",
+    "effectIfDeclined": "Keep the present order and retain the BongFoods evidence limitations in review copy."
+  },
+  "actionsNotTaken": [
+    "No public copy was changed.",
+    "No application code was changed.",
+    "No site version was saved or deployed.",
+    "No outreach, provider activation, credential entry, transaction, refund or spend occurred.",
+    "No private analytics, lead identity or payment data was read or exposed."
+  ]
+}
