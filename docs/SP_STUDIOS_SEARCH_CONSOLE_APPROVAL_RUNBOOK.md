@@ -1,9 +1,9 @@
 # SP Studios Search Console approval runbook
 
-Last prepared: 1 September 2026  
-Owner lane: search discovery and indexing operations  
-Authority: [SP_STUDIOS_HQ_CONTEXT.md](./SP_STUDIOS_HQ_CONTEXT.md)  
-Working branch: `rebrand/sp-studios-domain-preview`  
+Last prepared: 1 September 2026
+Owner lane: search discovery and indexing operations
+Authority: [SP_STUDIOS_HQ_CONTEXT.md](./SP_STUDIOS_HQ_CONTEXT.md)
+Working branch: `rebrand/sp-studios-domain-preview`
 Pinned headquarters context reviewed at: `e544fad195c0dd5335a7dffc641227de3fd71a30`
 
 ## Purpose

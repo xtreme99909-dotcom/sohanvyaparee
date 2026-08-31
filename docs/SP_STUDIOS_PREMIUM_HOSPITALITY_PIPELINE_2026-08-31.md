@@ -1,8 +1,8 @@
 # SP Studios premium hospitality pipeline — HQ handoff
 
-**Evidence checkpoint:** 31 August 2026 (UTC)  
-**Lane owner:** premium hospitality acquisition research  
-**Operating authority:** [SP Studios headquarters context at e544fad](https://github.com/xtreme99909-dotcom/sohanvyaparee/blob/e544fad195c0dd5335a7dffc641227de3fd71a30/docs/SP_STUDIOS_HQ_CONTEXT.md)  
+**Evidence checkpoint:** 31 August 2026 (UTC)
+**Lane owner:** premium hospitality acquisition research
+**Operating authority:** [SP Studios headquarters context at e544fad](https://github.com/xtreme99909-dotcom/sohanvyaparee/blob/e544fad195c0dd5335a7dffc641227de3fd71a30/docs/SP_STUDIOS_HQ_CONTEXT.md)
 **Status:** research and approval-ready drafts only; no prospect has been contacted from this queue.
 
 ## Boundary and preserved work

@@ -1,8 +1,8 @@
 # SP Studios contact sender activation gate
 
-Status: **NOT ACTIVATED — approval and evidence artifact only**  
-Lane: `contact@thespstudios.com` mailbox, authentication, owner testing, and controlled one-to-one email  
-Authority: [SP Studios headquarters context at e544fad195c0dd5335a7dffc641227de3fd71a30](https://github.com/xtreme99909-dotcom/sohanvyaparee/blob/e544fad195c0dd5335a7dffc641227de3fd71a30/docs/SP_STUDIOS_HQ_CONTEXT.md)  
+Status: **NOT ACTIVATED — approval and evidence artifact only**
+Lane: `contact@thespstudios.com` mailbox, authentication, owner testing, and controlled one-to-one email
+Authority: [SP Studios headquarters context at e544fad195c0dd5335a7dffc641227de3fd71a30](https://github.com/xtreme99909-dotcom/sohanvyaparee/blob/e544fad195c0dd5335a7dffc641227de3fd71a30/docs/SP_STUDIOS_HQ_CONTEXT.md)
 Prepared: 1 September 2026
 
 This document is not evidence that a mailbox exists, DNS is configured, outreach is approved, or email has been sent. It deliberately contains no guessed provider DNS.
