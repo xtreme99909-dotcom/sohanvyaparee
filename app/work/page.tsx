@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Sites/vinext Link prefetch throws at runtime; full-page navigation is intentional here. */
 import type { Metadata } from 'next';
 import { WorkProofNavigator } from './work-proof-navigator';
+import { FounderAvatar } from '../founder-avatar';
 
 export const metadata: Metadata = {
   title: 'Selected Work & Website Case Studies — SP Studios',
@@ -90,26 +91,26 @@ export default function WorkIndex() {
           <strong>SP Studios</strong>
         </a>
         <nav aria-label="Selected work navigation">
-          <a href="/services/complete-website-launch">Services</a>
-          <a href="#projects">Case studies</a>
-          <a href="#evidence">Evidence guide</a>
-          <a href="/services/complete-website-launch#brief" className="header-cta" data-marketing-event="enquiry_click">Discuss a project ↗</a>
+          <a href="/services/complete-website-launch">What I build</a>
+          <a href="#projects">Work</a>
+          <a href="#evidence">How work is labelled</a>
+          <a href="/services/complete-website-launch#brief" className="header-cta founder-header-cta" data-marketing-event="enquiry_click"><span>Start a project ↗</span><FounderAvatar compact /></a>
         </nav>
       </header>
 
       <section className="work-index-hero section-shell">
         <div className="work-index-hero-copy">
-          <p className="eyebrow"><span /> Selected work · Evidence before pitch</p>
-          <h1>Proof you can inspect.<span>Boundaries you can trust.</span></h1>
-          <p>I show what I actually owned, what is live and what remains speculative. That makes it easier to judge whether I can direct your website from the first business question through design, build, integrations and launch.</p>
+          <p className="eyebrow"><span /> Selected website work</p>
+          <h1>See what I built.<span>See what each project proves.</span></h1>
+          <p>Every project says what is live, what I personally built and what is only a self-started concept. You can open the work and judge it for yourself.</p>
           <div className="hero-actions">
-            <a href="#projects" className="primary-action">Explore the case studies <span>↓</span></a>
-            <a href="/services/complete-website-launch" className="text-action">See the complete engagement <span>↗</span></a>
+            <a href="#projects" className="primary-action">See the projects <span>↓</span></a>
+            <a href="/services/complete-website-launch" className="text-action">See website options <span>↗</span></a>
           </div>
         </div>
 
-        <aside className="work-truth-ledger" aria-label="Portfolio truth ledger">
-          <div className="work-ledger-heading"><span>Portfolio truth ledger</span><b>Current</b></div>
+        <aside className="work-truth-ledger" aria-label="How the portfolio work is labelled">
+          <div className="work-ledger-heading"><span>How the work is labelled</span><b>Current</b></div>
           <div className="work-ledger-count"><strong>03</strong><span>substantive studies<br />available to inspect</span></div>
           <dl>
             <div><dt>01</dt><dd><strong>Live founder-built product</strong><span>Real commerce and operating decisions</span></dd><b>Live</b></div>

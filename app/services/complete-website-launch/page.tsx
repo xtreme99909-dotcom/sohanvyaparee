@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { ProjectBrief } from '../../project-brief';
 import { ScopePlanner } from '../../scope-planner';
 import { publicSiteUrl as siteUrl } from '../../site';
+import { FounderAvatar } from '../../founder-avatar';
 
 
 export const metadata: Metadata = {
@@ -32,12 +33,12 @@ export const metadata: Metadata = {
 };
 
 const responsibilities = [
-  { number: '01', title: 'Business direction', copy: 'Clarify the offer, audience, proof and decision the website needs to support.' },
-  { number: '02', title: 'Message structure', copy: 'Turn the business story into a useful sitemap, page hierarchy and calls to action.' },
-  { number: '03', title: 'Original art direction', copy: 'Create a visual language that belongs to the business instead of borrowing a generic template.' },
-  { number: '04', title: 'Responsive experience', copy: 'Design the real customer journey across mobile, tablet and desktop—not one static canvas.' },
-  { number: '05', title: 'Build & integrations', copy: 'Implement the approved direction with the CMS, forms, commerce, booking or API connection it needs.' },
-  { number: '06', title: 'QA & launch', copy: 'Test the important journeys, prepare deployment and stay accountable through go-live.' },
+  { number: '01', title: 'Website plan', copy: 'Decide what the website must explain, who it is for and what visitors should do.' },
+  { number: '02', title: 'Page structure', copy: 'Turn the business story into a clear page list, content order and calls to action.' },
+  { number: '03', title: 'Original design', copy: 'Create a visual style that belongs to the business instead of using a generic template.' },
+  { number: '04', title: 'Mobile and desktop', copy: 'Make the real customer journey easy to use across phones, tablets and computers.' },
+  { number: '05', title: 'Build and connections', copy: 'Build the approved design with the forms, store, booking or other tools it needs.' },
+  { number: '06', title: 'Testing and launch', copy: 'Check the important journeys, prepare deployment and stay responsible through launch.' },
 ];
 
 const useCases = [
@@ -59,8 +60,8 @@ const useCases = [
 ];
 
 const phases = [
-  { number: '01', title: 'Direction', copy: 'Offer, audience, proof, sitemap, page priorities and one agreed outcome.', output: 'Direction brief' },
-  { number: '02', title: 'Experience', copy: 'Original visual system, responsive page concepts, content hierarchy and interaction decisions.', output: 'Approved design direction' },
+  { number: '01', title: 'Plan', copy: 'Offer, audience, proof, page list, priorities and one agreed result.', output: 'Website plan' },
+  { number: '02', title: 'Design', copy: 'Original visual style, responsive page designs, content order and interaction decisions.', output: 'Approved website design' },
   { number: '03', title: 'Build', copy: 'Responsive implementation, content assembly, forms, CMS and agreed integration.', output: 'Working production site' },
   { number: '04', title: 'Launch', copy: 'Cross-device QA, performance pass, metadata, deployment and practical handover.', output: 'Live customer-ready website' },
 ];
@@ -89,10 +90,10 @@ const internationalWorkingModel = [
 ];
 
 const engagements = [
-  { name: 'Launch Essentials', price: '$1,500+', schemaPrice: '1500', pages: '1–3 purposeful pages', fit: 'Narrow offer or focused first launch', timing: '5–7 working days' },
-  { name: 'Business Launch', price: '$3,000+', schemaPrice: '3000', pages: 'Up to 5 custom pages', fit: 'Complete public business website', timing: '7–15 working days' },
-  { name: 'Signature + Integration', price: '$5,000+', schemaPrice: '5000', pages: '6–8 custom pages', fit: 'Deeper story plus one agreed integration', timing: '3–6 weeks' },
-  { name: 'International Launch System', price: '$6,500+', schemaPrice: '6500', pages: '5–8 launch-critical pages', fit: 'D2C, SaaS, hospitality or high-trust launch', timing: '4–8 weeks' },
+  { name: 'Focused Website', price: '$1,500+', schemaPrice: '1500', pages: '1–3 purposeful pages', fit: 'Narrow offer or focused first launch', timing: '5–7 working days' },
+  { name: 'Complete Business Website', price: '$3,000+', schemaPrice: '3000', pages: 'Up to 5 custom pages', fit: 'Complete public business website', timing: '7–15 working days' },
+  { name: 'Website + Integration', price: '$5,000+', schemaPrice: '5000', pages: '6–8 custom pages', fit: 'Deeper story plus one agreed integration', timing: '3–6 weeks' },
+  { name: 'International or Complex Website', price: '$6,500+', schemaPrice: '6500', pages: '5–8 launch-critical pages', fit: 'D2C, SaaS, hospitality or high-trust launch', timing: '4–8 weeks' },
 ];
 
 const faqs = [
@@ -184,21 +185,21 @@ export default function CompleteWebsiteLaunchPage() {
           <strong>SP Studios</strong>
         </a>
         <nav aria-label="Service navigation">
-          <a href="#proof">Proof</a>
-          <a href="#process">Process</a>
-          <a href="#scope">Scope</a>
-          <a href="#brief" className="header-cta" data-marketing-event="enquiry_click">Start a project ↗</a>
+          <a href="#proof">Work</a>
+          <a href="#process">How it works</a>
+          <a href="#scope">Prices</a>
+          <a href="#brief" className="header-cta founder-header-cta" data-marketing-event="enquiry_click"><span>Start a project ↗</span><FounderAvatar compact /></a>
         </nav>
       </header>
 
       <section className="service-hero section-shell">
         <div className="service-hero-copy">
-          <p className="eyebrow"><span /> Complete website design & development</p>
-          <h1>One partner.<span>From first question to live website.</span></h1>
-          <p>I help founders turn a business idea, serious redesign or disconnected customer journey into one original, responsive website—then carry the direction through development, integrations, QA and launch.</p>
+          <p className="eyebrow"><span /> Complete business websites</p>
+          <h1>One person to plan, design, build <span>and launch your website.</span></h1>
+          <p>You bring the business goal. I help shape the message, design the pages, build the website, connect the tools it needs and take it live.</p>
           <div className="hero-actions">
-            <a href="#brief" className="primary-action" data-marketing-event="enquiry_click">Describe the project <span>↗</span></a>
-            <a href="#proof" className="text-action">See honest proof <span>↓</span></a>
+            <a href="#brief" className="primary-action" data-marketing-event="enquiry_click">Tell me what you need <span>↗</span></a>
+            <a href="#proof" className="text-action">See the work <span>↓</span></a>
           </div>
           <small>Independent studio · India / Worldwide · Focused launches from $1,500 · Complete business sites from $3,000</small>
         </div>

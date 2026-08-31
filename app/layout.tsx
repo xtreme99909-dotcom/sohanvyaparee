@@ -3,6 +3,7 @@ import { Geist, Cormorant_Garamond } from 'next/font/google';
 import './globals.css';
 import { MarketingTracker } from './marketing-tracker';
 import { MotionSystem } from './motion-system';
+import { StudioBuddy } from './studio-buddy';
 import { publicSiteUrl as siteUrl, studioBrand } from './site';
 
 const personalLinkedInUrl = 'https://www.linkedin.com/in/sohan-vyaparee-397a29352/';
@@ -40,15 +41,15 @@ export const metadata: Metadata = {
   verification: { google: '15b--V8aDq-uI8hK9-ye9vJP0yT2wSOeGey-HlJqbfs' },
   robots: { index: true, follow: true },
   openGraph: {
-    title: 'From business idea to a website ready for market.',
-    description: 'Strategy, art direction, customer experience, responsive build and launch—one connected website project.',
+    title: 'A complete website, planned and built for your business.',
+    description: 'Planning, original design, responsive development, needed integrations and launch—handled as one clear website project.',
     type: 'website',
     images: [{ url: '/og.png', width: 1200, height: 630, alt: 'From business idea to a website ready for market.' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'From business idea to a website ready for market.',
-    description: 'Strategy, art direction, customer experience, responsive build and launch—one connected website project.',
+    title: 'A complete website, planned and built for your business.',
+    description: 'Planning, original design, responsive development, needed integrations and launch—handled as one clear website project.',
     images: ['/og.png'],
   },
 };
@@ -72,9 +73,9 @@ const professionalServiceSchema = {
     '@type': 'OfferCatalog',
     name: 'Complete website engagements',
     itemListElement: [
-      { '@type': 'Offer', name: 'Launch Essentials', price: '1500', priceCurrency: 'USD', url: `${siteUrl}/services/complete-website-launch#scope` },
-      { '@type': 'Offer', name: 'Business Launch', price: '3000', priceCurrency: 'USD', url: `${siteUrl}/services/complete-website-launch#scope` },
-      { '@type': 'Offer', name: 'International Launch System', price: '6500', priceCurrency: 'USD', url: `${siteUrl}/services/complete-website-launch#scope` },
+      { '@type': 'Offer', name: 'Focused Website', price: '1500', priceCurrency: 'USD', url: `${siteUrl}/services/complete-website-launch#scope` },
+      { '@type': 'Offer', name: 'Complete Business Website', price: '3000', priceCurrency: 'USD', url: `${siteUrl}/services/complete-website-launch#scope` },
+      { '@type': 'Offer', name: 'International or Complex Website', price: '6500', priceCurrency: 'USD', url: `${siteUrl}/services/complete-website-launch#scope` },
     ],
   },
   founder: {
@@ -83,7 +84,7 @@ const professionalServiceSchema = {
     name: studioBrand.founder,
     jobTitle: 'Website Creative Director',
     url: `${siteUrl}/#about`,
-    image: `${siteUrl}/founder-sohan.jpg`,
+    image: `${siteUrl}/founder-working-professional.jpg`,
     sameAs: [personalLinkedInUrl, githubProfileUrl],
   },
   sameAs: [
@@ -109,6 +110,7 @@ export default function RootLayout({
         <MarketingTracker />
         <MotionSystem />
         {children}
+        <StudioBuddy />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalServiceSchema) }}

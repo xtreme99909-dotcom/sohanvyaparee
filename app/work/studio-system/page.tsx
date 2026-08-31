@@ -106,7 +106,7 @@ export default function StudioSystemCaseStudy() {
           <p className="section-index light">01 · The business problem</p>
           <h2>Creative range is valuable only when the buyer can understand what to buy.</h2>
           <div>
-            <p>A background across CGI, direction, business ownership and AI-assisted implementation can sound broad instead of useful. The website had to translate that range into one accountable promise.</p>
+            <p>A background across creative direction, business ownership and AI-assisted implementation can sound broad instead of useful. The website had to translate that range into one accountable promise.</p>
             <p>The answer was not more service labels. It was one journey connecting the offer, truthful proof, scope decisions and a qualified next step.</p>
           </div>
         </div>

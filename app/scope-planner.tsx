@@ -25,15 +25,15 @@ type Option<T extends string> = {
 
 const launchOptions: Option<LaunchState>[] = [
   { value: 'new', label: 'New website', note: 'The business needs its first credible digital home.' },
-  { value: 'redesign', label: 'Serious redesign', note: 'The existing site no longer represents the business.' },
-  { value: 'connected', label: 'Connected experience', note: 'The site must support commerce, booking or a product flow.' },
+  { value: 'redesign', label: 'Website redesign', note: 'The existing site no longer represents the business.' },
+  { value: 'connected', label: 'Website with extra features', note: 'The site needs a store, booking system or another customer flow.' },
 ];
 
 const actionOptions: Option<CustomerAction>[] = [
   { value: 'trust', label: 'Understand and trust', note: 'Explain the offer and establish credibility.' },
   { value: 'enquiry', label: 'Send a qualified enquiry', note: 'Turn the right visitors into useful conversations.' },
   { value: 'transaction', label: 'Book, order or pay', note: 'Help customers complete a practical transaction.' },
-  { value: 'workflow', label: 'Use a product workflow', note: 'Access, accounts, matching or another custom journey.' },
+  { value: 'workflow', label: 'Use a custom feature', note: 'Accounts, member access, matching or another special journey.' },
 ];
 
 const pageOptions: Option<PageRange>[] = [
@@ -44,7 +44,7 @@ const pageOptions: Option<PageRange>[] = [
 ];
 
 const integrationOptions: Option<Integration>[] = [
-  { value: 'none', label: 'No integration yet', note: 'A focused form or external link is enough.' },
+  { value: 'none', label: 'No extra connection', note: 'A contact form or link is enough.' },
   { value: 'one', label: 'One key integration', note: 'For example booking, commerce, CRM or payments.' },
   { value: 'several', label: 'Several or custom logic', note: 'Multiple systems or a product-level workflow.' },
 ];
@@ -65,7 +65,7 @@ const labels = {
 function getRecommendation(answers: Required<Answers>) {
   if (answers.customerAction === 'workflow' || answers.integration === 'several') {
     return {
-      name: 'Launch System',
+      name: 'Custom Website System',
       budget: '$12,000+',
       project: 'A product or platform experience',
       reason: 'A product workflow or several connected systems needs launch discovery before the customer journey, technical boundary, timing and investment can be fixed responsibly.',
@@ -75,7 +75,7 @@ function getRecommendation(answers: Required<Answers>) {
 
   if (answers.customerAction === 'transaction' || answers.integration === 'one' || answers.pageRange === '6–8' || answers.launchState === 'connected') {
     return {
-      name: 'Signature + Integration',
+      name: 'Website + Integration',
       budget: '$6,000–$12,000',
       project: answers.customerAction === 'transaction' ? 'A commerce or ordering experience' : 'A product or platform experience',
       reason: 'The customer journey must connect a deeper public experience to one practical business system, so the integration belongs inside the scope from the start.',
@@ -85,7 +85,7 @@ function getRecommendation(answers: Required<Answers>) {
 
   if (answers.pageRange === '4–5' || answers.pageRange === 'needs-mapping' || answers.contentState === 'needs-shaping' || answers.launchState === 'redesign') {
     return {
-      name: 'Business Launch',
+      name: 'Complete Business Website',
       budget: '$3,000–$6,000',
       project: answers.launchState === 'redesign' ? 'A serious website redesign' : 'A new website from scratch',
       reason: 'The business needs a complete public story and enough direction to connect the offer, proof, pages and enquiry journey coherently.',
@@ -94,7 +94,7 @@ function getRecommendation(answers: Required<Answers>) {
   }
 
   return {
-    name: 'Launch Essentials',
+    name: 'Focused Website',
     budget: '$1,500–$3,000',
     project: 'A new website from scratch',
     reason: 'The project has one focused goal, a compact page surface and no significant integration, so a deliberately narrow launch is the credible place to begin.',
@@ -160,7 +160,7 @@ export function ScopePlanner() {
     if (!recommendation || !complete) return;
     const resolved = answers as Required<Answers>;
     const goal = [
-      `Scope preview: ${recommendation.name}.`,
+      `Website option: ${recommendation.name}.`,
       `Starting point: ${labels.launchState[resolved.launchState]}.`,
       `Primary customer action: ${labels.customerAction[resolved.customerAction]}.`,
       `Expected public surface: ${labels.pageRange[resolved.pageRange]}.`,
@@ -180,48 +180,48 @@ export function ScopePlanner() {
     <section id="planner" className="scope-planner" aria-labelledby="scope-planner-title">
       <div className="scope-planner-intro">
         <div>
-          <p className="section-index light">05 · Scope preview</p>
-          <h2 id="scope-planner-title">Build a realistic starting scope in sixty seconds.</h2>
+          <p className="section-index light">05 · Find your starting option</p>
+          <h2 id="scope-planner-title">Get a starting website option in about a minute.</h2>
         </div>
         <div>
-          <p>This is not an automatic quotation. It identifies the first credible engagement before you spend time writing the project brief.</p>
-          <span>{answeredCount} of 5 decisions made</span>
+          <p>Answer five quick questions. This is guidance, not a final quotation; I confirm the real scope after reading your brief.</p>
+          <span>{answeredCount} of 5 questions answered</span>
         </div>
       </div>
 
       <div className="scope-planner-grid">
         <div className="scope-questions">
-          <OptionGroup index="01" legend="What are we launching?" name="launch-state" options={launchOptions} value={answers.launchState} onChange={(value) => update('launchState', value)} />
-          <OptionGroup index="02" legend="What should the customer do?" name="customer-action" options={actionOptions} value={answers.customerAction} onChange={(value) => update('customerAction', value)} />
-          <OptionGroup index="03" legend="How much public surface is expected?" name="page-range" options={pageOptions} value={answers.pageRange} onChange={(value) => update('pageRange', value)} />
-          <OptionGroup index="04" legend="What must connect behind the website?" name="integration" options={integrationOptions} value={answers.integration} onChange={(value) => update('integration', value)} />
+          <OptionGroup index="01" legend="What are we building?" name="launch-state" options={launchOptions} value={answers.launchState} onChange={(value) => update('launchState', value)} />
+          <OptionGroup index="02" legend="What should visitors do?" name="customer-action" options={actionOptions} value={answers.customerAction} onChange={(value) => update('customerAction', value)} />
+          <OptionGroup index="03" legend="How many pages do you expect?" name="page-range" options={pageOptions} value={answers.pageRange} onChange={(value) => update('pageRange', value)} />
+          <OptionGroup index="04" legend="Does the website need to connect to another tool?" name="integration" options={integrationOptions} value={answers.integration} onChange={(value) => update('integration', value)} />
           <OptionGroup index="05" legend="How ready is the content?" name="content-state" options={contentOptions} value={answers.contentState} onChange={(value) => update('contentState', value)} />
         </div>
 
         <aside className="scope-recommendation" aria-live="polite" aria-atomic="true">
           {recommendation ? (
             <>
-              <p>Likely starting point</p>
+              <p>Suggested website option</p>
               <h3>{recommendation.name}</h3>
               <strong>{recommendation.budget}</strong>
               <small>Indicative working budget selected for the brief</small>
               <div>
-                <span>Why this direction</span>
+                <span>Why this fits</span>
                 <p>{recommendation.reason}</p>
               </div>
               <div>
-                <span>Starting shape</span>
+                <span>What it can include</span>
                 <p>{recommendation.includes}</p>
               </div>
-              <button type="button" onClick={carryIntoBrief} data-marketing-event="enquiry_click">Carry this into my brief <span>→</span></button>
-              <em>Final pages, timing and price are confirmed only after the real business goal and technical requirements are reviewed.</em>
+              <button type="button" onClick={carryIntoBrief} data-marketing-event="enquiry_click">Use this in my project brief <span>→</span></button>
+              <em>I confirm final pages, timing and price after reviewing the business goal and any technical needs.</em>
             </>
           ) : (
             <>
-              <p>Likely starting point</p>
-              <h3>Make five decisions.</h3>
+              <p>Suggested website option</p>
+              <h3>Answer five quick questions.</h3>
               <div className="scope-empty-meter" aria-hidden="true"><i style={{ width: `${answeredCount * 20}%` }} /></div>
-              <span className="scope-empty-copy">Your answers will produce a practical starting engagement and prefill the relevant parts of the private project brief.</span>
+              <span className="scope-empty-copy">Your answers will show a sensible starting option and fill the matching parts of the project brief.</span>
             </>
           )}
         </aside>

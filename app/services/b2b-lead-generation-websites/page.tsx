@@ -2,6 +2,7 @@
 import type { Metadata } from 'next';
 import { ProjectBrief } from '../../project-brief';
 import { publicSiteUrl as siteUrl } from '../../site';
+import { FounderAvatar } from '../../founder-avatar';
 
 const servicePath = '/services/b2b-lead-generation-websites';
 
@@ -32,11 +33,11 @@ export const metadata: Metadata = {
 };
 
 const buyerPath = [
-  { number: '01', label: 'Recognise', copy: 'Make the right buyer recognise their need, market or use case without decoding internal language.' },
+  { number: '01', label: 'Find need', copy: 'Help the right buyer recognise their need, market or use case without decoding internal language.' },
   { number: '02', label: 'Understand', copy: 'Explain the offer, process and commercial difference before the first sales conversation.' },
-  { number: '03', label: 'Believe', copy: 'Place evidence, capability, constraints and next-step reassurance beside the decision.' },
-  { number: '04', label: 'Qualify', copy: 'Ask for the use case, volume, timing, geography, budget or files the team needs to assess fit.' },
-  { number: '05', label: 'Route', copy: 'Send useful context to the right owner, inbox, CRM or WhatsApp workflow without losing attribution.' },
+  { number: '03', label: 'Trust', copy: 'Place evidence, capability, constraints and next-step reassurance beside the decision.' },
+  { number: '04', label: 'Give details', copy: 'Ask for the use case, volume, timing, geography, budget or files the team needs to assess fit.' },
+  { number: '05', label: 'Reach team', copy: 'Send useful context to the right owner, inbox, CRM or WhatsApp workflow without losing attribution.' },
 ];
 
 const systemLayers = [
@@ -127,21 +128,21 @@ export default function B2BLeadGenerationWebsitesPage() {
       <header className="site-header service-site-header">
         <a href="/" className="wordmark" aria-label="SP Studios — home"><span>SP</span><strong>SP Studios</strong></a>
         <nav aria-label="B2B service navigation">
-          <a href="#buyer-path">Buyer path</a>
-          <a href="#proof">Proof</a>
-          <a href="#investment">Investment</a>
-          <a href="#brief" className="header-cta" data-marketing-event="enquiry_click">Discuss the website ↗</a>
+          <a href="#buyer-path">Buyer journey</a>
+          <a href="#proof">Work</a>
+          <a href="#investment">Price</a>
+          <a href="#brief" className="header-cta founder-header-cta" data-marketing-event="enquiry_click"><span>Start a project ↗</span><FounderAvatar compact /></a>
         </nav>
       </header>
 
       <section className="service-hero section-shell b2b-hero">
         <div className="service-hero-copy">
-          <p className="eyebrow"><span /> B2B website and qualified-enquiry system</p>
-          <h1>The website should qualify the enquiry <span>before your team repeats the same call.</span></h1>
-          <p>I help manufacturers and service businesses turn expertise, evidence and real buyer questions into one market-ready website—then connect the enquiry path to the inbox, CRM or WhatsApp workflow the team can actually operate.</p>
+          <p className="eyebrow"><span /> B2B and manufacturing websites</p>
+          <h1>Explain what you do. Show proof. <span>Get better enquiries.</span></h1>
+          <p>I help manufacturers and service businesses explain their work clearly, show the evidence buyers need and collect useful project details before the first sales conversation.</p>
           <div className="hero-actions">
-            <a href="#brief" className="primary-action" data-marketing-event="enquiry_click">Discuss the website <span>↗</span></a>
-            <a href="#buyer-path" className="text-action">See the buyer path <span>↓</span></a>
+            <a href="#brief" className="primary-action" data-marketing-event="enquiry_click">Tell me about the website <span>↗</span></a>
+            <a href="#buyer-path" className="text-action">See the buyer journey <span>↓</span></a>
           </div>
           <small>Independent studio · India / Worldwide · Complete business websites from $3,000</small>
         </div>

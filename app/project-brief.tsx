@@ -119,8 +119,8 @@ export function ProjectBrief() {
     return (
       <div className="brief-success" role="status">
         <span>Enquiry received · {reference}</span>
-        <h3>Your project is now in my private studio inbox.</h3>
-        <p>I’ll review the business goal, scope and timing together and reply using the email you supplied—normally within two working days.</p>
+        <h3>Your project is in my private inbox.</h3>
+        <p>I’ll review what you need and reply to the email you entered.</p>
         <div>
           <button type="button" onClick={() => { setBrief(emptyBrief); setReference(''); setStatus('idle'); startedAt.current = 0; }}>Send another enquiry</button>
           <a href="/trust">See how projects are protected →</a>
@@ -131,14 +131,14 @@ export function ProjectBrief() {
 
   return (
     <form onSubmit={submitBrief} onFocusCapture={() => { if (!startedAt.current) startedAt.current = Date.now(); }} className="brief-form">
-      {plannerApplied ? <p className="scope-plan-applied" role="status"><span>Scope carried in</span><strong>{plannerApplied}</strong>Review the prefilled choices and add the business-specific result before sending.</p> : null}
-      <p className="brief-time"><strong>Three details · about 45 seconds</strong><span>No account, sales sequence or repeated form.</span></p>
+      {plannerApplied ? <p className="scope-plan-applied" role="status"><span>Website option added</span><strong>{plannerApplied}</strong>Check the choices and add what the website must help the business achieve.</p> : null}
+      <p className="brief-time"><strong>Three details · about 45 seconds</strong><span>No account and no mailing list.</span></p>
       <div className="form-row">
         <label>Your name<input required autoComplete="name" value={brief.name} onChange={(event) => updateBrief('name', event.target.value)} placeholder="Name" /></label>
         <label>Email<input required type="email" autoComplete="email" value={brief.email} onChange={(event) => updateBrief('email', event.target.value)} placeholder="you@company.com" /></label>
       </div>
       <label><span className="field-label">Company or current website <em className="optional-label">Optional</em></span><input autoComplete="organization" value={brief.company} onChange={(event) => updateBrief('company', event.target.value)} placeholder="Company name or website URL" /></label>
-      <label htmlFor="business-goal">What are you building—and what should it help the business achieve?
+      <label htmlFor="business-goal">What website do you need, and what should it help the business do?
         <textarea
           ref={goalField}
           id="business-goal"
@@ -147,14 +147,14 @@ export function ProjectBrief() {
           rows={4}
           value={brief.goal}
           onChange={(event) => updateBrief('goal', event.target.value)}
-          placeholder="For example: a new service website that explains the offer clearly and generates qualified enquiries…"
+          placeholder="For example: a new website that explains our services clearly and brings useful customer enquiries…"
           aria-invalid={status === 'needs-detail'}
           aria-describedby={status === 'needs-detail' ? 'business-goal-help business-goal-error' : 'business-goal-help'}
         />
-        <small id="business-goal-help" className="field-help">Two or three sentences are enough. If a scope preview was carried in, complete its final prompt.</small>
+        <small id="business-goal-help" className="field-help">Two or three sentences are enough. If you used the website planner, finish the last line it added.</small>
       </label>
       <details className="brief-qualifier">
-        <summary>Add scope, budget and timing <span>Optional →</span></summary>
+        <summary>Add website type, budget and timing <span>Optional →</span></summary>
         <div className="brief-qualifier-fields">
           <label>What do you need?<select value={brief.project} onChange={(event) => updateBrief('project', event.target.value)}><option>Not decided yet</option><option>A new website from scratch</option><option>A serious website redesign</option><option>A product or platform experience</option><option>A commerce or ordering experience</option></select></label>
           <label>Working budget<select value={brief.budget} onChange={(event) => updateBrief('budget', event.target.value)}><option>Not sure yet</option><option>$1,500–$3,000</option><option>$3,000–$6,000</option><option>$6,000–$12,000</option><option>$12,000+</option></select></label>

@@ -1,31 +1,33 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
+import { FounderAvatar } from './founder-avatar';
 
 const stages = [
   {
-    label: 'Direction',
-    title: 'Find the sharpest story the business can own.',
-    signal: 'Clarity before decoration.',
-    detail: 'Every page earns its place in the customer journey.',
+    label: 'Plan',
+    title: 'Decide what the website needs to say and do.',
+    signal: 'A clear plan before design.',
+    detail: 'We agree the pages, messages and main customer action.',
   },
   {
-    label: 'Experience',
-    title: 'Turn the strategy into a journey people understand.',
-    signal: 'Structure creates confidence.',
-    detail: 'Message, proof and action arrive in the right order.',
+    label: 'Design',
+    title: 'Turn the plan into clear, original pages.',
+    signal: 'Easy to understand and use.',
+    detail: 'Visitors see the right message, proof and next step.',
   },
   {
     label: 'Build',
-    title: 'Make the approved direction work on a real screen.',
-    signal: 'Polish meets the system.',
-    detail: 'Responsive behavior, CMS and integrations move together.',
+    title: 'Build the approved design for real screens.',
+    signal: 'A working website, not a mock-up.',
+    detail: 'Mobile layouts, forms and needed tools work together.',
   },
   {
     label: 'Launch',
-    title: 'Pressure-test the critical paths and carry it live.',
-    signal: 'Accountability through go-live.',
-    detail: 'QA, launch details and the final handoff stay connected.',
+    title: 'Test the important journeys and take it live.',
+    signal: 'Ready for real customers.',
+    detail: 'Final checks, launch details and handover stay connected.',
   },
 ] as const;
 
@@ -53,31 +55,52 @@ export function DirectionBoard() {
 
   const stage = stages[activeStage];
 
+  function moveDirector(event: ReactPointerEvent<HTMLDivElement>) {
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+    event.currentTarget.style.setProperty('--director-x', `${x * 12}px`);
+    event.currentTarget.style.setProperty('--director-y', `${y * 8}px`);
+    event.currentTarget.style.setProperty('--director-turn', `${x * 2.5}deg`);
+  }
+
+  function resetDirector(event: ReactPointerEvent<HTMLDivElement>) {
+    event.currentTarget.style.setProperty('--director-x', '0px');
+    event.currentTarget.style.setProperty('--director-y', '0px');
+    event.currentTarget.style.setProperty('--director-turn', '0deg');
+    setPaused(false);
+  }
+
   return (
     <div
       ref={boardRef}
       className="direction-board"
       data-paused={paused ? 'true' : 'false'}
       role="region"
-      aria-label="A complete website directed from strategy through launch"
+      aria-label="How a complete website moves from plan to launch"
+      onPointerMove={moveDirector}
       onPointerEnter={() => setPaused(true)}
-      onPointerLeave={() => setPaused(false)}
+      onPointerLeave={resetDirector}
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={(event) => {
         if (!boardRef.current?.contains(event.relatedTarget as Node | null)) setPaused(false);
       }}
     >
       <div className="board-topline">
-        <span>Live direction board</span>
-        <span className="availability"><i /> Open for qualified enquiries</span>
+        <span>Project direction board</span>
+        <span className="board-director"><FounderAvatar compact /><span><b>Directed by Sohan</b><small>Founder · Creative Director</small></span></span>
       </div>
       <div className="board-stage">
+        <figure className="board-founder-character" aria-hidden="true">
+          <Image src="/founder-character.png" alt="" width={224} height={448} sizes="224px" />
+        </figure>
         <div key={`stage-${activeStage}`} className="board-stage-copy">
           <div className="stage-number">0{activeStage + 1}</div>
+          <span className="availability"><i /> Now accepting website projects</span>
           <p>Current stage · {stage.label}</p>
           <h2>{stage.title}</h2>
           <div className="signal-card">
-            <span>Direction signal</span>
+            <span>Main result</span>
             <strong>{stage.signal}</strong>
             <p>{stage.detail}</p>
           </div>

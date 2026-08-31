@@ -2,6 +2,7 @@
 import type { Metadata } from 'next';
 import { ProjectBrief } from '../../project-brief';
 import { publicSiteUrl as siteUrl } from '../../site';
+import { FounderAvatar } from '../../founder-avatar';
 
 const servicePath = '/services/d2c-commerce-launch';
 
@@ -130,21 +131,21 @@ export default function D2CCommerceLaunchPage() {
       <header className="site-header service-site-header">
         <a href="/" className="wordmark" aria-label="SP Studios — home"><span>SP</span><strong>SP Studios</strong></a>
         <nav aria-label="D2C service navigation">
-          <a href="#journey">Journey</a>
-          <a href="#proof">Proof</a>
-          <a href="#investment">Investment</a>
-          <a href="#brief" className="header-cta" data-marketing-event="enquiry_click">Discuss a launch ↗</a>
+          <a href="#journey">Buying journey</a>
+          <a href="#proof">Live work</a>
+          <a href="#investment">Price</a>
+          <a href="#brief" className="header-cta founder-header-cta" data-marketing-event="enquiry_click"><span>Start a project ↗</span><FounderAvatar compact /></a>
         </nav>
       </header>
 
       <section className="service-hero section-shell d2c-hero">
         <div className="service-hero-copy">
-          <p className="eyebrow"><span /> D2C & ecommerce website launch</p>
-          <h1>Your product is not <span>the whole buying journey.</span></h1>
-          <p>I help founder-led consumer brands turn positioning, products, proof, commerce and launch operations into one customer-ready website—then carry the direction through responsive build, integrations, QA and go-live.</p>
+          <p className="eyebrow"><span /> Online store and D2C websites</p>
+          <h1>A store that helps people <span>understand, trust and buy.</span></h1>
+          <p>I help product businesses plan and build the whole buying journey—from finding the right product to trusting it, paying and knowing what happens next.</p>
           <div className="hero-actions">
-            <a href="#brief" className="primary-action" data-marketing-event="enquiry_click">Discuss the launch <span>↗</span></a>
-            <a href="#journey" className="text-action">See the buying system <span>↓</span></a>
+            <a href="#brief" className="primary-action" data-marketing-event="enquiry_click">Tell me about your store <span>↗</span></a>
+            <a href="#journey" className="text-action">See how it works <span>↓</span></a>
           </div>
           <small>Independent studio · India / Worldwide · Qualified launch systems from $6,500</small>
         </div>
