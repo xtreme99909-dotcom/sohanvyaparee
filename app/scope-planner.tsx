@@ -2,20 +2,16 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { emitMarketingEvent } from '@/app/marketing-events';
-
-type LaunchState = 'new' | 'redesign' | 'connected';
-type CustomerAction = 'trust' | 'enquiry' | 'transaction' | 'workflow';
-type PageRange = '1–3' | '4–5' | '6–8' | 'needs-mapping';
-type Integration = 'none' | 'one' | 'several';
-type ContentState = 'ready' | 'needs-shaping';
-
-type Answers = {
-  launchState?: LaunchState;
-  customerAction?: CustomerAction;
-  pageRange?: PageRange;
-  integration?: Integration;
-  contentState?: ContentState;
-};
+import {
+  getScopeRecommendation,
+  type CompleteScopePlannerAnswers,
+  type ContentState,
+  type CustomerAction,
+  type Integration,
+  type LaunchState,
+  type PageRange,
+  type ScopePlannerAnswers,
+} from '@/app/scope-planner-recommendation';
 
 type Option<T extends string> = {
   value: T;
@@ -62,48 +58,6 @@ const labels = {
   contentState: Object.fromEntries(contentOptions.map((option) => [option.value, option.label])),
 } as const;
 
-function getRecommendation(answers: Required<Answers>) {
-  if (answers.customerAction === 'workflow' || answers.integration === 'several') {
-    return {
-      name: 'Custom Website System',
-      budget: '$12,000+',
-      project: 'A product or platform experience',
-      reason: 'A product workflow or several connected systems needs launch discovery before the customer journey, technical boundary, timing and investment can be fixed responsibly.',
-      includes: 'Launch discovery · journey mapping · original interface direction · technical scope · milestone plan',
-    };
-  }
-
-  if (answers.customerAction === 'transaction' || answers.integration === 'one' || answers.pageRange === '6–8' || answers.launchState === 'connected') {
-    return {
-      name: 'Website + Integration',
-      budget: '$6,000–$12,000',
-      project: answers.customerAction === 'transaction'
-        ? 'A commerce or ordering experience'
-        : 'A business website with one integration',
-      reason: 'The customer journey includes one practical business system, so that integration belongs inside the website scope from the start.',
-      includes: 'Custom page plan · original visual direction · responsive build · one agreed integration',
-    };
-  }
-
-  if (answers.pageRange === '4–5' || answers.pageRange === 'needs-mapping' || answers.contentState === 'needs-shaping' || answers.launchState === 'redesign') {
-    return {
-      name: 'Complete Business Website',
-      budget: '$3,000–$6,000',
-      project: answers.launchState === 'redesign' ? 'A serious website redesign' : 'A new website from scratch',
-      reason: 'The business needs a complete public story and enough direction to connect the offer, proof, pages and enquiry journey coherently.',
-      includes: 'Up to 5 custom pages · message structure · original design · responsive build · launch',
-    };
-  }
-
-  return {
-    name: 'Focused Website',
-    budget: '$1,500–$3,000',
-    project: 'A new website from scratch',
-    reason: 'The project has one focused goal, a compact page surface and no significant integration, so a deliberately narrow launch is the credible place to begin.',
-    includes: '1–3 purposeful pages · focused direction · responsive build · launch',
-  };
-}
-
 function OptionGroup<T extends string>({
   index,
   legend,
@@ -136,9 +90,9 @@ function OptionGroup<T extends string>({
 }
 
 export function ScopePlanner() {
-  const [answers, setAnswers] = useState<Answers>({});
+  const [answers, setAnswers] = useState<ScopePlannerAnswers>({});
   const complete = Boolean(answers.launchState && answers.customerAction && answers.pageRange && answers.integration && answers.contentState);
-  const recommendation = complete ? getRecommendation(answers as Required<Answers>) : null;
+  const recommendation = complete ? getScopeRecommendation(answers as CompleteScopePlannerAnswers) : null;
   const answeredCount = Object.values(answers).filter(Boolean).length;
   const plannerStarted = useRef(false);
   const plannerCompleted = useRef(false);
@@ -154,13 +108,13 @@ export function ScopePlanner() {
     }
   }, [answeredCount, complete]);
 
-  function update<K extends keyof Answers>(key: K, value: NonNullable<Answers[K]>) {
+  function update<K extends keyof ScopePlannerAnswers>(key: K, value: NonNullable<ScopePlannerAnswers[K]>) {
     setAnswers((current) => ({ ...current, [key]: value }));
   }
 
   function carryIntoBrief() {
     if (!recommendation || !complete) return;
-    const resolved = answers as Required<Answers>;
+    const resolved = answers as CompleteScopePlannerAnswers;
     const goal = [
       `Website option: ${recommendation.name}.`,
       `Starting point: ${labels.launchState[resolved.launchState]}.`,
