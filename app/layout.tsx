@@ -25,9 +25,12 @@ const editorial = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: 'Website Design & Development for Businesses | SP Studios',
-  description: 'Complete website strategy, original design, responsive development, integrations and launch for founders and growing businesses in India and worldwide.',
+  title: 'Complete Business Websites | SP Studios by Sohan Vyaparee',
+  description: 'Founder-led website strategy, original design, responsive development, integrations and launch for growing businesses in India and worldwide.',
   applicationName: 'SP Studios',
+  authors: [{ name: studioBrand.founder, url: `${siteUrl}/#about` }],
+  creator: studioBrand.founder,
+  publisher: `${studioBrand.name} by ${studioBrand.founder}`,
   alternates: { canonical: '/' },
   keywords: [
     'website design and development services',
@@ -41,15 +44,15 @@ export const metadata: Metadata = {
   verification: { google: '15b--V8aDq-uI8hK9-ye9vJP0yT2wSOeGey-HlJqbfs' },
   robots: { index: true, follow: true },
   openGraph: {
-    title: 'A complete website, planned and built for your business.',
-    description: 'Planning, original design, responsive development, needed integrations and launch—handled as one clear website project.',
+    title: 'Complete websites by SP Studios and Sohan Vyaparee.',
+    description: 'Founder-led planning, original design, responsive development, needed integrations and launch—handled as one clear website project.',
     type: 'website',
     images: [{ url: '/og.png', width: 1200, height: 630, alt: 'From business idea to a website ready for market.' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'A complete website, planned and built for your business.',
-    description: 'Planning, original design, responsive development, needed integrations and launch—handled as one clear website project.',
+    title: 'Complete websites by SP Studios and Sohan Vyaparee.',
+    description: 'Founder-led planning, original design, responsive development, needed integrations and launch—handled as one clear website project.',
     images: ['/og.png'],
   },
 };
@@ -59,7 +62,8 @@ const professionalServiceSchema = {
   '@type': 'ProfessionalService',
   '@id': `${siteUrl}/#studio`,
   name: studioBrand.name,
-  alternateName: studioBrand.descriptor,
+  alternateName: `${studioBrand.name} by ${studioBrand.founder}`,
+  slogan: 'Complete websites from direction to launch.',
   url: siteUrl,
   image: `${siteUrl}/og.png`,
   description: 'Complete websites from strategy and art direction through responsive build, integrations and launch.',
@@ -83,6 +87,7 @@ const professionalServiceSchema = {
     '@id': `${siteUrl}/#sohan-vyaparee`,
     name: studioBrand.founder,
     jobTitle: 'Website Creative Director',
+    description: 'Founder and website creative director of SP Studios, responsible for website strategy, visual direction, development decisions and launch quality.',
     url: `${siteUrl}/#about`,
     image: `${siteUrl}/founder-working-professional.jpg`,
     sameAs: [personalLinkedInUrl, githubProfileUrl],
