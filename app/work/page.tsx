@@ -72,7 +72,7 @@ const projects = [
     tone: 'market',
     headline: 'Designing trust before disclosure.',
     summary: 'A product study for a verified private real-estate network, exploring anonymized opportunities, access requests, NDA gating, matching and Deal Room workflows.',
-    proves: ['Category and competitor-pattern research', 'Permission and progressive-disclosure UX', 'Complex dashboard and workflow direction'],
+    proves: ['Category-pattern exploration', 'Permission and progressive-disclosure UX', 'Complex dashboard and workflow direction'],
     boundary: 'Not commissioned and not live. It demonstrates product thinking, interface direction and interface-study depth.',
     caseHref: '/work/private-market-concept',
     liveHref: '/services/complete-website-launch#brief',
@@ -102,7 +102,7 @@ export default function WorkIndex() {
         <div className="work-index-hero-copy">
           <p className="eyebrow"><span /> Selected website work</p>
           <h1>See what I built.<span>See what each project proves.</span></h1>
-          <p>Every project says what is live, what I personally built and what is only a self-started concept. You can open the work and judge it for yourself.</p>
+          <p>Every project says what is live, what I personally contributed and what is only a self-started concept. You can open the work and judge it for yourself.</p>
           <div className="hero-actions">
             <a href="#projects" className="primary-action">See the projects <span>↓</span></a>
             <a href="/services/complete-website-launch" className="text-action">See website options <span>↗</span></a>
@@ -113,7 +113,7 @@ export default function WorkIndex() {
           <div className="work-ledger-heading"><span>How the work is labelled</span><b>Current</b></div>
           <div className="work-ledger-count"><strong>03</strong><span>substantive studies<br />available to inspect</span></div>
           <dl>
-            <div><dt>01</dt><dd><strong>Live founder-built work</strong><span>Real commerce and operating decisions</span></dd><b>Live</b></div>
+            <div><dt>01</dt><dd><strong>Live founder-built work</strong><span>Founder-owned commerce context and decisions</span></dd><b>Live</b></div>
             <div><dt>02</dt><dd><strong>Self-initiated business system</strong><span>Real positioning and qualification path</span></dd><b>Live</b></div>
             <div><dt>03</dt><dd><strong>Speculative concept</strong><span>Deep workflow and interface exploration</span></dd><b>Concept</b></div>
           </dl>
@@ -170,7 +170,7 @@ export default function WorkIndex() {
           <div className="work-evidence-row work-evidence-head" role="row"><span role="columnheader">Study</span><span role="columnheader">Strongest evidence</span><span role="columnheader">Commercial relevance</span></div>
           <div className="work-evidence-row" role="row"><strong role="cell">BongFoods</strong><span role="cell">A presented customer journey with real operating constraints</span><span role="cell">D2C, commerce, hospitality and ordering journeys</span></div>
           <div className="work-evidence-row" role="row"><strong role="cell">Studio system</strong><span role="cell">A complete offer-to-brief path with owner-side operations</span><span role="cell">Founder-led services, B2B offers and serious redesigns</span></div>
-          <div className="work-evidence-row" role="row"><strong role="cell">Private market</strong><span role="cell">Complex permissions, disclosure and collaboration workflow</span><span role="cell">Platforms, portals, memberships and high-trust products</span></div>
+          <div className="work-evidence-row" role="row"><strong role="cell">Private market</strong><span role="cell">Conceptual permissions, disclosure and collaboration workflow</span><span role="cell">Platforms, portals, memberships and high-trust products</span></div>
         </div>
       </section>
 

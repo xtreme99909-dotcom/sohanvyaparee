@@ -32,7 +32,7 @@ const disclosureSteps = [
 ];
 
 const responsibilities = [
-  'Category and competitor pattern research',
+  'Category-pattern exploration',
   'Public-to-private product strategy',
   'Role, verification and permission model',
   'Opportunity discovery and matching UX',
@@ -187,7 +187,7 @@ export default function PrivateMarketConceptCaseStudy() {
         <div className="proof-note">
           <span>Truth label</span>
           <strong>Speculative concept</strong>
-          <p>Created to demonstrate category research, product thinking and original interface direction. Not a client engagement.</p>
+          <p>Created to demonstrate a category hypothesis, product thinking and original interface direction. Not a client engagement.</p>
         </div>
       </section>
 

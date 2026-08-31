@@ -53,10 +53,10 @@ const journey = [
 const responsibilities = [
   'Business and customer-journey definition',
   'Information architecture and UX flow',
-  'Original visual direction and interface design',
-  'Responsive front-end implementation',
-  'Phone verification and customer state',
-  'Cart, address and delivery-area logic',
+  'Visual and interface direction presented in this study',
+  'Responsive experience direction presented in this study',
+  'Phone-verification and customer-state flow design',
+  'Cart, address and delivery-area journey design',
   'Payment-path direction and launch preparation',
   'Ongoing founder-led product decisions',
 ];
@@ -92,7 +92,7 @@ export default function BongFoodsCaseStudy() {
           <div className="case-monogram">B</div>
           <dl>
             <div><dt>Business</dt><dd>Restaurant commerce</dd></div>
-            <div><dt>Role</dt><dd>Founder · Director · Builder</dd></div>
+            <div><dt>Role</dt><dd>Founder · Business and product director</dd></div>
             <div><dt>Focus</dt><dd>Mobile ordering journey</dd></div>
             <div><dt>Market</dt><dd>Nagpur, India</dd></div>
           </dl>
@@ -131,10 +131,10 @@ export default function BongFoodsCaseStudy() {
         <div className="section-shell">
           <div className="case-product-label">
             <p className="section-index light">03 · Experience system</p>
-            <span>Responsive commerce · Mobile first</span>
+            <span>Presented commerce journey · Mobile first</span>
           </div>
           <div className="case-browser">
-            <div className="case-browser-bar"><i /><i /><i /><span>bongfoods.com</span><b>Live</b></div>
+            <div className="case-browser-bar"><i /><i /><i /><span>bongfoods.com</span><b>Illustrative view</b></div>
             <div className="case-browser-canvas">
               <div className="case-menu-panel">
                 <div className="case-menu-nav"><strong>BongFoods</strong><span>Menu &nbsp; About &nbsp; Bag · 2</span></div>
@@ -157,9 +157,9 @@ export default function BongFoodsCaseStudy() {
 
       <section className="case-scope section-shell">
         <div className="case-scope-intro">
-          <p className="section-index">04 · What I owned</p>
-          <h2>Direction and execution stayed connected.</h2>
-          <p>Because I was both founder and builder, the website decisions were tested against an operating question: does this make ordering clearer for the customer and more useful for the business?</p>
+          <p className="section-index">04 · What I directed</p>
+          <h2>Business direction and the customer journey stayed connected.</h2>
+          <p>Because I owned the business context and product direction, each decision was tested against an operating question: does this make ordering clearer for the customer and more useful for the business?</p>
         </div>
         <div className="scope-list">
           {responsibilities.map((item, index) => (
@@ -178,7 +178,7 @@ export default function BongFoodsCaseStudy() {
         <div className="proof-note">
           <span>Truth label</span>
           <strong>Live founder-built work</strong>
-          <p>Built and directed by Sohan Vyaparee for his own cloud-kitchen venture.</p>
+          <p>Founder-owned and directed by Sohan Vyaparee for his own cloud-kitchen venture. Implementation evidence is not presented as a client result.</p>
         </div>
       </section>
 

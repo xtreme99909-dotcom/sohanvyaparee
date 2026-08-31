@@ -1,7 +1,7 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "artifact": "SP Studios portfolio proof manifest",
-  "status": "headquarters review",
+  "status": "active proof control",
   "authority": {
     "headquartersContext": {
       "path": "docs/SP_STUDIOS_HQ_CONTEXT.md",
@@ -12,7 +12,9 @@
       "commit": "2414a32c249cc52c3f418430c90dc203dbeffe47"
     },
     "auditedCodeCheckpoint": "bb0b1265e732ed53fb813d268c0e7b73b8af3996",
-    "preparedAtUtc": "2026-09-01"
+    "preparedAtUtc": "2026-09-01",
+    "latestReconciledBranchBase": "f540cc7eb71aed36f7986dd03de97ccc79717cc7",
+    "lastReconciledAtUtc": "2026-09-01"
   },
   "releaseBoundary": {
     "publicSite": "https://thespstudios.com",
@@ -199,5 +201,74 @@
     "No site version was saved or deployed.",
     "No outreach, provider activation, credential entry, transaction, refund or spend occurred.",
     "No private analytics, lead identity or payment data was read or exposed."
-  ]
+  ],
+  "claimControl": {
+    "policy": "Unsupported public claims are narrowed or blocked; wording changes do not upgrade evidence status.",
+    "reconciledBranchBase": "f540cc7eb71aed36f7986dd03de97ccc79717cc7",
+    "publicCopyClosures": [
+      {
+        "caseId": "bongfoods",
+        "closed": [
+          "Unverified responsive front-end implementation ownership",
+          "Unverified ownership of phone-verification, cart, address and delivery-area implementation",
+          "Illustrative case-study browser presented as if it were the live runtime",
+          "Unqualified founder-and-builder implementation wording"
+        ],
+        "retained": [
+          "Required classification: live founder-built work",
+          "Founder-owned operating-business context",
+          "Customer-journey and visual direction",
+          "No client transformation or performance result"
+        ]
+      },
+      {
+        "caseId": "private-market",
+        "closed": [
+          "Competitor research presented as completed without a dated source log",
+          "Research-led wording that exceeded the available category-pattern evidence"
+        ],
+        "retained": [
+          "Required classification: speculative concept",
+          "Category hypothesis and pattern exploration",
+          "Permission-aware interface and workflow direction",
+          "No live product, client or outcome claim"
+        ]
+      }
+    ]
+  },
+  "nextCredibleProofAsset": {
+    "id": "bongfoods-safe-flow-proof-pack-v1",
+    "name": "BongFoods safe commerce-flow proof pack",
+    "priority": "P0",
+    "reason": "BongFoods is the portfolio's only live founder-built commerce example and currently has the largest gap between public classification and reproducible evidence.",
+    "owner": "Sohan",
+    "requiredContents": [
+      "One dated 60–90 second mobile recording from the public home/menu path through cart, address and delivery-area response, stopping before any real charge.",
+      "Five annotated stills: discovery, choice, verification state, delivery-area state and payment handoff.",
+      "One contribution matrix marking each element as directed, designed, implemented, AI-assisted, platform-provided, provider-owned or not verified.",
+      "One redacted integration note naming only the provider category, test mode or live mode, reproduced step and observed result.",
+      "Three decision records covering verification timing, delivery eligibility before payment and the safest failure state."
+    ],
+    "acceptanceCriteria": [
+      "The public URL and capture date are visible.",
+      "Every interaction is labelled live, test, illustrative or not reproduced.",
+      "No order is placed and no real payment, OTP, credential or private customer data is used.",
+      "The recording reaches only the last safely reproducible step.",
+      "The contribution matrix supports every retained founder-built claim.",
+      "No revenue, conversion, customer-growth or client-result claim is added."
+    ],
+    "publishableOutcomeIfPassed": "A dated statement that the named public flow was reproduced through the exact final verified step.",
+    "outcomeStillBlockedAfterPass": [
+      "sales or revenue impact",
+      "conversion improvement",
+      "captured or settled payment volume",
+      "customer adoption",
+      "client validation"
+    ],
+    "unresolvedDependencies": [
+      "Sohan must perform or supervise the founder-side capture.",
+      "A safe non-transactional or provider test path must already exist.",
+      "Any provider artifact must be redacted before it becomes portfolio evidence."
+    ]
+  }
 }

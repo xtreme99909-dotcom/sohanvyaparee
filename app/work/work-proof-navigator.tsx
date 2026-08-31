@@ -38,7 +38,7 @@ const proofPaths = [
     headline: 'Start with the high-trust workflow study.',
     summary: 'The relevant evidence is a product concept built around permissions, progressive disclosure, matching, access requests and secure collaboration—not just attractive screens.',
     risk: 'A feature-heavy interface that exposes complexity before it establishes trust.',
-    signals: ['Research-led product direction', 'Permissions and disclosure UX', 'Marketplace and Deal Room workflows'],
+    signals: ['Category-pattern product direction', 'Permissions and disclosure UX', 'Marketplace and Deal Room workflows'],
     href: '/work/private-market-concept',
     tone: 'market',
   },
