@@ -77,9 +77,11 @@ function getRecommendation(answers: Required<Answers>) {
     return {
       name: 'Website + Integration',
       budget: '$6,000–$12,000',
-      project: answers.customerAction === 'transaction' ? 'A commerce or ordering experience' : 'A product or platform experience',
-      reason: 'The customer journey must connect a deeper public experience to one practical business system, so the integration belongs inside the scope from the start.',
-      includes: '6–8 custom pages · original art direction · responsive build · one agreed integration',
+      project: answers.customerAction === 'transaction'
+        ? 'A commerce or ordering experience'
+        : 'A business website with one integration',
+      reason: 'The customer journey includes one practical business system, so that integration belongs inside the website scope from the start.',
+      includes: 'Custom page plan · original visual direction · responsive build · one agreed integration',
     };
   }
 

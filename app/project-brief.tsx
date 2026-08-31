@@ -156,7 +156,7 @@ export function ProjectBrief() {
       <details className="brief-qualifier">
         <summary>Add website type, budget and timing <span>Optional →</span></summary>
         <div className="brief-qualifier-fields">
-          <label>What do you need?<select value={brief.project} onChange={(event) => updateBrief('project', event.target.value)}><option>Not decided yet</option><option>A new website from scratch</option><option>A serious website redesign</option><option>A product or platform experience</option><option>A commerce or ordering experience</option></select></label>
+          <label>What do you need?<select value={brief.project} onChange={(event) => updateBrief('project', event.target.value)}><option>Not decided yet</option><option>A new website from scratch</option><option>A serious website redesign</option><option>A business website with one integration</option><option>A product or platform experience</option><option>A commerce or ordering experience</option></select></label>
           <label>Working budget<select value={brief.budget} onChange={(event) => updateBrief('budget', event.target.value)}><option>Not sure yet</option><option>$1,500–$3,000</option><option>$3,000–$6,000</option><option>$6,000–$12,000</option><option>$12,000+</option></select></label>
           <label>Preferred delivery window
             <select value={brief.timing} onChange={(event) => updateBrief('timing', event.target.value)}>
