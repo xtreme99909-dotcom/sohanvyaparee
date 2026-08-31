@@ -1,84 +1,103 @@
 # SP Studios owner revenue evidence dashboard
 
-Authoritative operating source: docs/SP_STUDIOS_HQ_CONTEXT.md at commit e544fad195c0dd5335a7dffc641227de3fd71a30.
+Authoritative operating source: docs/SP_STUDIOS_HQ_CONTEXT.md.  
+Owned surface: private /revenue dashboard and append-only funnel evidence model only.
 
-## Bounded outcome
+## Reporting boundary
 
-The private /revenue route is an evidence dashboard, not a forecast dashboard. It reads the existing first-party event, lead, payment-link and signed webhook ledgers. It does not deploy, send outreach, issue payment links, activate providers, change accounts or mutate external systems.
+The dashboard reports evidence, not optimism. Research, drafts, views, friendly conversations, budget bands, starting prices, proposal value, authorized payments and captured-but-unsettled milestones cannot become revenue.
 
-## Evidence contract
+Settled money remains unavailable until provider settlement evidence is reconciled to SP Studios-only bank/accounting evidence. Unrelated Razorpay or business activity must never enter this dashboard.
 
-| Stage | Counted evidence | Deduplication | State |
-| --- | --- | --- | --- |
-| Visits | Distinct first-party sessions with page_view | Session ID | Implemented |
-| Offer views | Distinct sessions viewing a service page | Session ID | Implemented |
-| Proof views | Distinct sessions viewing an individual work page | Session ID | Implemented |
-| Brief starts | Distinct sessions with brief_start | Session ID | Implemented |
-| Brief submissions | Distinct sessions with brief_submit | Session ID | Implemented as attempt evidence |
-| Stored enquiries | Persisted lead rows | None at submission level | Implemented |
-| Qualified leads | Owner-saved qualified status | Normalized email | Implemented |
-| Verified replies | Explicit sent-message receipt or reply record | Normalized email | Uninstrumented; contacted is not substituted |
-| Scopeable opportunities | Explicit scope-ready record satisfying the headquarters definition | Normalized email | Uninstrumented; qualified is not substituted |
-| Proposals issued | Explicit proposal issue record and reference | Proposal reference and contact | Uninstrumented |
-| Accepted SOWs | Owner confirmation plus non-empty agreement and scope references | Normalized email | Implemented |
-| Captured milestones | Full amount, provider payment ID, paid timestamp and processed signed payment_link.paid webhook event | Payment-link ID | Implemented |
-| Refunds | Positive processed refund plus provider refund reference | Payment-link/refund reference | Implemented |
-| Disputes | Signed provider dispute event | Dispute ID | Uninstrumented; review_required is not substituted |
-| Settled money | Provider settlement evidence reconciled to the SP Studios bank/accounting record | Settlement reference | Uninstrumented; no revenue total is reported |
+## Evidence sources
 
-Unavailable means evidence is not captured, not zero. Potential starting value, budgets, open leads, proposals, accepted scopes and captured milestones are never presented as revenue.
+| Stage | Authoritative evidence | Counting identity |
+| --- | --- | --- |
+| Visits | Distinct first-party page_view session | Session |
+| Offer/proof views | Distinct first-party page_view session on defined routes | Session |
+| Brief starts/submissions | First-party brief events | Session |
+| Stored enquiries | Persisted lead row | Submission |
+| Qualified leads | Append-only qualification record; current qualified status remains legacy evidence | Normalized contact |
+| Verified replies | Append-only buyer-message receipt reference | Normalized contact |
+| Scopeable opportunities | Append-only qualification record satisfying every headquarters scopeability condition | Normalized contact |
+| Proposals issued | Append-only proposal document reference after scopeability | Normalized contact |
+| Accepted SOWs | Append-only signed-agreement reference after proposal; legacy accepted-agreement payment prerequisite remains visible | Normalized contact |
+| Captured milestones | Full amount, payment ID, paid timestamp and processed signed payment_link.paid webhook | Payment link |
+| Refunds | Processed refund state and provider refund reference written by the signed webhook flow | Refund/payment reference |
+| Disputes | Signed provider dispute ledger | Unavailable today |
+| Settled money | Reconciled provider settlement and SP Studios bank/accounting evidence | Unavailable today |
 
-## Periods and attribution
+An unavailable stage is not rendered as zero.
 
-Acquisition, brief and lead-channel views use a rolling 30-day window. Accepted SOW, capture and refund evidence uses all stored records because the repository does not yet contain a complete accounting-period settlement ledger. Every stage labels its window.
+## Append-only funnel model
 
-Browser events retain source, medium and campaign. Leads prefer stored UTM values and fall back to their stored lead source. Source-level contact stages deduplicate with lower(trim(email)). Captured milestones are attributed as counts only; no source receives a revenue value.
+Table: funnel_evidence_events
 
-## Duplicate-contact guardrail
+Required fields:
 
-The dashboard keeps stored-enquiry volume visible while using normalized email for contact-stage counts and executive summaries. A separate duplicate list exposes repeat contacts. This is a non-destructive reporting guardrail: it does not delete, merge or rewrite enquiries, and it does not authorize contacting a person through another channel.
+- server-generated ID and created time;
+- actual occurred time;
+- stored lead reference;
+- controlled event type;
+- server-controlled evidence source;
+- non-secret evidence reference;
+- qualification basis JSON where required;
+- optional factual note;
+- deterministic idempotency key derived from normalized contact, event type and evidence reference; and
+- authenticated owner recorder ID.
 
-## Stale-stage rules
+Allowed event sequence:
 
-An open lead enters the owner queue when a saved next-action date is overdue or its last stored activity is older than:
+1. qualified_lead;
+2. scopeable_opportunity, requiring qualified_lead;
+3. proposal_issued, requiring scopeable_opportunity;
+4. sow_accepted, requiring proposal_issued.
+
+verified_reply is independent because a stored enquiry can contain enough qualification evidence without a later buyer reply, while a reply alone does not prove qualification.
+
+Qualification requires need, authority, outcome, timing and investment fit. Scopeability additionally requires scope shape and readiness.
+
+The private API supports INSERT OR IGNORE only. It exposes no PATCH or DELETE route. Database triggers reject UPDATE and DELETE statements. Repeated evidence references for the same normalized contact and stage are idempotent even when duplicate lead rows exist.
+
+Proposal or pipeline amount is deliberately absent from the model.
+
+## Duplicate and stale safeguards
+
+Contact stages count distinct lower(trim(email)). Stored enquiries remain visible separately, so repeat forms cannot inflate qualified, scopeable, proposal or SOW counts.
+
+Stale alerts remain operational only:
 
 - New: 2 days
 - Contacted: 7 days
 - Qualified: 10 days
+- Any saved next action past due
 
-Closed leads are excluded. These are operational alerts, not evidence that a reply or opportunity exists.
+A stale or contacted state is not proof of a reply.
 
-## Executive summaries
+## Source attribution
 
-Summaries are deterministic functions of stored counts. They report:
+Event acquisition uses first-party source, medium and campaign. Lead and commercial evidence uses stored UTM values with lead source fallback. The evidence trail shows its associated source without assigning revenue value.
 
-1. whether accounting-grade settlement evidence exists;
-2. stored demand and duplicate exclusions;
-3. qualified, accepted-SOW and captured-milestone movement without assigning pipeline value; and
-4. stale, refund and provider-review attention items.
+## Tests
 
-## Validation
+Focused contract command:
 
-Run:
+    node scripts/check-revenue-dashboard.mjs
+
+Repository gates when a build-capable checkout is available:
 
     npm run lint
     npm run build
-    node scripts/check-revenue-dashboard.mjs
 
-The focused contract check exercises money formatting and deterministic summaries, then asserts the source keeps its signed-webhook, normalized-contact, stale-stage, missing-evidence and no-pipeline-as-revenue safeguards.
+The focused test covers deterministic executive summaries, money formatting, normalized-contact counting, signed capture evidence, append-only triggers, stage prerequisites, idempotent insertion, missing settlement evidence and the prohibition on pipeline-as-revenue presentation.
 
-## Unresolved external dependencies
+## External dependencies left unresolved
 
-No code-only change can truthfully fill the currently unavailable stages. Headquarters needs:
-
-- an approved append-only evidence source for replies, scopeability and proposals;
-- provider webhook subscription and tested payload evidence for disputes;
-- provider settlement evidence plus SP Studios-only account reconciliation;
-- verified merchant/KYC, bank, category, international and accounting state before any live payment activation; and
-- CA/counsel confirmation for invoice, export, agreement, refund and dispute treatment.
-
-This dashboard intentionally does not cross those boundaries.
+- Signed provider dispute events are not connected.
+- Provider settlements are not reconciled to an SP Studios-only bank/accounting ledger.
+- Live payment/KYC/bank/category/international/accounting/legal approvals remain outside this code lane.
+- No messages, proposals, payments, refunds or deployments are performed by this dashboard.
 
 ## Smallest headquarters decision
 
-Decide whether the next owner-desk increment should add an append-only commercial evidence ledger for verified replies, scopeable opportunities and proposals. Until that source exists, those stages should remain visibly unavailable.
+No decision is required to use the append-only commercial evidence ledger. A future decision is needed only before adding financial settlement ingestion: choose the authoritative SP Studios settlement-reconciliation source and retention policy.

@@ -4,6 +4,9 @@
  * @property {number} uniqueContacts
  * @property {number} duplicateEnquiries
  * @property {number} qualified
+ * @property {number} verifiedReplies
+ * @property {number} scopeableOpportunities
+ * @property {number} proposalsIssued
  * @property {number} acceptedSows
  * @property {number} capturedMilestones
  * @property {number} refundCases
@@ -56,9 +59,12 @@ export function buildExecutiveSummary(input) {
       : input.uniqueContacts + ' unique contacts came from ' + input.storedEnquiries + ' stored enquiries, with no duplicate contacts in the window.';
 
   const movement = input.qualified + ' qualified contact' + (input.qualified === 1 ? '' : 's') + ', ' +
-    input.acceptedSows + ' accepted SOW' + (input.acceptedSows === 1 ? '' : 's') + ' with stored references, and ' +
+    input.verifiedReplies + ' verified repl' + (input.verifiedReplies === 1 ? 'y' : 'ies') + ', ' +
+    input.scopeableOpportunities + ' scopeable opportunit' + (input.scopeableOpportunities === 1 ? 'y' : 'ies') + ', ' +
+    input.proposalsIssued + ' issued proposal' + (input.proposalsIssued === 1 ? '' : 's') + ', ' +
+    input.acceptedSows + ' accepted SOW' + (input.acceptedSows === 1 ? '' : 's') + ', and ' +
     input.capturedMilestones + ' provider-verified captured milestone' + (input.capturedMilestones === 1 ? '' : 's') +
-    '. None is presented as settled revenue.';
+    '. Research, drafts and potential value are excluded; none is presented as settled revenue.';
 
   const attention = input.stale > 0 || input.reviewRequired > 0 || input.refundCases > 0
     ? input.stale + ' stale lead stage' + (input.stale === 1 ? '' : 's') + ', ' +

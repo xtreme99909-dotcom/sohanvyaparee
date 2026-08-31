@@ -29,6 +29,29 @@ export const leads = sqliteTable(
   ],
 );
 
+
+export const funnelEvidenceEvents = sqliteTable(
+  'funnel_evidence_events',
+  {
+    id: text('id').primaryKey(),
+    createdAt: text('created_at').notNull(),
+    occurredAt: text('occurred_at').notNull(),
+    eventType: text('event_type').notNull(),
+    leadId: text('lead_id').notNull().references(() => leads.id),
+    evidenceSource: text('evidence_source').notNull(),
+    evidenceRef: text('evidence_ref').notNull(),
+    basisJson: text('basis_json').notNull().default('{}'),
+    notes: text('notes').notNull().default(''),
+    idempotencyKey: text('idempotency_key').notNull(),
+    recordedBy: text('recorded_by').notNull(),
+  },
+  (table) => [
+    index('idx_funnel_evidence_lead_type_occurred').on(table.leadId, table.eventType, table.occurredAt),
+    index('idx_funnel_evidence_type_occurred').on(table.eventType, table.occurredAt),
+    uniqueIndex('idx_funnel_evidence_idempotency').on(table.idempotencyKey),
+  ],
+);
+
 export const marketingEvents = sqliteTable(
   'marketing_events',
   {

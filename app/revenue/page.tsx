@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { chatGPTSignInPath, getChatGPTUser, isStudioOwner } from '@/app/chatgpt-auth';
 import { OwnerTrackingExclusion } from '@/app/leads/owner-tracking-exclusion';
 import { buildExecutiveSummary, formatMoneySeries } from '@/app/revenue/dashboard-model';
+import { EvidenceRecorder, type EvidenceRecorderLead } from '@/app/revenue/evidence-recorder';
 
 export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
@@ -25,6 +26,28 @@ type LeadSummary = {
 };
 
 type AgreementSummary = { accepted_sows: number };
+
+type EvidenceSummary = {
+  qualified_leads: number;
+  verified_replies: number;
+  scopeable_opportunities: number;
+  proposals_issued: number;
+};
+
+type EvidenceRecord = {
+  id: string;
+  created_at: string;
+  occurred_at: string;
+  event_type: string;
+  evidence_source: string;
+  evidence_ref: string;
+  notes: string;
+  name: string;
+  company: string;
+  source: string;
+  medium: string;
+  campaign: string | null;
+};
 
 type MoneyRow = {
   currency: string;
@@ -137,6 +160,25 @@ export default async function RevenuePage() {
   const { ensureLeadsSchema } = await import('@/db');
   const db = await ensureLeadsSchema();
 
+  const [evidenceSummary, evidenceTimelineResult, recorderLeadResult] = await Promise.all([
+    db.prepare(
+      'SELECT ' +
+      "COUNT(DISTINCT CASE WHEN evidence.event_type = 'qualified_lead' THEN lower(trim(leads.email)) END) AS qualified_leads, " +
+      "COUNT(DISTINCT CASE WHEN evidence.event_type = 'verified_reply' THEN lower(trim(leads.email)) END) AS verified_replies, " +
+      "COUNT(DISTINCT CASE WHEN evidence.event_type = 'scopeable_opportunity' THEN lower(trim(leads.email)) END) AS scopeable_opportunities, " +
+      "COUNT(DISTINCT CASE WHEN evidence.event_type = 'proposal_issued' THEN lower(trim(leads.email)) END) AS proposals_issued " +
+      'FROM funnel_evidence_events evidence JOIN leads ON leads.id = evidence.lead_id',
+    ).first<EvidenceSummary>(),
+    db.prepare(
+      "SELECT evidence.id, evidence.created_at, evidence.occurred_at, evidence.event_type, evidence.evidence_source, evidence.evidence_ref, evidence.notes, leads.name, leads.company, COALESCE(NULLIF(leads.utm_source, ''), NULLIF(leads.source, ''), 'website') AS source, COALESCE(NULLIF(leads.utm_medium, ''), 'none') AS medium, NULLIF(leads.utm_campaign, '') AS campaign " +
+      'FROM funnel_evidence_events evidence JOIN leads ON leads.id = evidence.lead_id ' +
+      'ORDER BY evidence.occurred_at DESC, evidence.created_at DESC LIMIT 100',
+    ).all<EvidenceRecord>(),
+    db.prepare(
+      "SELECT id, name, company, email FROM leads ORDER BY CASE status WHEN 'qualified' THEN 0 WHEN 'contacted' THEN 1 WHEN 'new' THEN 2 ELSE 3 END, created_at DESC LIMIT 200",
+    ).all<EvidenceRecorderLead>(),
+  ]);
+
   const [
     marketing,
     leadSummary,
@@ -160,13 +202,14 @@ export default async function RevenuePage() {
     ).first<MarketingSummary>(),
     db.prepare(
       'SELECT COUNT(*) AS stored_enquiries, COUNT(DISTINCT lower(trim(email))) AS unique_contacts, ' +
-      "COUNT(DISTINCT CASE WHEN status = 'qualified' THEN lower(trim(email)) END) AS qualified_contacts " +
+      "COUNT(DISTINCT CASE WHEN EXISTS (SELECT 1 FROM funnel_evidence_events evidence WHERE evidence.lead_id = leads.id AND evidence.event_type = 'qualified_lead') THEN lower(trim(email)) END) AS qualified_contacts " +
       "FROM leads WHERE created_at >= strftime('%Y-%m-%dT%H:%M:%fZ', 'now', '-30 days')",
     ).first<LeadSummary>(),
     db.prepare(
-      'SELECT COUNT(DISTINCT lower(trim(leads.email))) AS accepted_sows ' +
-      'FROM payment_links JOIN leads ON leads.id = payment_links.lead_id ' +
-      "WHERE payment_links.agreement_confirmed_at IS NOT NULL AND trim(payment_links.agreement_reference) <> '' AND trim(payment_links.scope_version) <> ''",
+      'SELECT COUNT(*) AS accepted_sows FROM (' +
+      "SELECT lower(trim(leads.email)) AS contact_key FROM funnel_evidence_events evidence JOIN leads ON leads.id = evidence.lead_id WHERE evidence.event_type = 'sow_accepted' " +
+      'UNION SELECT lower(trim(leads.email)) AS contact_key FROM payment_links JOIN leads ON leads.id = payment_links.lead_id ' +
+      "WHERE payment_links.agreement_confirmed_at IS NOT NULL AND trim(payment_links.agreement_reference) <> '' AND trim(payment_links.scope_version) <> '')",
     ).first<AgreementSummary>(),
     db.prepare(
       'SELECT currency, ' +
@@ -190,13 +233,13 @@ export default async function RevenuePage() {
     db.prepare(
       "SELECT COALESCE(NULLIF(utm_source, ''), NULLIF(source, ''), 'website') AS source, COALESCE(NULLIF(utm_medium, ''), 'none') AS medium, NULLIF(utm_campaign, '') AS campaign, " +
       'COUNT(*) AS stored_enquiries, COUNT(DISTINCT lower(trim(email))) AS unique_contacts, ' +
-      "COUNT(DISTINCT CASE WHEN status = 'qualified' THEN lower(trim(email)) END) AS qualified_contacts " +
+      "COUNT(DISTINCT CASE WHEN EXISTS (SELECT 1 FROM funnel_evidence_events evidence WHERE evidence.lead_id = leads.id AND evidence.event_type = 'qualified_lead') THEN lower(trim(email)) END) AS qualified_contacts " +
       "FROM leads WHERE created_at >= strftime('%Y-%m-%dT%H:%M:%fZ', 'now', '-30 days') " +
       'GROUP BY source, medium, campaign',
     ).all<LeadChannel>(),
     db.prepare(
       "SELECT COALESCE(NULLIF(leads.utm_source, ''), NULLIF(leads.source, ''), 'website') AS source, COALESCE(NULLIF(leads.utm_medium, ''), 'none') AS medium, NULLIF(leads.utm_campaign, '') AS campaign, " +
-      "COUNT(DISTINCT CASE WHEN payment_links.agreement_confirmed_at IS NOT NULL AND trim(payment_links.agreement_reference) <> '' AND trim(payment_links.scope_version) <> '' THEN lower(trim(leads.email)) END) AS accepted_sows, " +
+      "COUNT(DISTINCT CASE WHEN (payment_links.agreement_confirmed_at IS NOT NULL AND trim(payment_links.agreement_reference) <> '' AND trim(payment_links.scope_version) <> '') OR EXISTS (SELECT 1 FROM funnel_evidence_events evidence WHERE evidence.lead_id = leads.id AND evidence.event_type = 'sow_accepted') THEN lower(trim(leads.email)) END) AS accepted_sows, " +
       "COUNT(DISTINCT CASE WHEN payment_links.status = 'paid' AND payment_links.amount_paid = payment_links.amount AND payment_links.provider_payment_id IS NOT NULL AND payment_links.paid_at IS NOT NULL AND EXISTS (SELECT 1 FROM payment_webhook_events events WHERE events.provider_link_id = payment_links.provider_link_id AND events.event_type = 'payment_link.paid' AND events.processing_status = 'processed') THEN payment_links.id END) AS captured_milestones " +
       'FROM leads LEFT JOIN payment_links ON payment_links.lead_id = leads.id ' +
       "WHERE leads.created_at >= strftime('%Y-%m-%dT%H:%M:%fZ', 'now', '-30 days') " +
@@ -217,6 +260,7 @@ export default async function RevenuePage() {
 
   const marketingSummary = marketing || { visits: 0, offer_views: 0, proof_views: 0, brief_starts: 0, brief_submissions: 0 };
   const leads = leadSummary || { stored_enquiries: 0, unique_contacts: 0, qualified_contacts: 0 };
+  const evidence = evidenceSummary || { qualified_leads: 0, verified_replies: 0, scopeable_opportunities: 0, proposals_issued: 0 };
   const acceptedSows = asNumber(agreementSummary?.accepted_sows);
   const moneyRows = moneyResult.results;
   const capturedMilestones = moneyRows.reduce((sum, row) => sum + asNumber(row.captured_milestones), 0);
@@ -245,7 +289,10 @@ export default async function RevenuePage() {
     storedEnquiries: asNumber(leads.stored_enquiries),
     uniqueContacts: asNumber(leads.unique_contacts),
     duplicateEnquiries,
-    qualified: asNumber(leads.qualified_contacts),
+    qualified: asNumber(evidence.qualified_leads),
+    verifiedReplies: asNumber(evidence.verified_replies),
+    scopeableOpportunities: asNumber(evidence.scopeable_opportunities),
+    proposalsIssued: asNumber(evidence.proposals_issued),
     acceptedSows,
     capturedMilestones,
     refundCases,
@@ -261,11 +308,11 @@ export default async function RevenuePage() {
     { name: 'Brief starts', value: asNumber(marketingSummary.brief_starts), window: 'Last 30 days', source: 'First-party brief_start events', note: 'Distinct sessions that interacted with the brief.' },
     { name: 'Brief submissions', value: asNumber(marketingSummary.brief_submissions), window: 'Last 30 days', source: 'First-party brief_submit events', note: 'Submission-attempt evidence; stored enquiries are counted separately.' },
     { name: 'Stored enquiries', value: asNumber(leads.stored_enquiries), window: 'Last 30 days', source: 'Persisted lead records', note: 'Every stored form record, before contact deduplication.' },
-    { name: 'Qualified leads', value: asNumber(leads.qualified_contacts), window: 'Last 30 days', source: 'Owner-saved lead status', note: 'Distinct normalized emails; repeated enquiries count once.' },
-    { name: 'Verified replies', value: null, window: 'Not instrumented', source: 'No explicit receipt or message record', note: 'The contacted status is deliberately not treated as proof of a reply.' },
-    { name: 'Scopeable opportunities', value: null, window: 'Not instrumented', source: 'No scope-ready evidence field', note: 'Qualified is not silently promoted to scopeable.' },
-    { name: 'Proposals issued', value: null, window: 'Not instrumented', source: 'No proposal issue record', note: 'Payment requests are not backfilled as proposals.' },
-    { name: 'Accepted SOWs', value: acceptedSows, window: 'All stored records', source: 'Owner confirmation + agreement and scope references', note: 'Distinct normalized contacts with all three evidence fields.' },
+    { name: 'Qualified leads', value: asNumber(evidence.qualified_leads), window: 'All stored records', source: 'Append-only qualification evidence', note: 'Distinct normalized contacts; mutable lead status, research and drafts are excluded.' },
+    { name: 'Verified replies', value: asNumber(evidence.verified_replies), window: 'All stored records', source: 'Append-only message receipt references', note: 'A reaction, message view, draft or contacted status is not counted.' },
+    { name: 'Scopeable opportunities', value: asNumber(evidence.scopeable_opportunities), window: 'All stored records', source: 'Append-only qualification records', note: 'Requires recorded qualification plus need, authority, outcome, scope, readiness, timing and investment fit.' },
+    { name: 'Proposals issued', value: asNumber(evidence.proposals_issued), window: 'All stored records', source: 'Append-only proposal document references', note: 'Requires prior scopeability; proposal value is never summed as revenue.' },
+    { name: 'Accepted SOWs', value: acceptedSows, window: 'All stored records', source: 'Append-only signed-agreement references + legacy agreement prerequisites', note: 'Distinct normalized contacts; the append-only path requires a prior issued proposal, while legacy records require agreement confirmation, reference and scope version.' },
     { name: 'Captured milestones', value: capturedMilestones, window: 'All stored records', source: 'Signed provider webhook ledger', note: 'Full amount, payment ID and processed paid event must agree.' },
     { name: 'Refunds', value: refundCases, window: 'All stored records', source: 'Signed refund webhook + provider reference', note: 'Partial and full processed refunds only.' },
     { name: 'Disputes', value: null, window: 'Not instrumented', source: 'No dispute webhook ledger', note: 'Review-required payment events are not mislabeled as disputes.' },
@@ -355,6 +402,36 @@ export default async function RevenuePage() {
                   <td className="p-4 font-serif text-2xl">{channel.qualified_contacts}</td>
                   <td className="p-4 font-serif text-2xl">{channel.accepted_sows}</td>
                   <td className="p-4 font-serif text-2xl">{channel.captured_milestones}</td>
+                </tr>
+              ))}</tbody>
+            </table>
+          </div>
+        )}
+      </section>
+
+      <section className="mx-auto mt-8 max-w-[1500px]">
+        <EvidenceRecorder leads={recorderLeadResult.results} />
+      </section>
+
+      <section className="mx-auto mt-8 max-w-[1500px] border border-black/15 bg-white">
+        <div className="flex flex-col justify-between gap-3 border-b border-black/15 p-6 sm:flex-row sm:items-end">
+          <div><p className="text-xs font-bold uppercase tracking-[.14em] text-black/50">Append-only evidence trail</p><h2 className="mt-3 font-serif text-4xl">Who moved, when, and from where.</h2></div>
+          <p className="max-w-lg text-xs leading-6 text-black/50">References identify evidence without storing message bodies, signed documents, credentials or payment data. Records cannot be edited or deleted.</p>
+        </div>
+        {evidenceTimelineResult.results.length === 0 ? (
+          <p className="p-8 text-sm leading-7 text-black/60">No append-only commercial evidence has been recorded yet. Mutable lead statuses do not qualify as verified funnel evidence; accepted-agreement prerequisites remain separately labeled as legacy evidence.</p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[980px] border-collapse text-left text-xs">
+              <thead><tr className="border-b border-black/10 text-[10px] uppercase tracking-[.12em] text-black/45"><th className="p-4 font-semibold">Contact</th><th className="p-4 font-semibold">Completed stage</th><th className="p-4 font-semibold">Occurred</th><th className="p-4 font-semibold">Evidence</th><th className="p-4 font-semibold">Source attribution</th><th className="p-4 font-semibold">Note</th></tr></thead>
+              <tbody>{evidenceTimelineResult.results.map((record) => (
+                <tr key={record.id} className="border-b border-black/10 last:border-0">
+                  <td className="p-4"><strong className="block text-sm">{record.name}</strong><span className="mt-1 block text-black/45">{record.company}</span></td>
+                  <td className="p-4"><strong className="block capitalize">{record.event_type.replaceAll('_', ' ')}</strong><span className="mt-1 block text-black/45">{record.evidence_source.replaceAll('_', ' ')}</span></td>
+                  <td className="p-4 text-black/60">{new Date(record.occurred_at).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })}</td>
+                  <td className="p-4 font-mono text-[11px] text-black/60">{record.evidence_ref}</td>
+                  <td className="p-4"><strong className="block">{record.source}</strong><span className="mt-1 block text-black/45">{record.medium}{record.campaign ? ' · ' + record.campaign : ''}</span></td>
+                  <td className="max-w-sm p-4 leading-6 text-black/55">{record.notes || '—'}</td>
                 </tr>
               ))}</tbody>
             </table>
