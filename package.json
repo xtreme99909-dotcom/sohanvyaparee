@@ -10,7 +10,11 @@
     "build": "vinext build",
     "start": "vinext start",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
-    "db:generate": "drizzle-kit generate"
+    "db:generate": "drizzle-kit generate",
+    "qa:source": "node scripts/source-audit.mjs",
+    "qa:manifest": "node scripts/qa-gate.mjs qa/project.example.json --schema-only",
+    "qa:static": "npm run lint && npm run build && npm run qa:source && npm run qa:manifest",
+    "qa:preview": "node scripts/preview-smoke.mjs qa/project.json"
   },
   "dependencies": {
     "drizzle-orm": "0.45.2",

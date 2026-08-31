@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "project": {
+    "id": "client-project-2026-001",
+    "name": "Example prepared Focused Launch",
+    "track": "standard",
+    "owner": "Sohan Vyaparee",
+    "decisionMaker": "Client decision-maker name",
+    "candidateRef": "git-commit-or-saved-version",
+    "previewUrl": "https://preview.example.invalid",
+    "productionUrl": "https://www.example.invalid",
+    "targetLaunchDate": "2026-09-07",
+    "pageCount": 3
+  },
+  "capabilities": {
+    "authentication": false,
+    "payments": false,
+    "commerce": false,
+    "customBackend": false,
+    "dataMigration": false,
+    "sensitiveData": false,
+    "languages": 1
+  },
+  "content": {
+    "sourceOfTruth": "approved-content-v1",
+    "approvedBy": "Client decision-maker name",
+    "approvedAt": null,
+    "legalClaimsOwner": "Client decision-maker name",
+    "assetRightsConfirmed": false
+  },
+  "access": [
+    {
+      "system": "DNS or hosting",
+      "purpose": "future launch only",
+      "owner": "Client account owner",
+      "environment": "production",
+      "leastPrivilegeConfirmed": false,
+      "deliveryMethod": "approved password manager; never this file",
+      "expiresAt": null,
+      "evidence": []
+    }
+  ],
+  "routes": [
+    {
+      "path": "/",
+      "public": true,
+      "critical": true,
+      "expectedTitle": "Example",
+      "expectedH1": "Example business"
+    }
+  ],
+  "forms": [
+    {
+      "name": "Project enquiry",
+      "route": "/",
+      "endpoint": "/api/leads",
+      "testMode": "mock",
+      "ownerDestination": "private studio inbox",
+      "privacyNotice": "/privacy",
+      "successState": "reference shown without losing the user's answers on failure"
+    }
+  ],
+  "integrations": [],
+  "qualityBudgets": {
+    "accessibilityStandard": "WCAG 2.2 AA target; automated checks are not full conformance",
+    "accessibilityScore": 1,
+    "performanceScoreMobile": 0.9,
+    "seoScore": 0.95,
+    "bestPracticesScore": 0.95,
+    "lcpMs": 2500,
+    "cls": 0.1,
+    "inpMs": 200,
+    "javascriptKb": 250
+  },
+  "checks": [
+    {"id":"content-approved","category":"content","owner":"client","severity":"blocker","status":"pending","evidence":[],"note":""},
+    {"id":"access-confirmed","category":"access","owner":"automation","severity":"blocker","status":"pending","evidence":[],"note":""},
+    {"id":"design-system-consistency","category":"design","owner":"automation","severity":"major","status":"pending","evidence":[],"note":""},
+    {"id":"responsive-critical-routes","category":"responsive","owner":"automation","severity":"blocker","status":"pending","evidence":[],"note":""},
+    {"id":"accessibility-automated-and-keyboard","category":"accessibility","owner":"automation","severity":"blocker","status":"pending","evidence":[],"note":""},
+    {"id":"performance-budget","category":"performance","owner":"automation","severity":"major","status":"pending","evidence":[],"note":""},
+    {"id":"metadata-canonical-indexing","category":"seo","owner":"automation","severity":"major","status":"pending","evidence":[],"note":""},
+    {"id":"form-validation-success-recovery","category":"forms","owner":"automation","severity":"blocker","status":"pending","evidence":[],"note":""},
+    {"id":"director-visual-truth-review","category":"visual","owner":"director","severity":"blocker","status":"pending","evidence":[],"note":""},
+    {"id":"client-candidate-approval","category":"approval","owner":"client","severity":"blocker","status":"pending","evidence":[],"note":""},
+    {"id":"prelaunch-diff-and-config","category":"launch","owner":"automation","severity":"blocker","status":"pending","evidence":[],"note":""},
+    {"id":"known-good-rollback","category":"rollback","owner":"director","severity":"blocker","status":"pending","evidence":[],"note":""},
+    {"id":"handover-received","category":"handover","owner":"client","severity":"major","status":"pending","evidence":[],"note":""},
+    {"id":"support-boundary-recorded","category":"support","owner":"director","severity":"major","status":"pending","evidence":[],"note":""},
+    {"id":"postlaunch-observation","category":"monitoring","owner":"automation","severity":"major","status":"pending","evidence":[],"note":""}
+  ],
+  "approvals": {
+    "director": {"status":"pending","candidateRef":null,"approvedBy":"Sohan Vyaparee","approvedAt":null,"evidence":[]},
+    "client": {"status":"pending","candidateRef":null,"approvedBy":"Client decision-maker name","approvedAt":null,"evidence":[]},
+    "launch": {"status":"pending","candidateRef":null,"approvedBy":"Sohan Vyaparee","approvedAt":null,"evidence":[]},
+    "handover": {"status":"pending","candidateRef":null,"approvedBy":"Client decision-maker name","approvedAt":null,"evidence":[]}
+  },
+  "rollback": {
+    "owner": "Sohan Vyaparee",
+    "knownGoodRef": null,
+    "procedure": "Restore the last known-good application version without deleting or rewriting production data.",
+    "dataPolicy": "Application rollback and data recovery are separate. Preserve leads, orders and audit records.",
+    "trigger": "Critical public route, form, authentication, payment or integration failure.",
+    "lastTestedAt": null,
+    "evidence": []
+  },
+  "handover": {
+    "repositoryTransferredOrShared": false,
+    "accountsOwnedByClient": false,
+    "secretRotationAssigned": false,
+    "contentGuideDelivered": false,
+    "runbookDelivered": false,
+    "analyticsOwnershipConfirmed": false,
+    "evidence": []
+  },
+  "support": {
+    "startsAt": null,
+    "endsAt": null,
+    "severityDefinitions": "P0 unavailable or data/payment integrity; P1 critical journey; P2 noncritical defect; change request is new scope.",
+    "contactRoute": "agreed project channel",
+    "responseTargets": "Record project-specific targets before launch.",
+    "excludedWork": "new pages, redesigns, new integrations, content entry and third-party outages unless contracted"
+  },
+  "monitoring": {
+    "owner": "Sohan Vyaparee",
+    "windowHours": 48,
+    "checks": ["availability","critical routes","form delivery","error rate","integration health","search indexing directives"],
+    "evidence": []
+  }
+}
