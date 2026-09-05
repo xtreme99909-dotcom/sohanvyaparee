@@ -25,7 +25,17 @@ const cases = [
   {
     label: 'commerce or ordering experience',
     answers: { launchState: 'connected', customerAction: 'transaction', pageRange: '6–8', integration: 'one', contentState: 'ready' },
-    expected: { name: 'Website + Integration', budget: '$6,000–$12,000', project: 'A commerce or ordering experience' },
+    expected: { name: 'International Launch System', budget: '$6,500+', project: 'A commerce or ordering experience' },
+  },
+  {
+    label: 'commerce remains custom at a small page count without an integration answer',
+    answers: { launchState: 'new', customerAction: 'transaction', pageRange: '1–3', integration: 'none', contentState: 'ready' },
+    expected: { name: 'International Launch System', budget: '$6,500+', project: 'A commerce or ordering experience' },
+  },
+  {
+    label: 'connected website without transactions stays in the integration tier',
+    answers: { launchState: 'connected', customerAction: 'enquiry', pageRange: '6–8', integration: 'one', contentState: 'ready' },
+    expected: { name: 'Signature Experience + Integration', budget: '$5,000+', project: 'A business website with one integration' },
   },
   {
     label: 'custom product or platform',

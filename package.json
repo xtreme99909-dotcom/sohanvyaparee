@@ -10,7 +10,12 @@
     "build": "vinext build",
     "start": "vinext start",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
-    "db:generate": "drizzle-kit generate"
+    "db:generate": "drizzle-kit generate",
+    "qa:source": "node scripts/source-audit.mjs",
+    "qa:manifest": "node scripts/qa-gate.mjs qa/project.json --schema-only",
+    "qa:static": "node scripts/qa-static.mjs",
+    "qa:preview": "node scripts/preview-smoke.mjs qa/project.json",
+    "qa:contracts": "node scripts/check-payment-safety.mjs && node scripts/check-revenue-dashboard.mjs && node scripts/check-scope-planner-recommendation.mjs && node scripts/check-qualification-policy.mjs"
   },
   "dependencies": {
     "drizzle-orm": "0.45.2",

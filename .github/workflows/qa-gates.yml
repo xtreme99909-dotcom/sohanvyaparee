@@ -1,0 +1,55 @@
+name: QA gates
+
+on:
+  pull_request:
+    branches:
+      - rebrand/sp-studios-domain-preview
+  workflow_dispatch:
+    inputs:
+      preview_url:
+        description: Authorized preview URL for GET-only smoke checks
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qa-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  static:
+    name: Lint, build and source policy
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out candidate
+        uses: actions/checkout@v4
+      - name: Use repository Node version
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Run zero-dependency QA gates
+        run: npm run qa:static
+
+  preview-smoke:
+    name: Authorized GET-only preview smoke
+    if: github.event_name == 'workflow_dispatch' && inputs.preview_url != ''
+    needs: static
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out candidate
+        uses: actions/checkout@v4
+      - name: Use repository Node version
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check public preview without form submission
+        env:
+          QA_BASE_URL: ${{ inputs.preview_url }}
+        run: node scripts/preview-smoke.mjs qa/project.json
