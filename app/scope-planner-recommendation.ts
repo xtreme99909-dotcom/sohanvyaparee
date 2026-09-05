@@ -15,6 +15,16 @@ export type ScopePlannerAnswers = {
 export type CompleteScopePlannerAnswers = Required<ScopePlannerAnswers>;
 
 export function getScopeRecommendation(answers: CompleteScopePlannerAnswers) {
+  if (answers.customerAction === 'transaction') {
+    return {
+      name: 'International Launch System',
+      budget: '$6,500+',
+      project: 'A commerce or ordering experience',
+      reason: 'A transaction journey carries commerce, payment and operational dependencies, so discovery must confirm the customer flow, technical boundary, failure modes, timing and investment before launch.',
+      includes: 'Launch discovery · commerce journey · original interface direction · integration scope · QA and launch plan',
+    };
+  }
+
   if (answers.customerAction === 'workflow' || answers.integration === 'several') {
     return {
       name: 'International Launch System',
@@ -25,13 +35,11 @@ export function getScopeRecommendation(answers: CompleteScopePlannerAnswers) {
     };
   }
 
-  if (answers.customerAction === 'transaction' || answers.integration === 'one' || answers.pageRange === '6–8' || answers.launchState === 'connected') {
+  if (answers.integration === 'one' || answers.pageRange === '6–8' || answers.launchState === 'connected') {
     return {
       name: 'Signature Experience + Integration',
       budget: '$5,000+',
-      project: answers.customerAction === 'transaction'
-        ? 'A commerce or ordering experience'
-        : 'A business website with one integration',
+      project: 'A business website with one integration',
       reason: 'The customer journey includes one practical business system, so that integration belongs inside the website scope from the start.',
       includes: 'Custom page plan · original visual direction · responsive build · one agreed integration',
     };
